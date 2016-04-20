@@ -1,0 +1,19 @@
+language: php
+
+php:
+    - 5.5
+    - 5.6
+    - 7.0
+
+env:
+    - WP_VERSION=4.4
+    - WP_VERSION=4.5
+    - WP_VERSION=master
+
+before_install:
+    - git submodule update --init --recursive
+
+before_script:
+    - bash tests/install.sh $WP_VERSION
+
+script: phpunit
