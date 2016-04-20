@@ -1,0 +1,3 @@
+This is a Wordpress plugin for use on commons-in-a-box sites.
+
+It leverages Buddypress xprofile fields to present a CV-like editable profile view for site members, with an emphasis on interconnectedness (listing group & site membership as well as activity) and profesional utility (allowing custom text entry to list external memberships, publications, events, and freeform self-description).
