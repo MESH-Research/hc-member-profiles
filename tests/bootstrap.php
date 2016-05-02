@@ -34,7 +34,7 @@ function _manually_load_our_code() {
 	require_once getenv( 'BP_TESTS_DIR' ) . '/includes/loader.php';
 
 	// Load plugin classes.
-	require_once dirname( __FILE__ ) . '/../includes/loader.php';
+	require_once dirname( __FILE__ ) . '/../bootstrap.php';
 
 	// Load mocks.
 	require_once( dirname( __FILE__ ) . '/phpunit/includes/loader.php' );
