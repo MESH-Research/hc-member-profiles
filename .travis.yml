@@ -8,7 +8,7 @@ php:
 env:
     - WP_VERSION=4.4
     - WP_VERSION=4.5
-    - WP_VERSION=master
+    - WP_VERSION=latest
 
 before_install:
     - git submodule update --init --recursive
