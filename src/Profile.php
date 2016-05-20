@@ -19,6 +19,12 @@ class Profile extends BP_Component {
 		$this->template_files = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $this->plugin_templates_dir ), RecursiveIteratorIterator::SELF_FIRST );
 
 		add_filter( 'load_template', [ $this, 'filter_load_template' ] );
+
+		add_action( 'wp_enqueue_scripts', ( function() {
+			wp_enqueue_script( 'mla_commons_profile_js', plugins_url() . '/profile/js/main.js', false, null );
+		} ), 100 );
+
+		wp_enqueue_style( 'mla_commons_profile_css', plugins_url() . '/profile/css/main.css', false, null );
 	}
 
 	public static function get_instance() {
