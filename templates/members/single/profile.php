@@ -1,4 +1,3 @@
-<h1>here we are in the profile plugin main template</h1>
 <?php
 
 /**

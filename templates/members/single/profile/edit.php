@@ -1,4 +1,3 @@
-<h1>profile edit template</h1>
 <?php
 
 global $levitin_mla_academic_interests;
