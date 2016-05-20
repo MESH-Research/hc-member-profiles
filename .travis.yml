@@ -7,8 +7,8 @@ php:
 
 env:
   global:
-    - secure: Mc37WgZczC3sVsv4Y/wPxrImxYpvNsTbPrJLpLfmDeb8x1JG3xpxky9jbLjmlY3GfgNxGXxHhuzcp+VSpqwJiqMOI8eE17iAHHLQ2W11+vRMhJ83HqdIcsEnmS2/ybrlDnVGiWwkzpOlZ0o9zinItAUoGS1m1wkhD+Q3U9zAayU=
-    - secure: FJti+LkBeyOMtdWNOwpkFgV/cFMP6sKDnP/r7JC1nlpQaapWyTdeJBe5IDHzBaDXzUyUwjdI4t77xqBlhjcBAPHHaUzurn9OMHIMsiJnYe7gZHKBQfsy9lCfRp2BHnGJ1ujEwfgUujYgFKv9VnNCWwx7mcY9jiQ6sz7IPB19bmA=
+  - secure: Mc37WgZczC3sVsv4Y/wPxrImxYpvNsTbPrJLpLfmDeb8x1JG3xpxky9jbLjmlY3GfgNxGXxHhuzcp+VSpqwJiqMOI8eE17iAHHLQ2W11+vRMhJ83HqdIcsEnmS2/ybrlDnVGiWwkzpOlZ0o9zinItAUoGS1m1wkhD+Q3U9zAayU=
+  - secure: FJti+LkBeyOMtdWNOwpkFgV/cFMP6sKDnP/r7JC1nlpQaapWyTdeJBe5IDHzBaDXzUyUwjdI4t77xqBlhjcBAPHHaUzurn9OMHIMsiJnYe7gZHKBQfsy9lCfRp2BHnGJ1ujEwfgUujYgFKv9VnNCWwx7mcY9jiQ6sz7IPB19bmA=
   - WP_VERSION=4.4
   - WP_VERSION=4.5
   - WP_VERSION=latest
