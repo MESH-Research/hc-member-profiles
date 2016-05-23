@@ -16,7 +16,10 @@ class Profile extends BP_Component {
 	public function __construct() {
 		$this->plugin_dir = plugin_dir_path( __DIR__ . '/../..' );
 		$this->plugin_templates_dir = trailingslashit( $this->plugin_dir . 'templates' );
-		$this->template_files = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $this->plugin_templates_dir ), RecursiveIteratorIterator::SELF_FIRST );
+		$this->template_files = new RecursiveIteratorIterator(
+			new RecursiveDirectoryIterator( $this->plugin_templates_dir ),
+			RecursiveIteratorIterator::SELF_FIRST
+		);
 
 		add_filter( 'load_template', [ $this, 'filter_load_template' ] );
 
