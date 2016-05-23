@@ -1,13 +1,13 @@
 // profile editing
-$( document ).ready( function() {
+jQuery( document ).ready( function() {
   // header fields (hidden in main form, duplicated to be accessible by user in the header)
   var init_social_fields = ( function() {
     var social_field_change_handler = function ( e ) {
-      var input = $( this ).find( 'input' );
-      $( '#profile-edit-form input[name=' + input.attr( 'name' ) + ']' ).val( input.val() );
+      var input = jQuery( this ).find( 'input' );
+      jQuery( '#profile-edit-form input[name=' + input.attr( 'name' ) + ']' ).val( input.val() );
     };
-    $( '#profile-edit-form' ).find( '.field-twitter, .field-facebook, .field-linkedin, .field-orcid' ).each( function () {
-      var clone = $( this ).clone();
+    jQuery( '#profile-edit-form' ).find( '.field-twitter, .field-facebook, .field-linkedin, .field-orcid' ).each( function () {
+      var clone = jQuery( this ).clone();
 
       // only keep label & input, no permissions radios (or anything else)
       clone
@@ -20,7 +20,7 @@ $( document ).ready( function() {
         .removeAttr( 'id' );
 
       // remove corresponding view-only div
-      $( '#item-header-content #item-main' )
+      jQuery( '#item-header-content #item-main' )
         .find( '.' + clone.attr( 'class' ) )
         .remove();
 
@@ -32,15 +32,15 @@ $( document ).ready( function() {
   } )();
 
   var init_visibility_controls = ( function() {
-    $( '#profile-edit-form .editable' ).each( function() {
-      var div = $( this );
+    jQuery( '#profile-edit-form .editable' ).each( function() {
+      var div = jQuery( this );
 
       // add visibility controls
       div.append( '<a href="#" class="visibility">hide</a>' );
 
       // bind visibility controls
       div.find( '.visibility' ).click( function() {
-        var a = $( this );
+        var a = jQuery( this );
 
         if ( a.html() === 'hide' ) {
           a.html( 'show' );
@@ -65,19 +65,19 @@ $( document ).ready( function() {
 
   // cancel button to send user back to view mode
   var init_cancel_button = ( function() {
-    $( '#profile-edit-form #cancel' ).click( function( e ) {
+    jQuery( '#profile-edit-form #cancel' ).click( function( e ) {
       e.preventDefault();
-      window.location = $( '#public' ).attr( 'href' );
+      window.location = jQuery( '#public' ).attr( 'href' );
     } );
   } )();
 
   // highlight changed fields to encourage user to save changes
   var init_change_highlighting = ( function() {
-    $( '#profile-edit-form select, #profile-edit-form input, #profile-edit-form textarea, #item-main input' ).change( function() {
-      if ( $( this ).is( 'select' ) ) {
-        $( this ).siblings( '.select2' ).find( '.select2-selection' ).addClass( 'changed' );
+    jQuery( '#profile-edit-form select, #profile-edit-form input, #profile-edit-form textarea, #item-main input' ).change( function() {
+      if ( jQuery( this ).is( 'select' ) ) {
+        jQuery( this ).siblings( '.select2' ).find( '.select2-selection' ).addClass( 'changed' );
       } else {
-        $( this ).addClass( 'changed' );
+        jQuery( this ).addClass( 'changed' );
       }
     } );
   } )();
