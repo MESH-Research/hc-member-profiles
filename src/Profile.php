@@ -29,8 +29,9 @@ class Profile extends BP_Component {
 	}
 
 	public function init() {
+		add_filter( 'load_template', [ $this, 'filter_load_template' ] );
+
 		if ( bp_is_user_profile() ) {
-			add_filter( 'load_template', [ $this, 'filter_load_template' ] );
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		}
 	}
