@@ -44,8 +44,14 @@ class Test_Profile extends BP_UnitTestCase {
 
 	function filter_load_template_provider() {
 		return [
+			[ 'members/single/home.php', true ],
+			[ 'members/single/member-header.php', true ],
+			[ 'members/single/profile/edit.php', true ],
+			[ 'members/single/profile/profile-loop.php', true ],
 			[ 'members/single/profile.php', true ],
-			[ 'bogus', false ]
+			[ 'groups/groups-loop.php', false ],
+			[ 'bogus', false ],
+			[ '', false ]
 		];
 	}
 }
