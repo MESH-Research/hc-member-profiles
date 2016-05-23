@@ -21,16 +21,23 @@ class Profile extends BP_Component {
 			RecursiveIteratorIterator::SELF_FIRST
 		);
 
-		add_filter( 'load_template', [ $this, 'filter_load_template' ] );
-
-		add_action( 'wp_enqueue_scripts', ( function() {
-			wp_enqueue_style( 'mla_commons_profile_css', plugins_url() . '/profile/css/main.css', false, null );
-			wp_enqueue_script( 'mla_commons_profile_js', plugins_url() . '/profile/js/main.js', false, null );
-		} ), 100 );
+		add_action( 'bp_init', [ $this, 'init' ] );
 	}
 
 	public static function get_instance() {
 		return self::$instance = ( null === self::$instance ) ? new self : self::$instance;
+	}
+
+	public function init() {
+		if ( bp_is_user_profile() ) {
+			add_filter( 'load_template', [ $this, 'filter_load_template' ] );
+			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		}
+	}
+
+	public function enqueue_scripts() {
+		wp_enqueue_style( 'mla_commons_profile_css', plugins_url() . '/profile/css/main.css' );
+		wp_enqueue_script( 'mla_commons_profile_js', plugins_url() . '/profile/js/main.js' );
 	}
 
 	public function filter_load_template( $path ) {
