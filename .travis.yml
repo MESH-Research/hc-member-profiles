@@ -1,25 +1,12 @@
 language: php
-
 php:
-  - 5.6
-  - 7.0
-
+- 5.6
+- 7.0
 env:
-  global:
-  - secure: Mc37WgZczC3sVsv4Y/wPxrImxYpvNsTbPrJLpLfmDeb8x1JG3xpxky9jbLjmlY3GfgNxGXxHhuzcp+VSpqwJiqMOI8eE17iAHHLQ2W11+vRMhJ83HqdIcsEnmS2/ybrlDnVGiWwkzpOlZ0o9zinItAUoGS1m1wkhD+Q3U9zAayU=
-  - secure: FJti+LkBeyOMtdWNOwpkFgV/cFMP6sKDnP/r7JC1nlpQaapWyTdeJBe5IDHzBaDXzUyUwjdI4t77xqBlhjcBAPHHaUzurn9OMHIMsiJnYe7gZHKBQfsy9lCfRp2BHnGJ1ujEwfgUujYgFKv9VnNCWwx7mcY9jiQ6sz7IPB19bmA=
-  matrix:
   - WP_VERSION=4.5
   - WP_VERSION=latest
-
 before_install:
-  - git submodule update --init --recursive
-
+- git submodule update --init --recursive
 before_script:
-  - bash tests/install.sh $WP_VERSION
-
+- bash tests/install.sh $WP_VERSION
 script: phpunit
-
-notifications:
-  slack:
-    secure: BZ9ec8GMlcArxPkDCyX0O4oJ7y8giDJ9HfmCPfwDHJaioy2aPOpqk1/K/8xWWvQ3khhAeDg3E04YSpOvCvelsWErb73oeD8DmO1RX6QD6ipRVrOwRkoUwTwJr+KRYmhN4AIIVLRKuXMfbjsWIgYh3lvUllZlSzbik3kB/vR+h/k=
