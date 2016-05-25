@@ -16,7 +16,8 @@
  *         social media icons
  */
 
-$follow_counts = null; //bp_follow_total_follow_counts();
+$Profile = Profile::get_instance();
+$follow_counts = $Profile->get_follow_counts();
 
 ?>
 
