@@ -16,7 +16,7 @@
  *         social media icons
  */
 
-$Profile = Profile::get_instance();
+$Profile = MLA\Commons\Profile::get_instance();
 $follow_counts = $Profile->get_follow_counts();
 
 ?>
