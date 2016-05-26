@@ -8,6 +8,7 @@
   width: 70%;
   padding: 10px;
 }
+
 .flexbox-container > div:last-child {
   padding: 10px;
 }
@@ -26,160 +27,113 @@
   display: none;
 }
 
-#item-header {
-  #item-buttons {
-    margin-top: 1em;
-  }
-
-  #item-header-avatar img.avatar {
-    border-radius: 50%;
-  }
-
-  #item-header-content {
-    margin: 2em 0;
-    display: flex;
-    width: 100%;
-
-    #item-main {
-      flex: 3;
-    }
-    #item-meta {
-      flex: 1;
-      text-align: right;
-    }
-  }
-
-  .generic-button {
-    display: inline;
-    margin-left: 1em;
-  }
+#item-header #item-buttons {
+  margin-top: 1em;
 }
-
-// body also has class profile
-div.profile {
+#item-header #item-header-avatar img.avatar {
+  border-radius: 50%;
+}
+#item-header #item-header-content {
+  margin: 2em 0;
   display: flex;
-
-  // for edit view
-  form {
-    width: 100%;
-
-    .flex-wrap {
-      display: flex;
-    }
-  }
-
-  .left {
-    flex: 1;
-  }
-
-  .right {
-    flex: 2;
-    margin-left: -1em;
-  }
-
-  .left,
-  .right {
-    h4 {
-      margin-top: 0;
-    }
-
-    .recent-commons-activity {
-      div {
-        padding: 5px 0 5px 50px;
-        background-position: center left;
-        background-repeat: no-repeat;
-      }
-
-      div.activity_update {
-      }
-      div.new_blog_post {
-      }
-      div.new_blog_comment {
-      }
-      div.created_group {
-      }
-      div.updated_profile {
-      }
-      div.new_forum_topic {
-      }
-      div.new_forum_post {
-      }
-      div.new_groupblog_post {
-      }
-      div.added_group_document {
-      }
-      div.edited_group_document {
-      }
-      div.bp_doc_created {
-      }
-      div.bp_doc_edited {
-      }
-      div.bp_doc_comment {
-      }
-      div.bbp_topic_create {
-      }
-      div.bbp_reply_create {
-      }
-      div.new_deposit {
-      }
-      div.new_group_deposit {
-      }
-      div.new_member {
-      }
-    }
-
-    .commons-groups,
-    .commons-sites {
-      ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-
-        li {
-          display: inline;
-          margin-right: 1em;
-
-          a {
-            background-color: #ccc;
-            border-radius: 1em;
-          }
-
-          a:hover {
-            text-decoration: none;
-            background-color: #999;
-          }
-          // each word is wrapped in a span to allow for padding words at the end of lines
-          span {
-            padding: 0 .25em;
-            display: inline-block;
-          }
-        }
-      }
-    }
-
-    > div {
-      margin: 1em;
-      padding: .5em;
-      background-color: #eee;
-      position: relative;
-
-      .visibility {
-        position: absolute;
-        top: .5em;
-        right: .5em;
-      }
-
-      ul {
-        margin-bottom: 0;
-      }
-      p {
-        margin-bottom: 0;
-      }
-    }
-  }
+  width: 100%;
+}
+#item-header #item-header-content #item-main {
+  flex: 3;
+}
+#item-header #item-header-content #item-meta {
+  flex: 1;
+  text-align: right;
+}
+#item-header .generic-button {
+  display: inline;
+  margin-left: 1em;
 }
 
-// need the value from this to use in js, but no need to display the element
+#content {
+  display: flex;
+}
+#content form {
+  width: 100%;
+}
+#content form .flex-wrap {
+  display: flex;
+}
+#content .left {
+  flex: 1;
+}
+#content .right {
+  flex: 2;
+  margin-left: -1em;
+}
+#content .left h4,
+#content .right h4 {
+  margin-top: 0;
+}
+#content .left .recent-commons-activity div,
+#content .right .recent-commons-activity div {
+  padding: 5px 0 5px 50px;
+  background-position: center left;
+  background-repeat: no-repeat;
+}
+#content .left .commons-groups ul,
+#content .left .commons-sites ul,
+#content .right .commons-groups ul,
+#content .right .commons-sites ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+#content .left .commons-groups ul li,
+#content .left .commons-sites ul li,
+#content .right .commons-groups ul li,
+#content .right .commons-sites ul li {
+  display: inline;
+  margin-right: 1em;
+}
+#content .left .commons-groups ul li a,
+#content .left .commons-sites ul li a,
+#content .right .commons-groups ul li a,
+#content .right .commons-sites ul li a {
+  background-color: #ccc;
+  border-radius: 1em;
+}
+#content .left .commons-groups ul li a:hover,
+#content .left .commons-sites ul li a:hover,
+#content .right .commons-groups ul li a:hover,
+#content .right .commons-sites ul li a:hover {
+  text-decoration: none;
+  background-color: #999;
+}
+#content .left .commons-groups ul li span,
+#content .left .commons-sites ul li span,
+#content .right .commons-groups ul li span,
+#content .right .commons-sites ul li span {
+  padding: 0 .25em;
+  display: inline-block;
+}
+#content .left > div,
+#content .right > div {
+  margin: 1em;
+  padding: .5em;
+  background-color: #eee;
+  position: relative;
+}
+#content .left > div .visibility,
+#content .right > div .visibility {
+  position: absolute;
+  top: .5em;
+  right: .5em;
+}
+#content .left > div ul,
+#content .right > div ul {
+  margin-bottom: 0;
+}
+#content .left > div p,
+#content .right > div p {
+  margin-bottom: 0;
+}
+
 #public-personal-li {
   display: none;
 }
@@ -188,36 +142,29 @@ div.profile {
   background-color: yellow !important;
 }
 
-#profile-edit-form {
-  .edit-action-bar {
-    background-color: yellow;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-    width: 100%;
-    text-align: center;
-
-    > div {
-      padding: 10px 20px;
-    }
-  }
-
-  .js-basic-multiple-tags {
-    width: 100%;
-  }
-
-  .header-fields,
-  .radio,
-  label {
-    display: none;
-  }
-
-  .collapsed {
-    opacity: .5;
-
-    .wp-editor-wrap {
-      display: none;
-    }
-  }
+#profile-edit-form .edit-action-bar {
+  background-color: yellow;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  text-align: center;
+}
+#profile-edit-form .edit-action-bar > div {
+  padding: 10px 20px;
+}
+#profile-edit-form .js-basic-multiple-tags {
+  width: 100%;
+}
+#profile-edit-form .header-fields,
+#profile-edit-form .radio,
+#profile-edit-form label {
+  display: none;
+}
+#profile-edit-form .collapsed {
+  opacity: .5;
+}
+#profile-edit-form .collapsed .wp-editor-wrap {
+  display: none;
 }
