@@ -1,34 +1,11 @@
 <?php
 
-/**
- * BuddyPress - Users Header
- *
- * @package BuddyPress
- * @subpackage bp-legacy
- */
-
-/**
- * Avatar  Name               N items in CORE
- *         Title              N groups
- *         Place of Work      N sites
- *         twitter            Following N members
- *         www.site.com       Follow button
- *         social media icons
- */
+do_action( 'bp_before_member_header' );
 
 $Profile = MLA\Commons\Profile::get_instance();
 $follow_counts = $Profile->get_follow_counts();
 
 ?>
-
-<?php
-
-/**
- * Fires before the display of a member's header.
- *
- * @since BuddyPress (1.2.0)
- */
-do_action( 'bp_before_member_header' ); ?>
 
 <div id="item-header-avatar">
 	<a href="<?php bp_displayed_user_link(); ?>">
@@ -60,14 +37,7 @@ do_action( 'bp_before_member_header' ); ?>
 		<?php endforeach ?>
 	</div><!-- #item-main -->
 
-	<?php
-
-	/**
-	 * Fires before the display of the member's header meta.
-	 *
-	 * @since BuddyPress (1.2.0)
-	 */
-	do_action( 'bp_before_member_header_meta' ); ?>
+	<?php do_action( 'bp_before_member_header_meta' ); ?>
 
 	<div id="item-meta">
 
@@ -92,45 +62,16 @@ do_action( 'bp_before_member_header' ); ?>
 
 		<div id="item-buttons">
 
-			<?php
-
-			/**
-			 * Fires in the member header actions section.
-			 *
-			 * @since BuddyPress (1.2.6)
-			 */
-			do_action( 'bp_member_header_actions' ); ?>
+			<?php do_action( 'bp_member_header_actions' ); ?>
 
 			<?php bp_get_options_nav(); ?>
 
 		</div><!-- #item-buttons -->
 
-		<?php
-
-		 /**
-		  * Fires after the group header actions section.
-		  *
-		  * If you'd like to show specific profile fields here use:
-		  * bp_member_profile_data( 'field=About Me' ); -- Pass the name of the field
-		  *
-		  * @since BuddyPress (1.2.0)
-		  */
-		 do_action( 'bp_profile_header_meta' );
-
-		 ?>
+		<?php do_action( 'bp_profile_header_meta' ); ?>
 
 	</div><!-- #item-meta -->
 
 </div><!-- #item-header-content -->
 
-<div id="item-header-stats">
-</div><!-- #item-header-stats -->
-
-<?php
-
-/**
- * Fires after the display of a member's header.
- *
- * @since BuddyPress (1.2.0)
- */
-do_action( 'bp_after_member_header' ); ?>
+<?php do_action( 'bp_after_member_header' ); ?>
