@@ -17,7 +17,7 @@ do_action( 'bp_before_profile_loop_content' );
 		<?php if ( bp_has_activities( bp_ajax_querystring( 'activity' ) . '&max=5&scope=just-me' ) ) : ?>
 			<?php while ( bp_activities() ) : bp_the_activity(); ?>
 				<?php
-					levitin_activity_action();
+					//levitin_activity_action();
 					//bp_activity_action();
 				?>
 			<?php endwhile; ?>
