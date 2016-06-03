@@ -78,33 +78,6 @@ do_action( 'bp_before_profile_loop_content' );
 	</div>
 	<div class="work-shared-in-core">
 		<h4>Work Shared in CORE</h4>
-
-		<?php
-		$my_querystring = sprintf( 'facets[author_facet][]=%s', urlencode( bp_get_displayed_user_fullname() ) );
-		// If the ajax string is empty, that usually means that
-		// it's the first page of the "everything" filter.
-		$querystring = bp_ajax_querystring( 'deposits' );
-		if ( empty( $querystring ) ) {
-			$querystring = $my_querystring;
-		} else {
-			$querystring = implode( '&', array( $my_querystring, $querystring ) );
-		}
-		if ( humcore_has_deposits( $querystring ) ):
-		?>
-			<ul>
-			<?php while ( humcore_deposits() ) : humcore_the_deposit(); ?>
-				<?php
-					$metadata = (array) humcore_get_current_deposit();
-					$item_url = sprintf( '%1$s/deposits/item/%2$s', bp_get_root_domain(), $metadata['pid'] );
-				?>
-				<li>
-					<a href="<?php echo esc_url( $item_url ); ?>/"><?php echo $metadata['title_unchanged']; ?></a>
-				</li>
-			<?php endwhile; ?>
-			</ul>
-		<?php else: ?>
-			<p><?php _e( 'Sorry, there were no deposits found.', 'buddypress' ); ?></p>
-		<?php endif; ?>
 	</div>
 	<div class="upcoming-talks-and-conferences">
 		<h4>Upcoming Talks and Conferences</h4>
