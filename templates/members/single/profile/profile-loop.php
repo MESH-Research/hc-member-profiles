@@ -10,7 +10,17 @@ do_action( 'bp_before_profile_loop_content' );
 <div class="left">
 	<div class="academic-interests">
 		<h4>Academic Interests</h4>
-		<?php //$levitin_mla_academic_interests->view_user_mla_academic_interests_section(); ?>
+		<?php
+					$tax = get_taxonomy( 'mla_academic_interests' );
+					$interests = wp_get_object_terms( bp_displayed_user_id(), 'mla_academic_interests', array( 'fields' => 'names' ) );
+					$html = '<ul>';
+					foreach ( $interests as $term_name ) {
+						$search_url = add_query_arg( array( 's' => urlencode( $term_name ) ), bp_get_members_directory_permalink() );
+						$html .= '<li><a href="' . esc_url( $search_url ) . '" rel="nofollow">' . $term_name . '</a></li>';
+					}
+					$html .= '</ul>';
+					echo $html;
+		?>
 	</div>
 	<div class="recent-commons-activity">
 		<h4>Recent Commons Activity</h4>
