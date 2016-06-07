@@ -5,6 +5,7 @@ namespace MLA\Commons;
 use \BP_Component;
 use \RecursiveDirectoryIterator;
 use \RecursiveIteratorIterator;
+use \DOMDocument;
 
 class Profile extends BP_Component {
 	protected static $instance;
@@ -70,7 +71,108 @@ class Profile extends BP_Component {
 		return $follow_counts;
 	}
 
-	// TODO clean
+	public function get_academic_interests() {
+		$tax = get_taxonomy( 'mla_academic_interests' );
+		$interests = wp_get_object_terms( bp_displayed_user_id(), 'mla_academic_interests', array( 'fields' => 'names' ) );
+		$html = '<ul>';
+		foreach ( $interests as $term_name ) {
+			$search_url = add_query_arg( array( 's' => urlencode( $term_name ) ), bp_get_members_directory_permalink() );
+			$html .= '<li><a href="' . esc_url( $search_url ) . '" rel="nofollow">' . $term_name . '</a></li>';
+		}
+		$html .= '</ul>';
+		return $html;
+	}
+
+	public function get_activity( $max = 5 ) {
+		if ( bp_has_activities( bp_ajax_querystring( 'activity' ) . "&max=$max&scope=just-me" ) ) {
+			echo '<ul>';
+
+			while ( bp_activities() ) {
+				bp_the_activity();
+
+				$action = trim( strip_tags( bp_get_activity_action( [ 'no_timestamp' => true ] ), '<a>' ) );
+				$activity_type = bp_get_activity_type() ;
+				$displayed_user_fullname = bp_get_displayed_user_fullname();
+				$link_text_char_limit = 30;
+				// shorten/change some action descriptions
+				switch ( $activity_type ) {
+				case 'updated_profile':
+					$action = "updated profile"; // default action is "<name>'s profile was updated"
+					break;
+				}
+				// some types end their action strings with ':' - remove it
+				$action = preg_replace( '/:$/', '', $action );
+				// div wrapper not only serves to contain the action text but also helps DOMDocument traverse the "tree" without breaking it
+				$action = "<li class=\"$activity_type\">" . $action . '</li>';
+				$action_doc = new DOMDocument;
+				// encoding prevents mangling of multibyte characters
+				// constants ensure no <body> or <doctype> tags are added
+				$action_doc->loadHTML( mb_convert_encoding( $action, 'HTML-ENTITIES', 'UTF-8' ), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+				// for reasons yet unknown, removeChild() causes the next anchor to be skipped entirely.
+				// using a second foreach is a workaround.
+				foreach ( $action_doc->getElementsByTagName( 'a' ) as $anchor ) {
+					if ( $anchor->nodeValue === $displayed_user_fullname ) {
+						$anchor->parentNode->removeChild( $anchor );
+						break;
+					}
+				}
+				foreach ( $action_doc->getElementsByTagName( 'a' ) as $anchor ) {
+					if ( strlen( $anchor->nodeValue ) > $link_text_char_limit ) {
+						$anchor->nodeValue = substr( $anchor->nodeValue, 0, $link_text_char_limit - 1 ) . '…';
+					}
+				}
+				$action = $action_doc->saveHTML();
+				echo $action;
+			}
+
+			echo '</ul>';
+		}
+	}
+
+	public function get_groups() {
+		if ( bp_has_groups( bp_ajax_querystring( 'groups' ) ) ) {
+			echo '<ul>';
+			while ( bp_groups() ) {
+				bp_the_group();
+				?>
+				<li>
+					<a href="<?php bp_group_permalink(); ?>">
+						<span>
+						<?php
+							//echo str_replace( ' ', '</span><span>', bp_get_group_name() );
+							echo bp_get_group_name();
+						?>
+						</span>
+					</a>
+				</li>
+				<?
+			}
+			echo '</ul>';
+		}
+	}
+
+	public function get_sites() {
+		if ( bp_has_blogs( bp_ajax_querystring( 'blogs' ) ) ) {
+			echo '<ul>';
+			while ( bp_blogs() ) {
+				bp_the_blog();
+				?>
+				<li>
+					<a href="<?php bp_blog_permalink(); ?>">
+						<span>
+						<?php
+							//echo str_replace( ' ', '</span><span>', bp_get_blog_name() );
+							echo bp_get_blog_name();
+						?>
+						</span>
+					</a>
+				</li>
+				<?php
+			}
+			echo '</ul>';
+		}
+	}
+
 	public function get_core_deposits() {
 		$my_querystring = sprintf( 'facets[author_facet][]=%s', urlencode( bp_get_displayed_user_fullname() ) );
 		// If the ajax string is empty, that usually means that
@@ -94,8 +196,7 @@ class Profile extends BP_Component {
 				</li>
 			<?php endwhile; ?>
 			</ul>
-		<?php else: ?>
-			<p><?php _e( 'Sorry, there were no deposits found.', 'buddypress' ); ?></p>
 		<?php endif;
 	}
+
 }
