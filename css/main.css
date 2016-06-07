@@ -45,8 +45,8 @@
   text-align: right;
 }
 
-.profile #item-meta #item-buttons {
-  list-style-type: none;
+.profile #item-meta .current {
+  display: none;
 }
 
 .profile #profile-main form {

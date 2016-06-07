@@ -226,4 +226,26 @@ class Profile extends BP_Component {
 		<?php endif;
 	}
 
+	/**
+	 * no filter exists for these, so DIY
+	 */
+	public function get_header_actions() {
+		$html = '';
+
+		ob_start();
+
+		do_action( 'bp_member_header_actions' ); // buttons dependent on context
+		bp_get_options_nav(); // nav links, but we're grouping everything together
+
+		$html = ob_get_clean();
+
+		$html = preg_replace( '/generic-button/', '', $html ); // remove button class from action buttons
+
+		// turn nav <li>s into <div>s
+		$html = preg_replace( '/<li/', '<div', $html );
+		$html = preg_replace( '/li>/', 'div>', $html );
+
+		return $html;
+	}
+
 }

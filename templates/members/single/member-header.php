@@ -62,9 +62,7 @@ $follow_counts = $Profile->get_follow_counts();
 
 		<div id="item-buttons">
 
-			<?php do_action( 'bp_member_header_actions' ); ?>
-
-			<?php bp_get_options_nav(); ?>
+			<?php echo $Profile->get_header_actions(); ?>
 
 		</div><!-- #item-buttons -->
 
