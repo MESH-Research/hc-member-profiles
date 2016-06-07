@@ -1,3 +1,7 @@
+/**
+ * view/general styles
+ */
+
 .profile #item-nav,
 .profile #sidebar {
   display: none !important;
@@ -45,7 +49,7 @@
   list-style-type: none;
 }
 
-.profile #profile-main {
+.profile #profile-main form {
   display: flex;
 }
 
@@ -59,7 +63,7 @@
 
 .profile #profile-main .left > div,
 .profile #profile-main .right > div {
-  padding: 0.5em 1em;
+  padding: 1em;
   background-color: #fafafa;
 }
 
@@ -69,4 +73,43 @@
 
 .profile #profile-main .right > div {
   margin: 1em 0 1em 0.5em;
+}
+
+.profile #profile-main .left > div h4,
+.profile #profile-main .right > div h4 {
+  margin: 0 0 0.5em;
+}
+
+
+/**
+ * edit-specific styles
+ */
+
+.profile-edit .editable > label,
+.profile-edit #profile-main form .radio {
+  display: none;
+}
+
+.profile-edit .editable {
+  position: relative;
+}
+
+.profile-edit .visibility {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+
+.profile-edit .collapsed > div {
+  display: none;
+}
+
+.profile-edit .edit-action-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ccc;
+  text-align: center;
+  z-index: 1;
 }

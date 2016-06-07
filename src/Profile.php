@@ -30,7 +30,7 @@ class Profile extends BP_Component {
 	}
 
 	public function init() {
-		if ( bp_is_user_profile() || bp_is_user_profile_edit() ) {
+		if ( ! bp_is_user_change_avatar() && ( bp_is_user_profile() || bp_is_user_profile_edit() ) ) {
 			add_filter( 'load_template', [ $this, 'filter_load_template' ] );
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		}
@@ -80,6 +80,34 @@ class Profile extends BP_Component {
 		}
 		$html .= '</ul>';
 		return $html;
+	}
+
+	/**
+	 * for edit view. use like bp_the_profile_field().
+	 * works inside or outside the fields loop.
+	 * TODO optimize: find some way to look up fields directly rather than (re)winding the loop every time.
+	 */
+	public function get_edit_field( $field_name ) {
+		global $profile_template;
+
+		$profile_template->rewind_fields(); // reset the loop
+
+		while ( bp_profile_fields() ) {
+			bp_the_profile_field();
+
+			if ( bp_get_the_profile_field_name() !== $field_name ) {
+				continue;
+			}
+
+			$field_type = bp_xprofile_create_field_type( bp_get_the_profile_field_type() );
+			$field_type->edit_field_html();
+
+			do_action( 'bp_custom_profile_edit_fields_pre_visibility' );
+			bp_profile_visibility_radio_buttons();
+
+			do_action( 'bp_custom_profile_edit_fields' );
+			break; // once we output the field we want, no need to continue looping
+		}
 	}
 
 	public function get_activity( $max = 5 ) {
