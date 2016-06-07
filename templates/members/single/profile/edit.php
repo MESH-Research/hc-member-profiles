@@ -9,7 +9,7 @@
 			<div class="left">
 				<div class="academic-interests editable">
 					<h4>Academic Interests</h4>
-					<?php echo $Profile->get_academic_interests(); ?>
+					<?php echo $Profile->get_academic_interests_edit(); ?>
 				</div>
 				<div class="recent-commons-activity">
 					<h4>Recent Commons Activity</h4>

@@ -33,6 +33,7 @@ class Profile extends BP_Component {
 		if ( ! bp_is_user_change_avatar() && ( bp_is_user_profile() || bp_is_user_profile_edit() ) ) {
 			add_filter( 'load_template', [ $this, 'filter_load_template' ] );
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+			add_action( 'xprofile_updated_profile', [ $this, 'save_academic_interests' ] );
 		}
 	}
 
@@ -80,6 +81,59 @@ class Profile extends BP_Component {
 		}
 		$html .= '</ul>';
 		return $html;
+	}
+
+	public function get_academic_interests_edit() {
+		global $mla_academic_interests;
+
+		$tax = get_taxonomy( 'mla_academic_interests' );
+
+		$html = '<span class="description">Enter interests from the existing list, or add new interests if needed.</span><br />';
+		$html .= '<select name="academic-interests[]" class="js-basic-multiple-tags interests" multiple="multiple" data-placeholder="Enter interests.">';
+
+		$interest_list = $mla_academic_interests->mla_academic_interests_list();
+		$input_interest_list = wp_get_object_terms( bp_displayed_user_id(), 'mla_academic_interests', array( 'fields' => 'names' ) );
+
+		foreach ( $interest_list as $interest_key => $interest_value ) {
+			$html .= sprintf('			<option class="level-1" %1$s value="%2$s">%3$s</option>' . "\n",
+				( in_array( $interest_key, $input_interest_list ) ) ? 'selected="selected"' : '',
+				$interest_key,
+				$interest_value
+			);
+		}
+
+		$html .= '</select>';
+
+		echo $html;
+	}
+
+	public function save_academic_interests( $user_id ) {
+		$tax = get_taxonomy( 'mla_academic_interests' );
+
+		// If array add any new keywords.
+		if ( is_array( $_POST['academic-interests'] ) ) {
+			foreach ( $_POST['academic-interests'] as $term_id ) {
+				$term_key = term_exists( $term_id, 'mla_academic_interests' );
+				if ( empty( $term_key ) ) {
+					$term_key = wp_insert_term( sanitize_text_field( $term_id ), 'mla_academic_interests' );
+				}
+				if ( ! is_wp_error( $term_key ) ) {
+					$term_ids[] = intval( $term_key['term_id'] );
+				} else {
+					error_log( '*****CAC Academic Interests Error - bad tag*****' . var_export( $term_key, true ) );
+				}
+			}
+		}
+
+		// Set object terms for tags.
+		$term_taxonomy_ids = wp_set_object_terms( $user_id, $term_ids, 'mla_academic_interests' );
+		clean_object_term_cache( $user_id, 'mla_academic_interests' );
+
+		// Set user meta for theme query.
+		delete_user_meta( $user_id, 'academic_interests' );
+		foreach ( $term_taxonomy_ids as $term_taxonomy_id ) {
+			add_user_meta( $user_id, 'academic_interests', $term_taxonomy_id, $unique = false );
+		}
 	}
 
 	/**

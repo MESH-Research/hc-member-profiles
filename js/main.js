@@ -81,4 +81,7 @@ jQuery( document ).ready( function() {
       }
     } );
   } )();
+
+  // initialize select2 on academic interests edit field
+  jQuery( '.js-basic-multiple-tags' ).select2();
 } );
