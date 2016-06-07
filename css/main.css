@@ -49,6 +49,10 @@
   display: none;
 }
 
+.profile #item-meta #item-buttons > div > a {
+  line-height: 1em;
+}
+
 .profile #profile-main form {
   display: flex;
 }
