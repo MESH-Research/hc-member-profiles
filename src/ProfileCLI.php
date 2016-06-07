@@ -177,7 +177,6 @@ class ProfileCLI {
 		}
 	}
 
-
 	/**
 	 * depends on the mla-academic-interests plugin, which must be activated
 	 * idempotent. overwrites academic_interests each iteration, but result should be the same as long as source data is
@@ -246,6 +245,7 @@ class ProfileCLI {
 			WP_CLI::success( "Finished migrating academic interests." );
 		}
 	}
+
 }
 
 if( defined( 'WP_CLI' ) && WP_CLI ) {
