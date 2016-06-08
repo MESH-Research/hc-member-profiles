@@ -7,6 +7,7 @@ pre_php=/tmp/__pre.php
 wp="wp --path=/srv/www/commons/current/web/wp --require=$pre_php"
 
 $wp plugin deactivate --network cac-advanced-profiles
+$wp plugin activate --network mla-academic-interests
 $wp plugin activate --network buddypress-followers
 $wp plugin activate --network bp-block-member
 $wp plugin activate --network profile
