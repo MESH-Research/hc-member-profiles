@@ -31,7 +31,7 @@ $follow_counts = $Profile->get_follow_counts();
 		<?php foreach ( array( 'Site', 'Twitter', 'Facebook', 'LinkedIn', 'ORCID' ) as $field ): ?>
 			<?php if ( ! empty( bp_get_member_profile_data( "field=$field" ) ) ): ?>
 			<div class="field-<?php echo str_replace( ' ', '-', strtolower( strip_tags( $field ) ) ) ?>">
-				<?php bp_member_profile_data( "field=$field" ) ?>
+				<a href="<?php bp_member_profile_data( "field=$field" ) ?>"><?php bp_member_profile_data( "field=$field" ) ?></a>
 			</div>
 			<?php endif ?>
 		<?php endforeach ?>
