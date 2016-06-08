@@ -4,6 +4,11 @@ do_action( 'bp_before_member_header' );
 
 $Profile = MLA\Commons\Profile::get_instance();
 $follow_counts = $Profile->get_follow_counts();
+$affiliation_data = bp_get_member_profile_data( 'field=Institutional or Other Affiliation' );
+$affiliation_search_url = add_query_arg(
+	[ 's' => urlencode( $affiliation_data ) ],
+	bp_get_members_directory_permalink()
+);
 
 ?>
 
@@ -23,7 +28,7 @@ $follow_counts = $Profile->get_follow_counts();
 			<?php bp_member_profile_data( 'field=Title' ) ?>
 		</h4>
 		<h4 class="affiliation">
-			<?php bp_member_profile_data( 'field=Institutional or Other Affiliation' ) ?>
+			<a href="<?php echo esc_url( $affiliation_search_url ) ?>" rel="nofollow"><?php echo $affiliation_data ?></a>
 		</h4>
 		<div class="username">
 			<?php echo "@" . bp_get_displayed_user_username() ?>
