@@ -45,16 +45,6 @@ $affiliation_search_url = add_query_arg(
 	<?php do_action( 'bp_before_member_header_meta' ); ?>
 
 	<div id="item-meta">
-
-		<div class="n-items-in-core">
-			<?php humcore_deposit_count() ?> items in CORE
-		</div>
-		<div class="n-groups">
-			<?php bp_total_group_count_for_user() ?> groups
-		</div>
-		<div class="n-sites">
-			<?php bp_total_blog_count_for_user() ?> sites
-		</div>
 		<div class="following-n-members">
 			<?php if ( bp_displayed_user_id() === bp_loggedin_user_id() ): ?>
 				<a href="<?php echo bp_loggedin_user_domain() . BP_FOLLOWING_SLUG ?>">
@@ -66,15 +56,11 @@ $affiliation_search_url = add_query_arg(
 		</div>
 
 		<div id="item-buttons">
-
 			<?php echo $Profile->get_header_actions(); ?>
-
 		</div><!-- #item-buttons -->
 
 		<?php do_action( 'bp_profile_header_meta' ); ?>
-
 	</div><!-- #item-meta -->
-
 </div><!-- #item-header-content -->
 
 <?php do_action( 'bp_after_member_header' ); ?>
