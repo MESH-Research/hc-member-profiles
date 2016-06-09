@@ -182,11 +182,17 @@ class Profile extends BP_Component {
 					$action = "updated profile"; // default action is "<name>'s profile was updated"
 					break;
 				}
+
 				// some types end their action strings with ':' - remove it
 				$action = preg_replace( '/:$/', '', $action );
-				// div wrapper not only serves to contain the action text but also helps DOMDocument traverse the "tree" without breaking it
+
+				// replace "blog post" with "post"
+				$action = str_ireplace( 'blog post', 'post', $action );
+
+				// wrapper not only serves to contain the action text but also helps DOMDocument traverse the "tree" without breaking it
 				$action = "<li class=\"$activity_type\">" . $action . '</li>';
 				$action_doc = new DOMDocument;
+
 				// encoding prevents mangling of multibyte characters
 				// constants ensure no <body> or <doctype> tags are added
 				$action_doc->loadHTML( mb_convert_encoding( $action, 'HTML-ENTITIES', 'UTF-8' ), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
