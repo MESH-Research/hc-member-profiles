@@ -36,8 +36,8 @@ class Profile extends BP_Component {
 			add_action( 'xprofile_updated_profile', [ $this, 'save_academic_interests' ] );
 		}
 
-		// disable bp-friend button action
-		remove_action( 'bp_directory_members_actions', 'bp_member_add_friend_button' );
+		// disable buddypress friends component in favor of follow/block
+		remove_action( 'bp_setup_components', 'bp_setup_friends', 6 );
 	}
 
 	public function enqueue_scripts() {
