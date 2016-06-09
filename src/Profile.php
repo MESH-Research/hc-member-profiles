@@ -38,8 +38,8 @@ class Profile extends BP_Component {
 	}
 
 	public function enqueue_scripts() {
-		wp_enqueue_style( 'mla_commons_profile_css', plugins_url() . '/profile/css/main.css' );
-		wp_enqueue_script( 'mla_commons_profile_js', plugins_url() . '/profile/js/main.js' );
+		wp_enqueue_style( 'mla_commons_profile_main_css', plugins_url() . '/profile/css/main.css' );
+		wp_enqueue_script( 'mla_commons_profile_main_js', plugins_url() . '/profile/js/main.js' );
 	}
 
 	public function filter_load_template( $path ) {
@@ -77,7 +77,9 @@ class Profile extends BP_Component {
 		$html = '<ul>';
 		foreach ( $interests as $term_name ) {
 			$search_url = add_query_arg( array( 's' => urlencode( $term_name ) ), bp_get_members_directory_permalink() );
-			$html .= '<li><a href="' . esc_url( $search_url ) . '" rel="nofollow">' . $term_name . '</a></li>';
+			$html .= '<li><a href="' . esc_url( $search_url ) . '" rel="nofollow"><span>';
+			$html .=  str_replace( ' ', '</span><span>', $term_name );
+			$html .= '</span></a></li>';
 		}
 		$html .= '</ul>';
 		return $html;
@@ -88,7 +90,7 @@ class Profile extends BP_Component {
 
 		$tax = get_taxonomy( 'mla_academic_interests' );
 
-		$html = '<span class="description">Enter interests from the existing list, or add new interests if needed.</span><br />';
+		$html = '<p class="description">Enter interests from the existing list, or add new interests if needed.</p>';
 		$html .= '<select name="academic-interests[]" class="js-basic-multiple-tags interests" multiple="multiple" data-placeholder="Enter interests.">';
 
 		$interest_list = $mla_academic_interests->mla_academic_interests_list();
@@ -229,12 +231,7 @@ class Profile extends BP_Component {
 				?>
 				<li>
 					<a href="<?php bp_group_permalink(); ?>">
-						<span>
-						<?php
-							//echo str_replace( ' ', '</span><span>', bp_get_group_name() );
-							echo bp_get_group_name();
-						?>
-						</span>
+						<span><?php echo str_replace( ' ', '</span><span>', bp_get_group_name() ); ?></span>
 					</a>
 				</li>
 				<?
@@ -251,12 +248,7 @@ class Profile extends BP_Component {
 				?>
 				<li>
 					<a href="<?php bp_blog_permalink(); ?>">
-						<span>
-						<?php
-							//echo str_replace( ' ', '</span><span>', bp_get_blog_name() );
-							echo bp_get_blog_name();
-						?>
-						</span>
+						<span><?php echo str_replace( ' ', '</span><span>', bp_get_blog_name() ); ?></span>
 					</a>
 				</li>
 				<?php

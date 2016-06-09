@@ -94,6 +94,37 @@
 }
 
 /**
+ * tag-cloud-like lists for interests, groups, sites
+ */
+
+.profile .wordblock ul {
+  text-align: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.profile .wordblock li {
+  display: inline;
+  margin-right: 1em;
+}
+
+.profile .wordblock li a {
+  background-color: white;
+  text-decoration: none;
+}
+
+/* each word is wrapped in a span to allow for padding words at the end of lines */
+.profile .wordblock li a:hover span {
+  text-decoration: underline;
+}
+
+.profile .wordblock li a span {
+  padding: 0.1em;
+  display: inline-block;
+}
+
+/**
  * edit-specific styles
  */
 
@@ -124,4 +155,12 @@
   background-color: #ccc;
   text-align: center;
   z-index: 1;
+}
+
+.profile-edit .academic-interests .description {
+  margin-bottom: 0.5em;
+}
+
+.profile-edit .js-basic-multiple-tags {
+  width: 100%;
 }

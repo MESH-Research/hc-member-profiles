@@ -15,11 +15,11 @@
 					<h4>Recent Commons Activity</h4>
 					<?php echo $Profile->get_activity(); ?>
 				</div>
-				<div class="commons-groups">
+				<div class="commons-groups wordblock">
 					<h4>Commons Groups</h4>
 					<?php echo $Profile->get_groups(); ?>
 				</div>
-				<div class="commons-sites">
+				<div class="commons-sites wordblock">
 					<h4>Commons Sites</h4>
 					<?php echo $Profile->get_sites(); ?>
 				</div>

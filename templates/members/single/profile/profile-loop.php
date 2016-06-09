@@ -4,7 +4,7 @@
 
 <form> <?php // only here for styling consistency between edit & view modes ?>
 	<div class="left">
-		<div class="academic-interests">
+		<div class="academic-interests wordblock">
 			<h4>Academic Interests</h4>
 			<?php echo $Profile->get_academic_interests(); ?>
 		</div>
@@ -12,11 +12,11 @@
 			<h4>Recent Commons Activity</h4>
 			<?php echo $Profile->get_activity(); ?>
 		</div>
-		<div class="commons-groups">
+		<div class="commons-groups wordblock">
 			<h4>Commons Groups</h4>
 			<?php echo $Profile->get_groups(); ?>
 		</div>
-		<div class="commons-sites">
+		<div class="commons-sites wordblock">
 			<h4>Commons Sites</h4>
 			<?php echo $Profile->get_sites(); ?>
 		</div>

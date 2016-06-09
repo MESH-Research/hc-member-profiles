@@ -1,5 +1,6 @@
-// profile editing
-
+/**
+ * MLA Commons Profile
+ */
 ( function( $ ) {
   $( document ).ready( function() {
     // header fields (hidden in main form, duplicated to be accessible by user in the header)
