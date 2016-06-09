@@ -166,7 +166,8 @@ class Profile extends BP_Component {
 
 	public function get_activity( $max = 5 ) {
 		if ( bp_has_activities( bp_ajax_querystring( 'activity' ) . "&max=$max&scope=just-me" ) ) {
-			echo '<ul>';
+
+			$actions_html = '';
 
 			while ( bp_activities() ) {
 				bp_the_activity();
@@ -203,10 +204,14 @@ class Profile extends BP_Component {
 					}
 				}
 				$action = $action_doc->saveHTML();
-				echo $action;
+
+				// only add unique actions
+				if ( strpos( $action, $actions_html ) === false ) {
+					$actions_html .= $action;
+				}
 			}
 
-			echo '</ul>';
+			echo "<ul>$actions_html</ul>";
 		}
 	}
 
