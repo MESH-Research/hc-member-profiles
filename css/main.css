@@ -98,30 +98,30 @@
  */
 
 .profile .wordblock ul {
-  text-align: center;
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
 .profile .wordblock li {
-  display: inline;
-  margin-right: 1em;
+  display: block;
+  margin: 0.25em 0;
 }
 
 .profile .wordblock li a {
-  background-color: white;
+  display: block;
+  padding: 0.25em;
   text-decoration: none;
 }
 
-/* each word is wrapped in a span to allow for padding words at the end of lines */
-.profile .wordblock li a:hover span {
+.profile .wordblock li a:hover {
+  /* start tag style */
+  background-color: white;
+  border: 1px solid #e4e4e4;
+  border-radius: 4px; /* matches select2 tag rounded corners */
+  margin: -1px;
+  /* end tag style */
   text-decoration: underline;
-}
-
-.profile .wordblock li a span {
-  padding: 0.1em;
-  display: inline-block;
 }
 
 /**

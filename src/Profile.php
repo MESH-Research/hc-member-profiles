@@ -77,9 +77,9 @@ class Profile extends BP_Component {
 		$html = '<ul>';
 		foreach ( $interests as $term_name ) {
 			$search_url = add_query_arg( array( 's' => urlencode( $term_name ) ), bp_get_members_directory_permalink() );
-			$html .= '<li><a href="' . esc_url( $search_url ) . '" rel="nofollow"><span>';
-			$html .=  str_replace( ' ', '</span><span>', $term_name );
-			$html .= '</span></a></li>';
+			$html .= '<li><a href="' . esc_url( $search_url ) . '" rel="nofollow">';
+			$html .=  $term_name;
+			$html .= '</a></li>';
 		}
 		$html .= '</ul>';
 		return $html;
@@ -225,35 +225,25 @@ class Profile extends BP_Component {
 
 	public function get_groups() {
 		if ( bp_has_groups( bp_ajax_querystring( 'groups' ) ) ) {
-			echo '<ul>';
+			$html = '<ul>';
 			while ( bp_groups() ) {
 				bp_the_group();
-				?>
-				<li>
-					<a href="<?php bp_group_permalink(); ?>">
-						<span><?php echo str_replace( ' ', '</span><span>', bp_get_group_name() ); ?></span>
-					</a>
-				</li>
-				<?
+				$html .= '<li><a href="' . bp_get_group_permalink() . '">' . bp_get_group_name() . '</a></li>';
 			}
-			echo '</ul>';
+			$html .= '</ul>';
+			echo $html;
 		}
 	}
 
 	public function get_sites() {
 		if ( bp_has_blogs( bp_ajax_querystring( 'blogs' ) ) ) {
-			echo '<ul>';
+			$html = '<ul>';
 			while ( bp_blogs() ) {
 				bp_the_blog();
-				?>
-				<li>
-					<a href="<?php bp_blog_permalink(); ?>">
-						<span><?php echo str_replace( ' ', '</span><span>', bp_get_blog_name() ); ?></span>
-					</a>
-				</li>
-				<?php
+				$html .= '<li><a href="' . bp_get_blog_permalink() . '">' . bp_get_blog_name() . '</a></li>';
 			}
-			echo '</ul>';
+			$html .= '</ul>';
+			echo $html;
 		}
 	}
 
