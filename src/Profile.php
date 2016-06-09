@@ -35,6 +35,9 @@ class Profile extends BP_Component {
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 			add_action( 'xprofile_updated_profile', [ $this, 'save_academic_interests' ] );
 		}
+
+		// disable bp-friend button action
+		remove_action( 'bp_directory_members_actions', 'bp_member_add_friend_button' );
 	}
 
 	public function enqueue_scripts() {
