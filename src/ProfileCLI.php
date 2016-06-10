@@ -221,7 +221,7 @@ class ProfileCLI {
 					foreach ( $term_map as $primary_term => $mapped_terms ) {
 						// if the old interest data contains any of the mapped terms, add the primary term for this user
 						foreach ( $mapped_terms as $term ) {
-							if ( strpos( $old_interest_data, $term ) !== false ) {
+							if ( strpos( strtolower( $old_interest_data ), strtolower( $term ) ) !== false ) {
 								// populate $_POST because save_user_mla_academic_interests_terms expects it
 								//$_POST['userid'] = $user_id; // not used to save, but useful for debugging/logging
 								$_POST['academic-interests'][] = $primary_term;
