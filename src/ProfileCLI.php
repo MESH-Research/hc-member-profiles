@@ -217,7 +217,7 @@ class ProfileCLI {
 				$_POST = [];
 
 				if ( $userdata ) {
-					$old_interest_data = \xprofile_get_field_data( 'Interests', $user_id );
+					$old_interest_data = \xprofile_get_field_data( 'About', $user_id );
 					foreach ( $term_map as $primary_term => $mapped_terms ) {
 						// if the old interest data contains any of the mapped terms, add the primary term for this user
 						foreach ( $mapped_terms as $term ) {
