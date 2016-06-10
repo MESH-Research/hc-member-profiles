@@ -217,7 +217,7 @@ class Profile extends BP_Component {
 				$action = $action_doc->saveHTML();
 
 				// only add unique actions
-				if ( strpos( $action, $actions_html ) === false ) {
+				if ( empty( $actions_html ) || strpos( $action, $actions_html ) === false ) {
 					$actions_html .= $action;
 				}
 			}
