@@ -1,24 +1,24 @@
 <?php do_action( 'bp_before_profile_loop_content' ); ?>
 
-<?php $Profile = MLA\Commons\Profile::get_instance(); ?>
+<?php $template = new MLA\Commons\Profile\Template; ?>
 
 <form> <?php // only here for styling consistency between edit & view modes ?>
 	<div class="left">
 		<div class="academic-interests wordblock">
 			<h4>Academic Interests</h4>
-			<?php echo $Profile->get_academic_interests(); ?>
+			<?php echo $template->get_academic_interests(); ?>
 		</div>
 		<div class="recent-commons-activity">
 			<h4>Recent Commons Activity</h4>
-			<?php echo $Profile->get_activity(); ?>
+			<?php echo $template->get_activity(); ?>
 		</div>
 		<div class="commons-groups wordblock">
 			<h4>Commons Groups</h4>
-			<?php echo $Profile->get_groups(); ?>
+			<?php echo $template->get_groups(); ?>
 		</div>
 		<div class="commons-sites wordblock">
 			<h4>Commons Sites</h4>
-			<?php echo $Profile->get_sites(); ?>
+			<?php echo $template->get_sites(); ?>
 		</div>
 	</div>
 
@@ -41,7 +41,7 @@
 		</div>
 		<div class="work-shared-in-core">
 			<h4>Work Shared in CORE</h4>
-			<?php echo $Profile->get_core_deposits(); ?>
+			<?php echo $template->get_core_deposits(); ?>
 		</div>
 		<div class="upcoming-talks-and-conferences">
 			<h4>Upcoming Talks and Conferences</h4>

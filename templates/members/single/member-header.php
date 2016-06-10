@@ -2,8 +2,8 @@
 
 do_action( 'bp_before_member_header' );
 
-$Profile = MLA\Commons\Profile::get_instance();
-$follow_counts = $Profile->get_follow_counts();
+$template = new MLA\Commons\Profile\Template;
+$follow_counts = $template->get_follow_counts();
 $affiliation_data = bp_get_member_profile_data( 'field=Institutional or Other Affiliation' );
 $affiliation_search_url = add_query_arg(
 	[ 's' => urlencode( $affiliation_data ) ],
@@ -56,7 +56,7 @@ $affiliation_search_url = add_query_arg(
 		</div>
 
 		<div id="item-buttons">
-			<?php echo $Profile->get_header_actions(); ?>
+			<?php echo $template->get_header_actions(); ?>
 		</div><!-- #item-buttons -->
 
 		<?php do_action( 'bp_profile_header_meta' ); ?>

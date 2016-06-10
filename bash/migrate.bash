@@ -21,5 +21,4 @@ $wp plugin activate --network profile
 $wp profile friends_to_followers
 $wp profile create_xprofile_fields
 $wp profile migrate_xprofile_field_data
-$wp profile insert_default_academic_interests
 $wp profile migrate_academic_interests

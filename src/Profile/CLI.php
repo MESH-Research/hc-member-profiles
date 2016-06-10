@@ -1,6 +1,6 @@
 <?php
 
-namespace MLA\Commons;
+namespace MLA\Commons\Profile;
 
 use \WP_CLI;
 use \BP_Follow;
@@ -9,7 +9,7 @@ use \BP_Follow;
  * These commands will change your data in serious ways!
  * Do not run any of them unless you're absolutely sure what you're doing.
  */
-class ProfileCLI {
+class CLI {
 
 	/**
 	 * TODO NOT idempotent. check if each BP_Follow exists before constructing/saving.
@@ -61,32 +61,6 @@ class ProfileCLI {
 
 		try {
 			foreach ( $new_field_names as $name ) {
-				\xprofile_insert_field( [
-					'name' => $name,
-					'type' => 'textarea',
-					'field_group_id' => 1,
-				] );
-			}
-		} catch ( Exception $e ) {
-			WP_CLI::error( $e->getMessage() );
-		} finally {
-			WP_CLI::success( "Finished creating new xprofile fields." );
-		}
-	}
-
-	/**
-	 * Renames (prefixes) old fields to differentiate them from new ones.
-	 */
-	function rename_old_xprofile_fields() {
-		$old_groups = \BP_XProfile_Group::get( [
-			'fetch_fields' => true,
-		] );
-
-		$old_fields = $old_groups[0]->fields;
-
-		try {
-			foreach ( $old_fields as &$field ) {
-				$field->name = '(old) ' . $field->name;
 				\xprofile_insert_field( [
 					'name' => $name,
 					'type' => 'textarea',
@@ -160,25 +134,6 @@ class ProfileCLI {
 
 	/**
 	 * depends on the mla-academic-interests plugin, which must be activated
-	 */
-	function insert_default_academic_interests() {
-		$csv_file = "data/academic_interests.csv";
-		$mla_academic_interests = new \Mla_Academic_Interests;
-
-		if ( ( $handle = fopen( $csv_file, "r" ) ) !== false ) {
-			while ( ( $data = fgetcsv( $handle ) ) !== false ) {
-				$data = array_filter( $data );
-				if ( ! empty( $data ) ) {
-					$term = $data[0];
-					$set_term = wp_insert_term( $term, 'mla_academic_interests' );
-				}
-			}
-			fclose( $handle );
-		}
-	}
-
-	/**
-	 * depends on the mla-academic-interests plugin, which must be activated
 	 * idempotent. overwrites academic_interests each iteration, but result should be the same as long as source data is
 	 */
 	function migrate_academic_interests() {
@@ -224,6 +179,13 @@ class ProfileCLI {
 								// populate $_POST because save_user_mla_academic_interests_terms expects it
 								//$_POST['userid'] = $user_id; // not used to save, but useful for debugging/logging
 								$_POST['academic-interests'][] = $primary_term;
+
+								// remove matched terms from old data
+								$remove_old_term_result = \xprofile_set_field_data(
+									$old_to_new_map[$field->name],
+									$user_id,
+									\xprofile_get_field_data( $field->id, $user_id )
+								);
 							}
 						}
 					}
@@ -248,5 +210,5 @@ class ProfileCLI {
 }
 
 if( defined( 'WP_CLI' ) && WP_CLI ) {
-	WP_CLI::add_command( 'profile', __NAMESPACE__ . '\ProfileCLI' );
+	WP_CLI::add_command( 'profile', __NAMESPACE__ . '\CLI' );
 }
