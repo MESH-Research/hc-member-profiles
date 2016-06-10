@@ -196,7 +196,6 @@ class ProfileCLI {
 				$data = array_filter( $data );
 				if ( ! empty( $data ) ) {
 					$primary_term = $data[0];
-					unset( $data[0] );
 					$term_map[$primary_term] = $data;
 				}
 			}
