@@ -37,7 +37,16 @@ class Profile extends BP_Component {
 		}
 
 		// disable buddypress friends component in favor of follow/block
-		remove_action( 'bp_setup_components', 'bp_setup_friends', 6 );
+		$this->disable_bp_component( 'friends' );
+	}
+
+	public function disable_bp_component( $component_name ) {
+		$active_components = \bp_get_option( 'bp-active-components' );
+
+		if ( in_array( $component_name, array_keys( $active_components ) ) ) {
+			unset( $active_components[$component_name] );
+			bp_update_option( 'bp-active-components', $active_components );
+		}
 	}
 
 	public function enqueue_scripts() {
