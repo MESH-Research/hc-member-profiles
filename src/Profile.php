@@ -5,8 +5,17 @@ namespace MLA\Commons;
 use \BP_Component;
 use \RecursiveDirectoryIterator;
 use \RecursiveIteratorIterator;
+use \WP_CLI;
 
 class Profile extends BP_Component {
+
+	/**
+	 * Used by MLA\Commons\Profile\Migration when creating the xprofile group this plugin uses.
+	 * THERE CAN ONLY BE ONE GROUP WITH THIS NAME AND DESCRIPTION, OTHERWISE THIS PLUGIN WILL BE CONFUSED.
+	 */
+	const XPROFILE_GROUP_NAME = 'MLA Commons Profile';
+	const XPROFILE_GROUP_DESCRIPTION = 'Created and used by the MLA Commons Profile plugin.';
+
 	protected static $instance;
 
 	public $plugin_dir;
@@ -20,6 +29,10 @@ class Profile extends BP_Component {
 			new RecursiveDirectoryIterator( $this->plugin_templates_dir ),
 			RecursiveIteratorIterator::SELF_FIRST
 		);
+
+		if( defined( 'WP_CLI' ) && WP_CLI ) {
+			WP_CLI::add_command( 'profile', __NAMESPACE__ . '\Profile\CLI' );
+		}
 
 		\add_action( 'bp_init', [ $this, 'init' ] );
 	}
