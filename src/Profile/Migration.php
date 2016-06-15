@@ -78,10 +78,16 @@ class Migration {
 				\xprofile_insert_field( [
 					'name' => $field_name,
 					'type' => $field_type,
-					'field_group_id' => $this->xprofile_group->id,
+					'field_group_id' => $this->profile->xprofile_group->id,
 				] );
 			};
 		}
+
+		// populate instantiated group with newly created fields
+		$this->profile->xprofile_group = BP_XProfile_Group::get( [
+			'group_id' => $this->profile->xprofile_group->id,
+			'fetch_fields' => true
+		] )[0];
 	}
 
 	/**
