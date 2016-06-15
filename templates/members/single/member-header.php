@@ -33,13 +33,12 @@ $affiliation_search_url = add_query_arg(
 		<div class="username">
 			<?php echo "@" . bp_get_displayed_user_username() ?>
 		</div>
-		<?php foreach ( array( 'Site', 'Twitter', 'Facebook', 'LinkedIn', 'ORCID' ) as $field ): ?>
-			<?php if ( ! empty( bp_get_member_profile_data( "field=$field" ) ) ): ?>
-			<div class="field-<?php echo str_replace( ' ', '-', strtolower( strip_tags( $field ) ) ) ?>">
-				<a href="<?php bp_member_profile_data( "field=$field" ) ?>"><?php bp_member_profile_data( "field=$field" ) ?></a>
-			</div>
-			<?php endif ?>
-		<?php endforeach ?>
+		<div class="twitter">
+			<?php echo $template->get_twitter_link() ?>
+		</div>
+		<div class="site">
+			<?php echo $template->get_site_link() ?>
+		</div>
 	</div><!-- #item-main -->
 
 	<?php do_action( 'bp_before_member_header_meta' ); ?>

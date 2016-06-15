@@ -235,4 +235,25 @@ class Template {
 			}
 		}
 	}
+
+	/**
+	 * returns html linking to the twitter page of the user with the twitter handle as link text
+	 */
+	public function get_twitter_link() {
+		$value = str_replace( '@', '', $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME ) );
+		return "<a href=\"https://twitter.com/$value\">@$value</a>";
+	}
+
+	public function get_site_link() {
+		$value = $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_SITE );
+		$url = $value;
+
+		$value = 'www.google.com';
+		// add scheme to value if necessary to create (hopefully) valid url for href
+		if ( strpos( 'http', $value ) !== 1 ) {
+			$url = 'http://' . $value;
+		}
+
+		return "<a href=\"$url\">$value</a>";
+	}
 }
