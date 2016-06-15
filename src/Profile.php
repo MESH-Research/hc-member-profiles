@@ -17,11 +17,27 @@ class Profile extends BP_Component {
 	const XPROFILE_GROUP_NAME = 'MLA Commons Profile';
 	const XPROFILE_GROUP_DESCRIPTION = 'Created and used by the MLA Commons Profile plugin.';
 
+	/**
+	 * names of xprofile fields used across the plugin
+	 */
+	const XPROFILE_FIELD_NAME_NAME = 'Name';
+	const XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION = 'Institutional or Other Affiliation';
+	const XPROFILE_FIELD_NAME_TITLE = 'Title';
+	const XPROFILE_FIELD_NAME_SITE = 'Site';
+	const XPROFILE_FIELD_NAME_TWITTER_USER_NAME = 'Twitter user name';
+	const XPROFILE_FIELD_NAME_ABOUT = 'About';
+	const XPROFILE_FIELD_NAME_EDUCATION = 'Education';
+	const XPROFILE_FIELD_NAME_PUBLICATIONS = 'Publications';
+	const XPROFILE_FIELD_NAME_PROJECTS = 'Projects';
+	const XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES = 'Upcoming Talks and Conferences';
+	const XPROFILE_FIELD_NAME_MEMBERSHIPS = 'Memberships';
+
 	protected static $instance;
 
 	public $plugin_dir;
 	public $plugin_templates_dir;
 	public $template_files;
+
 	public $xprofile_group;
 
 	public function __construct() {

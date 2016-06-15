@@ -17,17 +17,17 @@ class Migration {
 		$this->profile = Profile::get_instance();
 
 		$this->xprofile_fields = [
-			'Name' => 'textbox',
-			'Institutional or Other Affiliation' => 'textbox',
-			'Title' => 'textbox',
-			'Site' => 'textbox',
-			'Twitter user name' => 'textbox',
-			'About' => 'textarea',
-			'Education' => 'textarea',
-			'Publications' => 'textarea',
-			'Projects' => 'textarea',
-			'Upcoming Talks and Conferences' => 'textarea',
-			'Memberships' => 'textarea',
+			Profile::XPROFILE_FIELD_NAME_NAME => 'textbox',
+			Profile::XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION => 'textbox',
+			Profile::XPROFILE_FIELD_NAME_TITLE => 'textbox',
+			Profile::XPROFILE_FIELD_NAME_SITE => 'textbox',
+			Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME => 'textbox',
+			Profile::XPROFILE_FIELD_NAME_ABOUT => 'textarea',
+			Profile::XPROFILE_FIELD_NAME_EDUCATION => 'textarea',
+			Profile::XPROFILE_FIELD_NAME_PUBLICATIONS => 'textarea',
+			Profile::XPROFILE_FIELD_NAME_PROJECTS => 'textarea',
+			Profile::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES => 'textarea',
+			Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS => 'textarea',
 		];
 	}
 
@@ -90,18 +90,20 @@ class Migration {
 		global $wpdb;
 
 		// group that contains old fields
+		// TODO for easier reuse on other sites, this should be in a configuration file somewhere
 		$old_group_id = 0;
 
 		// 'old' => 'new'
+		// TODO for easier reuse on other sites, this should be in a configuration file somewhere
 		$old_field_to_new_field_map = [
-			'Name' => 'Name',
-			'Institutional or Other Affiliation' => 'Institutional or Other Affiliation',
-			'Title' => 'Title',
-			'Site' => 'Site',
-			'<em>Twitter</em> user name' => 'Twitter user name',
-			'Academic Interests' => 'About',
-			'Education' => 'Education',
-			'Publications' => 'Publications',
+			'Name' => Profile::XPROFILE_FIELD_NAME_NAME,
+			'Institutional or Other Affiliation' => Profile::XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION,
+			'Title' => Profile::XPROFILE_FIELD_NAME_TITLE,
+			'Site' => Profile::XPROFILE_FIELD_NAME_SITE,
+			'<em>Twitter</em> user name' => Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME,
+			'Academic Interests' => Profile::XPROFILE_FIELD_NAME_ABOUT,
+			'Education' => Profile::XPROFILE_FIELD_NAME_EDUCATION,
+			'Publications' => Profile::XPROFILE_FIELD_NAME_PUBLICATIONS,
 		];
 
 		$old_groups = BP_XProfile_Group::get( [ 'fetch_fields' => true, ] );
@@ -152,7 +154,7 @@ class Migration {
 
 		// name of text field from which interests will be parsed & migrated
 		// this field is the one which this plugin already created in create_xprofile_fields() and should contain migrated text
-		$migrated_interests_field_name = 'About';
+		$migrated_interests_field_name = Profile::XPROFILE_FIELD_NAME_ABOUT;
 
 		$csv_file = "data/academic_interests.csv";
 
