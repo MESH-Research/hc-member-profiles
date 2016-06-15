@@ -64,9 +64,11 @@ class Migration {
 	 */
 	public function create_xprofile_fields() {
 		$field_exists = function() use ( &$field_name, &$field_type ) {
-			foreach ( $this->profile->xprofile_group->fields as $field ) {
-				if ( $field->name === $field_name && $field->type === $field_type ) {
-					return true;
+			if ( is_array( $this->profile->xprofile_group->fields ) ) {
+				foreach ( $this->profile->xprofile_group->fields as $field ) {
+					if ( $field->name === $field_name && $field->type === $field_type ) {
+						return true;
+					}
 				}
 			}
 		};
