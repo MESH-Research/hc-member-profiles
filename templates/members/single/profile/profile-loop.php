@@ -25,19 +25,19 @@
 	<div class="right">
 		<div class="about">
 			<h4>About</h4>
-			<?php bp_member_profile_data( 'field=About' ) ?>
+			<?php echo $template->get_xprofile_field_data( 'About' ) ?>
 		</div>
 		<div class="education">
 			<h4>Education</h4>
-			<?php bp_member_profile_data( 'field=Education' ) ?>
+			<?php echo $template->get_xprofile_field_data( 'Education' ) ?>
 		</div>
 		<div class="publications">
 			<h4>Publications</h4>
-			<?php bp_member_profile_data( 'field=Publications' ) ?>
+			<?php echo $template->get_xprofile_field_data( 'Publications' ) ?>
 		</div>
 		<div class="projects">
 			<h4>Projects</h4>
-			<?php bp_member_profile_data( 'field=Projects' ) ?>
+			<?php echo $template->get_xprofile_field_data( 'Projects' ) ?>
 		</div>
 		<div class="work-shared-in-core">
 			<h4>Work Shared in CORE</h4>
@@ -45,11 +45,11 @@
 		</div>
 		<div class="upcoming-talks-and-conferences">
 			<h4>Upcoming Talks and Conferences</h4>
-			<?php bp_member_profile_data( 'field=Upcoming Talks and Conferences' ) ?>
+			<?php echo $template->get_xprofile_field_data( 'Upcoming Talks and Conferences' ) ?>
 		</div>
 		<div class="memberships">
 			<h4>Memberships</h4>
-			<?php bp_member_profile_data( 'field=Memberships' ) ?>
+			<?php echo $template->get_xprofile_field_data( 'Memberships' ) ?>
 		</div>
 	</div>
 </form>

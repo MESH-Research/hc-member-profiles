@@ -22,10 +22,10 @@ $affiliation_search_url = add_query_arg(
 
 	<div id="item-main">
 		<h4 class="name">
-			<?php bp_member_profile_data( 'field=Name' ) ?>
+			<?php echo $template->get_xprofile_field_data( 'Name' ) ?>
 		</h4>
 		<h4 class="title">
-			<?php bp_member_profile_data( 'field=Title' ) ?>
+			<?php echo $template->get_xprofile_field_data( 'Title' ) ?>
 		</h4>
 		<h4 class="affiliation">
 			<a href="<?php echo esc_url( $affiliation_search_url ) ?>" rel="nofollow"><?php echo $affiliation_data ?></a>

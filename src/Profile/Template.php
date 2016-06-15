@@ -3,6 +3,7 @@
 namespace MLA\Commons\Profile;
 
 use \DOMDocument;
+use \MLA\Commons\Profile as Profile;
 
 class Template {
 
@@ -227,4 +228,11 @@ class Template {
 		return $html;
 	}
 
+	public function get_xprofile_field_data( $field_name = '' ) {
+		foreach ( Profile::get_instance()->xprofile_group->fields as $field ) {
+			if ( $field->name === $field_name ) {
+				return $field->get_field_data( bp_displayed_user_id() )->value;
+			}
+		}
+	}
 }
