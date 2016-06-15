@@ -3,7 +3,7 @@
 namespace MLA\Commons\Profile;
 
 use \DOMDocument;
-use \MLA\Commons\Profile as Profile;
+use \MLA\Commons\Profile;
 
 class Template {
 
