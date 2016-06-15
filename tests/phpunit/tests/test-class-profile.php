@@ -3,11 +3,6 @@
 use MLA\Commons\Profile;
 
 class Test_Profile extends BP_UnitTestCase {
-	function setup() {
-	}
-
-	function tearDown() {
-	}
 
 	function test_construct() {
 		$this->assertInstanceOf( 'MLA\Commons\Profile', new Profile );
@@ -53,4 +48,5 @@ class Test_Profile extends BP_UnitTestCase {
 			[ '', false ]
 		];
 	}
+
 }
