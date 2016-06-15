@@ -10,10 +10,12 @@ use \MLA\Commons\Profile as Profile;
 
 class Migration {
 
-	protected $xprofile_group;
 	protected $xprofile_fields;
+	protected $profile;
 
 	public function __construct() {
+		$this->profile = Profile::get_instance();
+
 		$this->xprofile_fields = [
 			'Name' => 'textbox',
 			'Institutional or Other Affiliation' => 'textbox',
@@ -27,15 +29,6 @@ class Migration {
 			'Upcoming Talks and Conferences' => 'textarea',
 			'Memberships' => 'textarea',
 		];
-		$xprofile_groups = BP_XProfile_Group::get( [ 'fetch_fields' => true ] );
-
-		foreach ( $xprofile_groups as $group ) {
-			if ( $group->name === Profile::XPROFILE_GROUP_NAME && $group->description === Profile::XPROFILE_GROUP_DESCRIPTION ) {
-				$this->xprofile_group = $group;
-				break;
-			}
-		}
-
 	}
 
 	public function convert_friends_to_followers() {
@@ -58,11 +51,11 @@ class Migration {
 	}
 
 	public function create_xprofile_group() {
-		if ( ! $this->xprofile_group ) {
-			$this->xprofile_group = new BP_XProfile_Group();
-			$this->xprofile_group->name = Profile::XPROFILE_GROUP_NAME;
-			$this->xprofile_group->description = Profile::XPROFILE_GROUP_DESCRIPTION;
-			$this->xprofile_group->save();
+		if ( ! $this->profile->xprofile_group ) {
+			$this->profile->xprofile_group = new BP_XProfile_Group();
+			$this->profile->xprofile_group->name = Profile::XPROFILE_GROUP_NAME;
+			$this->profile->xprofile_group->description = Profile::XPROFILE_GROUP_DESCRIPTION;
+			$this->profile->xprofile_group->save();
 		}
 	}
 
@@ -71,7 +64,7 @@ class Migration {
 	 */
 	public function create_xprofile_fields() {
 		$field_exists = function() use ( &$field_name, &$field_type ) {
-			foreach ( $this->xprofile_group->fields as $field ) {
+			foreach ( $this->profile->xprofile_group->fields as $field ) {
 				if ( $field->name === $field_name && $field->type === $field_type ) {
 					return true;
 				}
@@ -119,7 +112,7 @@ class Migration {
 
 		// field names are not guaranteed unique across groups, so we need to find the correct field in our group
 		$get_new_field_id_by_name = function( $name ) {
-			foreach ( $this->xprofile_group->fields as $field ) {
+			foreach ( $this->profile->xprofile_group->fields as $field ) {
 				if ( $field->name === $name ) {
 					return $field->id;
 				}
@@ -166,7 +159,7 @@ class Migration {
 		$mla_academic_interests = new Mla_Academic_Interests;
 		$term_map = [];
 
-		foreach ( $this->xprofile_group->fields as $field ) {
+		foreach ( $this->profile->xprofile_group->fields as $field ) {
 			if ( $field->name === $migrated_interests_field_name ) {
 				$migrated_interests_field_id = $field->id;
 				break;

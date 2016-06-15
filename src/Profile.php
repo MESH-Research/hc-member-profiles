@@ -3,6 +3,7 @@
 namespace MLA\Commons;
 
 use \BP_Component;
+use \BP_XProfile_Group;
 use \RecursiveDirectoryIterator;
 use \RecursiveIteratorIterator;
 use \WP_CLI;
@@ -21,6 +22,7 @@ class Profile extends BP_Component {
 	public $plugin_dir;
 	public $plugin_templates_dir;
 	public $template_files;
+	public $xprofile_group;
 
 	public function __construct() {
 		$this->plugin_dir = \plugin_dir_path( __DIR__ . '/../..' );
@@ -45,6 +47,13 @@ class Profile extends BP_Component {
 	 * TODO check if required plugins are active & throw warning or bail if not: follow, block
 	 */
 	public function init() {
+		foreach ( BP_XProfile_Group::get( [ 'fetch_fields' => true ] ) as $group ) {
+			if ( $group->name === self::XPROFILE_GROUP_NAME && $group->description === self::XPROFILE_GROUP_DESCRIPTION ) {
+				$this->xprofile_group = $group;
+				break;
+			}
+		}
+
 		if ( ! \bp_is_user_change_avatar() && ( \bp_is_user_profile() || \bp_is_user_profile_edit() ) ) {
 			\add_filter( 'load_template', [ $this, 'filter_load_template' ] );
 			\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
