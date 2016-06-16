@@ -32,21 +32,25 @@ class Profile extends BP_Component {
 	const XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES = 'Upcoming Talks and Conferences';
 	const XPROFILE_FIELD_NAME_MEMBERSHIPS = 'Memberships';
 
+	/**
+	 * paths to commonly used directories
+	 */
+	public static $plugin_dir;
+	public static $plugin_templates_dir;
+
+	/**
+	 * singleton, see get_instance()
+	 */
 	protected static $instance;
 
-	public $plugin_dir;
-	public $plugin_templates_dir;
-	public $template_files;
-
+	/**
+	 * BP_XProfile_Group object identified by XPROFILE_GROUP_NAME & XPROFILE_GROUP_DESCRIPTION
+	 */
 	public $xprofile_group;
 
 	public function __construct() {
-		$this->plugin_dir = \plugin_dir_path( __DIR__ . '/../..' );
-		$this->plugin_templates_dir = \trailingslashit( $this->plugin_dir . 'templates' );
-		$this->template_files = new RecursiveIteratorIterator(
-			new RecursiveDirectoryIterator( $this->plugin_templates_dir ),
-			RecursiveIteratorIterator::SELF_FIRST
-		);
+		self::$plugin_dir = \plugin_dir_path( __DIR__ . '/../..' );
+		self::$plugin_templates_dir = \trailingslashit( self::$plugin_dir . 'templates' );
 
 		if( defined( 'WP_CLI' ) && WP_CLI ) {
 			WP_CLI::add_command( 'profile', __NAMESPACE__ . '\Profile\CLI' );
@@ -96,9 +100,13 @@ class Profile extends BP_Component {
 
 	public function filter_load_template( $path ) {
 		$their_slug = str_replace( \trailingslashit( STYLESHEETPATH ), '', $path );
+		$template_files = new RecursiveIteratorIterator(
+			new RecursiveDirectoryIterator( self::$plugin_templates_dir ),
+			RecursiveIteratorIterator::SELF_FIRST
+		);
 
-		foreach( $this->template_files as $name => $object ){
-			$our_slug = str_replace( $this->plugin_templates_dir, '', $name );
+		foreach( $template_files as $name => $object ){
+			$our_slug = str_replace( self::$plugin_templates_dir, '', $name );
 
 			if ( $our_slug === $their_slug ) {
 				return $name;

@@ -26,12 +26,12 @@ class Test_Profile extends BP_UnitTestCase {
 		$result = $instance->filter_load_template( $template_name );
 
 		if ( $should_replace ) {
-			$this->assertContains( $instance->plugin_templates_dir, $result );
+			$this->assertContains( Profile::$plugin_templates_dir, $result );
 		} else {
 			$this->assertThat(
 				$result,
 				$this->logicalNot(
-					$this->stringContains( $instance->plugin_templates_dir )
+					$this->stringContains( Profile::$plugin_templates_dir )
 				)
 			);
 		}
