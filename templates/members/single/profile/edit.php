@@ -1,6 +1,13 @@
-<?php do_action( 'bp_before_profile_edit_content' ); ?>
+<?php
 
-<?php $template = new MLA\Commons\Profile\Template; ?>
+use MLA\Commons\Profile;
+use MLA\Commons\Profile\Template;
+
+$template = new Template;
+
+do_action( 'bp_before_profile_edit_content' );
+
+?>
 
 <?php if ( bp_has_profile( 'profile_group_id=' . bp_get_current_profile_group_id() ) ) : ?>
 	<?php while ( bp_profile_groups() ) : bp_the_profile_group(); ?>
@@ -28,19 +35,19 @@
 			<div class="right">
 				<div class="about editable">
 					<h4>About</h4>
-					<?php $template->get_edit_field( 'About' ) ?>
+					<?php $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_ABOUT ) ?>
 				</div>
 				<div class="education editable">
 					<h4>Education</h4>
-					<?php $template->get_edit_field( 'Education' ) ?>
+					<?php $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_EDUCATION ) ?>
 				</div>
 				<div class="publications editable">
 					<h4>Publications</h4>
-					<?php $template->get_edit_field( 'Publications' ) ?>
+					<?php $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_PUBLICATIONS ) ?>
 				</div>
 				<div class="projects editable">
 					<h4>Projects</h4>
-					<?php $template->get_edit_field( 'Projects' ) ?>
+					<?php $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_PROJECTS ) ?>
 				</div>
 				<div class="work-shared-in-core">
 					<h4>Work Shared in CORE</h4>
@@ -48,11 +55,11 @@
 				</div>
 				<div class="upcoming-talks-and-conferences editable">
 					<h4>Upcoming Talks and Conferences</h4>
-					<?php $template->get_edit_field( 'Upcoming Talks and Conferences' ) ?>
+					<?php $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES ) ?>
 				</div>
 				<div class="memberships editable">
 					<h4>Memberships</h4>
-					<?php $template->get_edit_field( 'Memberships' ) ?>
+					<?php $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS ) ?>
 				</div>
 			</div>
 

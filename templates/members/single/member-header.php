@@ -1,10 +1,13 @@
 <?php
 
+use MLA\Commons\Profile;
+use MLA\Commons\Profile\Template;
+
 do_action( 'bp_before_member_header' );
 
-$template = new MLA\Commons\Profile\Template;
+$template = new Template;
 $follow_counts = $template->get_follow_counts();
-$affiliation_data = bp_get_member_profile_data( 'field=Institutional or Other Affiliation' );
+$affiliation_data = $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION );
 $affiliation_search_url = add_query_arg(
 	[ 's' => urlencode( $affiliation_data ) ],
 	bp_get_members_directory_permalink()
@@ -22,10 +25,10 @@ $affiliation_search_url = add_query_arg(
 
 	<div id="item-main">
 		<h4 class="name">
-			<?php echo $template->get_xprofile_field_data( 'Name' ) ?>
+			<?php echo $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_NAME ) ?>
 		</h4>
 		<h4 class="title">
-			<?php echo $template->get_xprofile_field_data( 'Title' ) ?>
+			<?php echo $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_TITLE ) ?>
 		</h4>
 		<h4 class="affiliation">
 			<a href="<?php echo esc_url( $affiliation_search_url ) ?>" rel="nofollow"><?php echo $affiliation_data ?></a>

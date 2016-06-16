@@ -1,8 +1,15 @@
-<?php do_action( 'bp_before_profile_loop_content' ); ?>
+<?php
 
-<?php $template = new MLA\Commons\Profile\Template; ?>
+use MLA\Commons\Profile;
+use MLA\Commons\Profile\Template;
 
-<form> <?php // only here for styling consistency between edit & view modes ?>
+$template = new Template;
+
+do_action( 'bp_before_profile_loop_content' );
+
+?>
+
+<form> <?php // <form> is only here for styling consistency between edit & view modes ?>
 	<div class="left">
 		<div class="academic-interests wordblock">
 			<h4>Academic Interests</h4>
@@ -25,19 +32,19 @@
 	<div class="right">
 		<div class="about">
 			<h4>About</h4>
-			<?php echo $template->get_xprofile_field_data( 'About' ) ?>
+			<?php echo $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_ABOUT ) ?>
 		</div>
 		<div class="education">
 			<h4>Education</h4>
-			<?php echo $template->get_xprofile_field_data( 'Education' ) ?>
+			<?php echo $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_EDUCATION ) ?>
 		</div>
 		<div class="publications">
 			<h4>Publications</h4>
-			<?php echo $template->get_xprofile_field_data( 'Publications' ) ?>
+			<?php echo $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_PUBLICATIONS ) ?>
 		</div>
 		<div class="projects">
 			<h4>Projects</h4>
-			<?php echo $template->get_xprofile_field_data( 'Projects' ) ?>
+			<?php echo $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_PROJECTS ) ?>
 		</div>
 		<div class="work-shared-in-core">
 			<h4>Work Shared in CORE</h4>
@@ -45,11 +52,11 @@
 		</div>
 		<div class="upcoming-talks-and-conferences">
 			<h4>Upcoming Talks and Conferences</h4>
-			<?php echo $template->get_xprofile_field_data( 'Upcoming Talks and Conferences' ) ?>
+			<?php echo $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES ) ?>
 		</div>
 		<div class="memberships">
 			<h4>Memberships</h4>
-			<?php echo $template->get_xprofile_field_data( 'Memberships' ) ?>
+			<?php echo $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS ) ?>
 		</div>
 	</div>
 </form>
