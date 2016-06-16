@@ -7,16 +7,11 @@ use \MLA\Commons\Profile;
 
 class Template {
 
-	/**
-	 * @uses bp_follow_total_follow_counts()
-	 */
 	public function get_follow_counts() {
 		$follow_counts = 0;
 
 		if ( function_exists( 'bp_follow_total_follow_counts' ) ) {
 			$follow_counts = \bp_follow_total_follow_counts();
-		} else {
-			// TODO log error
 		}
 
 		return $follow_counts;
@@ -256,4 +251,5 @@ class Template {
 
 		return "<a href=\"$url\">$value</a>";
 	}
+
 }

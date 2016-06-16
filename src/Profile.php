@@ -62,9 +62,6 @@ class Profile {
 		return self::$instance = ( null === self::$instance ) ? new self : self::$instance;
 	}
 
-	/**
-	 * TODO check if required plugins are active & throw warning or bail if not: follow, block
-	 */
 	public function init() {
 		foreach ( BP_XProfile_Group::get( [ 'fetch_fields' => true ] ) as $group ) {
 			if ( $group->name === self::XPROFILE_GROUP_NAME && $group->description === self::XPROFILE_GROUP_DESCRIPTION ) {

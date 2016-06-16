@@ -14,6 +14,7 @@ class Export {
 
 		$groups = \BP_XProfile_Group::get( [ 'fetch_fields' => true ] );
 
+		// this is NOT the group used by this plugin (probably), should change to be configurable or export all groups
 		$fields = $groups[0]->fields;
 
 		$user_id = 1;
