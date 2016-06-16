@@ -242,7 +242,6 @@ class Template {
 		$value = $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_SITE );
 		$url = $value;
 
-		$value = 'www.google.com';
 		// add scheme to value if necessary to create (hopefully) valid url for href
 		if ( strpos( 'http', $value ) !== 1 ) {
 			$url = 'http://' . $value;
