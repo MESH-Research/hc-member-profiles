@@ -2,13 +2,12 @@
 
 namespace MLA\Commons;
 
-use \BP_Component;
 use \BP_XProfile_Group;
 use \RecursiveDirectoryIterator;
 use \RecursiveIteratorIterator;
 use \WP_CLI;
 
-class Profile extends BP_Component {
+class Profile {
 
 	/**
 	 * Used by MLA\Commons\Profile\Migration when creating the xprofile group this plugin uses.
