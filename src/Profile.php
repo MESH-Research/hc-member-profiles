@@ -78,6 +78,7 @@ class Profile extends BP_Component {
 			\add_filter( 'load_template', [ $this, 'filter_load_template' ] );
 			\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 			\add_action( 'xprofile_updated_profile', [ $this, 'save_academic_interests' ] );
+			\add_action( 'bp_before_profile_edit_content', [ $this, 'init_profile_edit' ] );
 		}
 
 		// disable buddypress friends component in favor of follow/block
@@ -96,6 +97,15 @@ class Profile extends BP_Component {
 	public function enqueue_scripts() {
 		\wp_enqueue_style( 'mla_commons_profile_main_css', \plugins_url() . '/profile/css/main.css' );
 		\wp_enqueue_script( 'mla_commons_profile_main_js', \plugins_url() . '/profile/js/main.js' );
+	}
+
+	/**
+	 * initializes the profile field group loop
+	 * templates do not actually use this loop, but do use variables initialized by bp_the_profile_group()
+	 */
+	public function init_profile_edit() {
+		bp_has_profile( 'profile_group_id=' . $this->xprofile_group->id );
+		bp_the_profile_group();
 	}
 
 	public function filter_load_template( $path ) {
