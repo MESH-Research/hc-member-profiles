@@ -74,9 +74,10 @@ class Profile extends BP_Component {
 			}
 		}
 
+		\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+
 		if ( ! \bp_is_user_change_avatar() && ( \bp_is_user_profile() || \bp_is_user_profile_edit() ) ) {
 			\add_filter( 'load_template', [ $this, 'filter_load_template' ] );
-			\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 			\add_action( 'xprofile_updated_profile', [ $this, 'save_academic_interests' ] );
 			\add_action( 'bp_before_profile_edit_content', [ $this, 'init_profile_edit' ] );
 		}
