@@ -84,8 +84,5 @@
         }
       } );
     } )();
-
-    // initialize select2 on academic interests edit field
-    $( '.js-basic-multiple-tags' ).select2();
   } );
 } )( jQuery );
