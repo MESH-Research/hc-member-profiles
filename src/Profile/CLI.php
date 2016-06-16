@@ -20,13 +20,13 @@ class CLI {
 			$migration = new Migration;
 
 			WP_CLI::log( "Converting friends to followers" );
-			//$migration->convert_friends_to_followers();
+			$migration->convert_friends_to_followers();
 
 			WP_CLI::log( "Creating xprofile group" );
-			//$migration->create_xprofile_group();
+			$migration->create_xprofile_group();
 
 			WP_CLI::log( "Creating xprofile fields" );
-			//$migration->create_xprofile_fields();
+			$migration->create_xprofile_fields();
 
 			WP_CLI::log( "Migrating xprofile field data" );
 			$migration->migrate_xprofile_field_data();
