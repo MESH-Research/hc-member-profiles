@@ -10,7 +10,12 @@ do_action( 'bp_before_profile_edit_content' );
 ?>
 
 <form action="<?php bp_the_profile_group_edit_form_action(); ?>" method="post" id="profile-edit-form" class="standard-form <?php bp_the_profile_group_slug(); ?>">
+
 	<div class="left">
+		<div class="social">
+			<?php $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME ) ?>
+			<?php $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_SITE ) ?>
+		</div>
 		<div class="academic-interests editable">
 			<h4>Academic Interests</h4>
 			<?php echo $template->get_academic_interests_edit(); ?>

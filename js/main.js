@@ -3,36 +3,6 @@
  */
 ( function( $ ) {
   $( document ).ready( function() {
-    // header fields (hidden in main form, duplicated to be accessible by user in the header)
-    var init_social_fields = ( function() {
-      var social_field_change_handler = function ( e ) {
-        var input = $( this ).find( 'input' );
-        $( '#profile-edit-form input[name=' + input.attr( 'name' ) + ']' ).val( input.val() );
-      };
-      $( '#profile-edit-form' ).find( '.field-twitter, .field-facebook, .field-linkedin, .field-orcid' ).each( function () {
-        var clone = $( this ).clone();
-
-        // only keep label & input, no permissions radios (or anything else)
-        clone
-          .find( ':not( label[for^=field], input[id^=field] )' )
-          .remove();
-
-        // remove id to prevent conflict
-        clone
-          .find( 'input' )
-          .removeAttr( 'id' );
-
-        // remove corresponding view-only div
-        $( '#item-header-content #item-main' )
-          .find( '.' + clone.attr( 'class' ) )
-          .remove();
-
-        // move to header
-        clone
-          .appendTo( '#item-header-content #item-main' )
-          .change( social_field_change_handler );
-      } );
-    } )();
 
     var init_visibility_controls = ( function() {
       $( '#profile-edit-form .editable' ).each( function() {
