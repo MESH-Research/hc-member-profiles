@@ -44,15 +44,5 @@
       } );
     } )();
 
-    // highlight changed fields to encourage user to save changes
-    var init_change_highlighting = ( function() {
-      $( '#profile-edit-form select, #profile-edit-form input, #profile-edit-form textarea, #item-main input' ).change( function() {
-        if ( $( this ).is( 'select' ) ) {
-          $( this ).siblings( '.select2' ).find( '.select2-selection' ).addClass( 'changed' );
-        } else {
-          $( this ).addClass( 'changed' );
-        }
-      } );
-    } )();
   } );
 } )( jQuery );
