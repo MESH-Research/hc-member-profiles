@@ -4,7 +4,6 @@ use MLA\Commons\Profile;
 use MLA\Commons\Profile\Template;
 
 $template = new Template;
-$profile = new Profile;
 
 do_action( 'bp_before_profile_edit_content' );
 
