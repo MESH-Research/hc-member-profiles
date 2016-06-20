@@ -98,6 +98,9 @@ class Migration {
 	public function migrate_xprofile_field_data() {
 		global $wpdb;
 
+		// unless we remove this filter, html is stripped from some field values. we want the real value, not filtered
+		remove_filter( 'xprofile_get_field_data', 'xprofile_filter_kses', 1 );
+
 		// group that contains old fields
 		// TODO for easier reuse on other sites, this should be in a configuration file somewhere
 		$old_group_id = 0;
