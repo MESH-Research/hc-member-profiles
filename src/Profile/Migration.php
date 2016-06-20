@@ -86,8 +86,9 @@ class Migration {
 		// populate instantiated group with newly created fields
 		$this->profile->xprofile_group = BP_XProfile_Group::get( [
 			'group_id' => $this->profile->xprofile_group->id,
-			'fetch_fields' => true
-		] )[0];
+			'fetch_fields' => true,
+
+		] )[1]; // [1] since we expect a single existing group. in the future this should become configurable
 	}
 
 	/**
