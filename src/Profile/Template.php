@@ -260,4 +260,16 @@ class Template {
 		return $value;
 	}
 
+	public function get_xprofile_field_visibility( $field_name = '' ) {
+		foreach ( Profile::get_instance()->xprofile_group->fields as $field ) {
+			if ( $field->name === $field_name ) {
+				return \xprofile_get_field_visibility_level( $field->id, bp_displayed_user_id() );
+			}
+		}
+	}
+
+	public function is_field_visible( $field_name = '' ) {
+		return $this->get_xprofile_field_visibility( $field_name ) === 'public';
+	}
+
 }
