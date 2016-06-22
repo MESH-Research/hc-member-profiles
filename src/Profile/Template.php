@@ -252,6 +252,10 @@ class Template {
 		return $value;
 	}
 
+	public function get_username_link() {
+		return '<a href="' . bp_get_send_private_message_link() . '">@' . bp_get_displayed_user_username() . '</a>';
+	}
+
 	public function get_site_link() {
 		$value = $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_SITE );
 
