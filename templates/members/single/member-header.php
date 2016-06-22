@@ -34,10 +34,10 @@ $affiliation_search_url = add_query_arg(
 			<a href="<?php echo esc_url( $affiliation_search_url ) ?>" rel="nofollow"><?php echo $affiliation_data ?></a>
 		</h4>
 		<div class="username">
-			<?php echo "@" . bp_get_displayed_user_username() ?>
+			<em>Commons</em> username: <?php echo "@" . bp_get_displayed_user_username() ?>
 		</div>
 		<div class="twitter">
-			<?php echo $template->get_twitter_link() ?>
+			<em>Twitter</em> handle: <?php echo $template->get_twitter_link() ?>
 		</div>
 		<div class="site">
 			<?php echo $template->get_site_link() ?>
