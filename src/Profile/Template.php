@@ -64,12 +64,16 @@ class Template {
 		\bp_has_profile( [ 'profile_group_id' => Profile::get_instance()->xprofile_group->id ] ); // select our group
 		\bp_the_profile_group(); // start (abuse) the loop
 
+		$html = '';
+
 		while ( \bp_profile_fields() ) {
 			\bp_the_profile_field();
 
 			if ( \bp_get_the_profile_field_name() !== $field_name ) {
 				continue;
 			}
+
+			ob_start();
 
 			$field_type = \bp_xprofile_create_field_type( \bp_get_the_profile_field_type() );
 
@@ -79,8 +83,13 @@ class Template {
 			\bp_profile_visibility_radio_buttons();
 
 			\do_action( 'bp_custom_profile_edit_fields' );
+
+			$html = ob_get_clean();
+
 			break; // once we output the field we want, no need to continue looping
 		}
+
+		return $html;
 	}
 
 	/**
