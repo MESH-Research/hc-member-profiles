@@ -228,11 +228,13 @@ class Template {
 
 		// move "edit" element to the end
 		$edit_node = $html_doc->getElementById( 'edit-personal-li' );
-		$edit_node->firstChild->setAttribute(
-			'class',
-			$edit_node->firstChild->getAttribute( 'class' ) . ' button'
-		);
-		$html_doc->appendChild( $edit_node ); // this ends up after the <ul>, but we remove that anyway
+		if ( $edit_node ) {
+			$edit_node->firstChild->setAttribute(
+				'class',
+				$edit_node->firstChild->getAttribute( 'class' ) . ' button'
+			);
+			$html_doc->appendChild( $edit_node ); // this ends up after the <ul>, but we remove that anyway
+		}
 
 		$html = $html_doc->saveHTML();
 
