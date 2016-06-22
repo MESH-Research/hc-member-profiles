@@ -12,6 +12,11 @@ do_action( 'bp_before_profile_edit_content' );
 <form action="<?php bp_the_profile_group_edit_form_action(); ?>" method="post" id="profile-edit-form" class="standard-form <?php bp_the_profile_group_slug(); ?>">
 
 	<div class="left">
+		<div class="synced">
+			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_NAME ) ?>
+			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_TITLE ) ?>
+			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION ) ?>
+		</div>
 		<div class="social">
 			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME ) ?>
 			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_SITE ) ?>

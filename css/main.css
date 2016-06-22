@@ -127,6 +127,7 @@
  * edit-specific styles
  */
 
+.profile-edit .synced,
 .profile-edit .editable > label,
 .profile-edit #profile-main form .radio {
   display: none;
