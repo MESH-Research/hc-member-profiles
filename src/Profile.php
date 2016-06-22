@@ -77,6 +77,9 @@ class Profile {
 			\add_filter( 'load_template', [ $this, 'filter_load_template' ] );
 			\add_action( 'xprofile_updated_profile', [ $this, 'save_academic_interests' ] );
 			\add_action( 'bp_before_profile_edit_content', [ $this, 'init_profile_edit' ] );
+
+			// we want the full value including existing html in edit field inputs
+			\remove_filter( 'bp_get_the_profile_field_edit_value', 'wp_filter_kses', 1 );
 		}
 
 		// disable buddypress friends component in favor of follow/block
