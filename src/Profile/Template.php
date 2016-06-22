@@ -108,11 +108,8 @@ class Template {
 				$displayed_user_fullname = \bp_get_displayed_user_fullname();
 				$link_text_char_limit = 30;
 
-				// shorten/change some action descriptions
-				switch ( $activity_type ) {
-				case 'updated_profile':
-					$action = "updated profile"; // default action is "<name>'s profile was updated"
-					break;
+				if ( $activity_type === 'updated_profile' ) {
+					continue;
 				}
 
 				// some types end their action strings with ':' - remove it
