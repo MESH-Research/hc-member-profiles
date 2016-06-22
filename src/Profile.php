@@ -23,7 +23,7 @@ class Profile {
 	const XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION = 'Institutional or Other Affiliation';
 	const XPROFILE_FIELD_NAME_TITLE = 'Title';
 	const XPROFILE_FIELD_NAME_SITE = 'Site';
-	const XPROFILE_FIELD_NAME_TWITTER_USER_NAME = '<em>Twitter</em> user name';
+	const XPROFILE_FIELD_NAME_TWITTER_USER_NAME = '<em>Twitter</em> handle';
 	const XPROFILE_FIELD_NAME_ABOUT = 'About';
 	const XPROFILE_FIELD_NAME_EDUCATION = 'Education';
 	const XPROFILE_FIELD_NAME_PUBLICATIONS = 'Publications';

@@ -34,7 +34,7 @@ $affiliation_search_url = add_query_arg(
 			<a href="<?php echo esc_url( $affiliation_search_url ) ?>" rel="nofollow"><?php echo $affiliation_data ?></a>
 		</h4>
 		<div class="username">
-			<em>Commons</em> user name: <?php echo $template->get_username_link() ?>
+			<em>Commons</em> username: <?php echo $template->get_username_link() ?>
 		</div>
 		<div class="twitter">
 			<?php echo Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME ?>: <?php echo $template->get_twitter_link() ?>
