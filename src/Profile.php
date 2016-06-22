@@ -71,6 +71,7 @@ class Profile {
 		}
 
 		\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		\add_filter( 'xprofile_allowed_tags', [ $this, 'filter_xprofile_allowed_tags' ] );
 
 		if ( ! \bp_is_user_change_avatar() && ( \bp_is_user_profile() || \bp_is_user_profile_edit() ) ) {
 			\add_filter( 'load_template', [ $this, 'filter_load_template' ] );
@@ -80,6 +81,12 @@ class Profile {
 
 		// disable buddypress friends component in favor of follow/block
 		$this->disable_bp_component( 'friends' );
+
+	}
+
+	public function filter_xprofile_allowed_tags( $allowed_tags ) {
+		$allowed_tags['br'] = [];
+		return $allowed_tags;
 	}
 
 	public function disable_bp_component( $component_name ) {
