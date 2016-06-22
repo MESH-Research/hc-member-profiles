@@ -219,11 +219,31 @@ class Template {
 
 		$html = ob_get_clean();
 
-		$html = preg_replace( '/generic-button/', '', $html ); // remove button class from action buttons
+		$html_doc = new DOMDocument;
+
+		// encoding prevents mangling of multibyte characters
+		// constants ensure no <body> or <doctype> tags are added
+		// wrapping <ul> ensures document is parsed with correct hierarchy so we can append a child
+		$html_doc->loadHTML(
+			mb_convert_encoding( '<ul>' . $html . '</ul>', 'HTML-ENTITIES', 'UTF-8' ),
+			LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+		);
+
+		// move "edit" element to the end
+		$edit_node_original = $html_doc->getElementById( 'edit-personal-li' );
+		$html_doc->appendChild( $edit_node_original ); // this ends up after the <ul>, but we remove that anyway
+
+		$html = $html_doc->saveHTML();
+
+		// remove wrapping <ul> now that DOMDocument is finished
+		$html = preg_replace( '/<\/?ul>/', '', $html );
+
+		// remove button class from action buttons
+		$html = str_replace( 'generic-button', '', $html );
 
 		// turn nav <li>s into <div>s
-		$html = preg_replace( '/<li/', '<div', $html );
-		$html = preg_replace( '/li>/', 'div>', $html );
+		$html = str_replace( '<li', '<div', $html );
+		$html = str_replace( 'li>', 'div>', $html );
 
 		return $html;
 	}
