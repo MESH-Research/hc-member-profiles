@@ -243,6 +243,7 @@ class Migration {
 				// if we removed terms, save new data
 				//var_dump($old_interest_data);
 				//var_dump($new_migrated_interests_field_data);
+				/* disabled!
 				if ( $new_migrated_interests_field_data !== $old_interest_data ) {
 					$remove_old_term_result = \xprofile_set_field_data(
 						$migrated_interests_field_id,
@@ -250,6 +251,7 @@ class Migration {
 						$new_migrated_interests_field_data
 					);
 				}
+				 */
 			}
 
 			if ( ! empty( $_POST ) ) {
