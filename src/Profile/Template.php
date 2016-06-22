@@ -206,9 +206,6 @@ class Template {
 		return $html;
 	}
 
-	/**
-	 * no filter exists for these, so DIY
-	 */
 	public function get_header_actions() {
 		$html = '';
 
@@ -230,8 +227,12 @@ class Template {
 		);
 
 		// move "edit" element to the end
-		$edit_node_original = $html_doc->getElementById( 'edit-personal-li' );
-		$html_doc->appendChild( $edit_node_original ); // this ends up after the <ul>, but we remove that anyway
+		$edit_node = $html_doc->getElementById( 'edit-personal-li' );
+		$edit_node->firstChild->setAttribute(
+			'class',
+			$edit_node->firstChild->getAttribute( 'class' ) . ' button'
+		);
+		$html_doc->appendChild( $edit_node ); // this ends up after the <ul>, but we remove that anyway
 
 		$html = $html_doc->saveHTML();
 

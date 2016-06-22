@@ -118,6 +118,11 @@
   text-decoration: underline;
 }
 
+.profile #item-header #edit {
+  color: #07d;
+  margin: 0.5em 0 0;
+}
+
 /**
  * edit-specific styles
  */
