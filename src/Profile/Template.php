@@ -286,7 +286,10 @@ class Template {
 	}
 
 	public function get_username_link() {
-		return '<a href="' . bp_get_send_private_message_link() . '">@' . bp_get_displayed_user_username() . '</a>';
+		$html = '<a href="' . bp_get_send_private_message_link() . '" title="Send private message">';
+		$html .= '@' . bp_get_displayed_user_username();
+		$html .= '</a>';
+		return $html;
 	}
 
 	public function get_site_link() {
