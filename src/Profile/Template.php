@@ -272,6 +272,19 @@ class Template {
 		return $value;
 	}
 
+	/**
+	 * returns html linking to the twitter page of the user with the twitter handle as link text
+	 */
+	public function get_orcid_link() {
+		$value = $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_ORCID );
+
+		if ( ! empty( $value ) ) {
+			$value = "<a href=\"http://orcid.org/$value\">$value</a>";
+		}
+
+		return $value;
+	}
+
 	public function get_username_link() {
 		return '<a href="' . bp_get_send_private_message_link() . '">@' . bp_get_displayed_user_username() . '</a>';
 	}

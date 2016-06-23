@@ -22,6 +22,7 @@ class Migration {
 			Profile::XPROFILE_FIELD_NAME_TITLE => 'textbox',
 			Profile::XPROFILE_FIELD_NAME_SITE => 'textbox',
 			Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME => 'textbox',
+			Profile::XPROFILE_FIELD_NAME_ORCID => 'textbox',
 			Profile::XPROFILE_FIELD_NAME_ABOUT => 'textarea',
 			Profile::XPROFILE_FIELD_NAME_EDUCATION => 'textarea',
 			Profile::XPROFILE_FIELD_NAME_PUBLICATIONS => 'textarea',

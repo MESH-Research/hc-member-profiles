@@ -13,6 +13,7 @@ $affiliation_search_url = add_query_arg(
 	bp_get_members_directory_permalink()
 );
 $twitter_link = $template->get_twitter_link();
+$orcid_link = $template->get_orcid_link();
 
 ?>
 
@@ -40,6 +41,11 @@ $twitter_link = $template->get_twitter_link();
 		<?php if ( $twitter_link ) : ?>
 			<div class="twitter">
 				<?php echo Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME ?>: <?php echo $twitter_link ?>
+			</div>
+		<?php endif ?>
+		<?php if ( $orcid_link ) : ?>
+			<div class="orcid">
+				<?php echo Profile::XPROFILE_FIELD_NAME_ORCID ?>: <?php echo $orcid_link ?>
 			</div>
 		<?php endif ?>
 		<div class="site">
