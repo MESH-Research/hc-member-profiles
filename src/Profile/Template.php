@@ -305,4 +305,17 @@ class Template {
 		return $this->get_xprofile_field_visibility( $field_name ) === 'public';
 	}
 
+	/**
+	 * returns field data with header label wrapped in a div
+	 */
+	public function get_field( $field_name = '' ) {
+		$html = '';
+		if ( $this->is_field_visible( $field_name ) ) {
+			$html .= '<div class="' . \sanitize_title( $field_name ) . '">';
+			$html .= "<h4>$field_name</h4>";
+			$html .= $this->get_xprofile_field_data( $field_name );
+			$html .= '</div>';
+		}
+		return $html;
+	}
 }

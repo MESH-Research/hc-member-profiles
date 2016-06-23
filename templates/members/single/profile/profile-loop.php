@@ -30,46 +30,13 @@ do_action( 'bp_before_profile_loop_content' );
 	</div>
 
 	<div class="right">
-		<?php if ( $template->is_field_visible( Profile::XPROFILE_FIELD_NAME_ABOUT ) ) : ?>
-			<div class="about">
-				<h4>About</h4>
-				<?php echo $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_ABOUT ) ?>
-			</div>
-		<?php endif ?>
-		<?php if ( $template->is_field_visible( Profile::XPROFILE_FIELD_NAME_EDUCATION ) ) : ?>
-			<div class="education">
-				<h4>Education</h4>
-				<?php echo $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_EDUCATION ) ?>
-			</div>
-		<?php endif ?>
-		<?php if ( $template->is_field_visible( Profile::XPROFILE_FIELD_NAME_PUBLICATIONS ) ) : ?>
-			<div class="publications">
-				<h4>Publications</h4>
-				<?php echo $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_PUBLICATIONS ) ?>
-			</div>
-		<?php endif ?>
-		<?php if ( $template->is_field_visible( Profile::XPROFILE_FIELD_NAME_PROJECTS ) ) : ?>
-			<div class="projects">
-				<h4>Projects</h4>
-				<?php echo $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_PROJECTS ) ?>
-			</div>
-		<?php endif ?>
-		<div class="work-shared-in-core">
-			<h4>Work Shared in CORE</h4>
-			<?php echo $template->get_core_deposits(); ?>
-		</div>
-		<?php if ( $template->is_field_visible( Profile::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES ) ) : ?>
-			<div class="upcoming-talks-and-conferences">
-				<h4>Upcoming Talks and Conferences</h4>
-				<?php echo $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES ) ?>
-			</div>
-		<?php endif ?>
-		<?php if ( $template->is_field_visible( Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS ) ) : ?>
-			<div class="memberships">
-				<h4>Memberships</h4>
-				<?php echo $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS ) ?>
-			</div>
-		<?php endif ?>
+		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_ABOUT ) ?>
+		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_EDUCATION ) ?>
+		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_PUBLICATIONS ) ?>
+		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_PROJECTS ) ?>
+		<div class="work-shared-in-core"><h4>Work Shared in CORE</h4><?php echo $template->get_core_deposits(); ?></div>
+		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES ) ?>
+		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS ) ?>
 	</div>
 </form>
 
