@@ -11,7 +11,7 @@ class Template {
 		$follow_counts = 0;
 
 		if ( function_exists( 'bp_follow_total_follow_counts' ) ) {
-			$follow_counts = \bp_follow_total_follow_counts();
+			$follow_counts = \bp_follow_total_follow_counts( [ 'user_id' => \bp_displayed_user_id() ] );
 		}
 
 		return $follow_counts;
