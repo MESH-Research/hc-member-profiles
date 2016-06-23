@@ -12,6 +12,7 @@ $affiliation_search_url = add_query_arg(
 	[ 's' => urlencode( $affiliation_data ) ],
 	bp_get_members_directory_permalink()
 );
+$twitter_link = $template->get_twitter_link();
 
 ?>
 
@@ -36,9 +37,11 @@ $affiliation_search_url = add_query_arg(
 		<div class="username">
 			<em>Commons</em> username: <?php echo $template->get_username_link() ?>
 		</div>
-		<div class="twitter">
-			<?php echo Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME ?>: <?php echo $template->get_twitter_link() ?>
-		</div>
+		<?php if ( $twitter_link ) : ?>
+			<div class="twitter">
+				<?php echo Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME ?>: <?php echo $twitter_link ?>
+			</div>
+		<?php endif ?>
 		<div class="site">
 			<?php echo $template->get_site_link() ?>
 		</div>
