@@ -13,7 +13,6 @@ class Test_Profile extends BP_UnitTestCase {
 	}
 
 	/**
-	 * @uses locate_template()
 	 * @dataProvider filter_load_template_provider
 	 */
 	function test_filter_load_template( $template_name, $should_replace ) {

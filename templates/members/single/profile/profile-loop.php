@@ -10,6 +10,7 @@ do_action( 'bp_before_profile_loop_content' );
 ?>
 
 <form> <?php // <form> is only here for styling consistency between edit & view modes ?>
+
 	<div class="left">
 		<div class="academic-interests wordblock">
 			<h4>Academic Interests</h4>
@@ -38,6 +39,7 @@ do_action( 'bp_before_profile_loop_content' );
 		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES ) ?>
 		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS ) ?>
 	</div>
+
 </form>
 
 <?php do_action( 'bp_after_profile_loop_content' ); ?>

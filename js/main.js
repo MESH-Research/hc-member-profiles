@@ -47,6 +47,11 @@
       $( '#profile-edit-form input' ).on( 'change', mla_commons_profile.editor_change_handler );
     },
 
+    /**
+     * when changes are made to any field, alert the user their changes are not yet saved
+     * for now, just hide the "saved" notice if it exists to avoid confusion
+     * TODO highlight changed field(s) (three separate field types to deal with: normal inputs, select2, & tinymce)
+     */
     editor_change_handler: function() {
       $( '.bp-template-notice.updated' ).slideUp();
     }
