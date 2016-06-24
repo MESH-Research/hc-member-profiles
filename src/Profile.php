@@ -75,7 +75,9 @@ class Profile {
 		\add_filter( 'xprofile_allowed_tags', [ $this, 'filter_xprofile_allowed_tags' ] );
 
 		if ( ! \bp_is_user_change_avatar() && ( \bp_is_user_profile() || \bp_is_user_profile_edit() ) ) {
+			\add_filter( 'teeny_mce_before_init', [ $this, 'filter_teeny_mce_before_init' ] );
 			\add_filter( 'load_template', [ $this, 'filter_load_template' ] );
+
 			\add_action( 'xprofile_updated_profile', [ $this, 'save_academic_interests' ] );
 			\add_action( 'bp_before_profile_edit_content', [ $this, 'init_profile_edit' ] );
 
@@ -86,6 +88,16 @@ class Profile {
 		// disable buddypress friends component in favor of follow/block
 		$this->disable_bp_component( 'friends' );
 
+	}
+
+	public function filter_teeny_mce_before_init( $args ) {
+		$js = file_get_contents( self::$plugin_dir . 'js/teeny_mce_before_init.js' );
+
+		if ( $js ) {
+			$args['setup'] = $js;
+		}
+
+		return $args;
 	}
 
 	public function filter_xprofile_allowed_tags( $allowed_tags ) {
