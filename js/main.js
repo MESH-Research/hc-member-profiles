@@ -8,7 +8,7 @@
 
     init: function() {
       // visibility controls
-       $( '#profile-edit-form .editable' ).each( function() {
+       $( '#profile-edit-form .editable.hideable' ).each( function() {
         var div = $( this );
 
         // add visibility controls
