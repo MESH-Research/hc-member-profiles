@@ -71,11 +71,11 @@ class Profile {
 			}
 		}
 
-		\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		\add_filter( 'xprofile_allowed_tags', [ $this, 'filter_xprofile_allowed_tags' ] );
 
 		if ( ! \bp_is_user_change_avatar() && ( \bp_is_user_profile() || \bp_is_user_profile_edit() ) ) {
 			\add_filter( 'teeny_mce_before_init', [ $this, 'filter_teeny_mce_before_init' ] );
+			\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 			\add_filter( 'load_template', [ $this, 'filter_load_template' ] );
 
 			\add_action( 'xprofile_updated_profile', [ $this, 'save_academic_interests' ] );

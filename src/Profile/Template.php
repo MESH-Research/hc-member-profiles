@@ -299,7 +299,7 @@ class Template {
 			$url = $value;
 
 			// add scheme to value if necessary to create (hopefully) valid url for href
-			if ( strpos( 'http', $value ) !== 1 ) {
+			if ( strpos( $value, 'http' ) !== 0 ) {
 				$url = 'http://' . $value;
 			}
 
