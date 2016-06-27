@@ -171,11 +171,3 @@
 .profile-edit .js-basic-multiple-tags {
   width: 100%;
 }
-
-/**
- * overrides for other plugins & themes
- */
-
-.action .follow-button a.follow:before {
-  content: none;
-}
