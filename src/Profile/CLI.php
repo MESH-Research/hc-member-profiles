@@ -40,4 +40,16 @@ class CLI {
 		WP_CLI::success( "Finished migration." );
 	}
 
+	public function import_terms() {
+		try {
+			$migration = new Migration;
+
+			WP_CLI::log( "Importing terms" );
+			$migration->import_academic_interests();
+		} catch ( Exception $e ) {
+			WP_CLI::error( $e->getMessage() );
+		}
+
+		WP_CLI::success( "Finished migration." );
+	}
 }

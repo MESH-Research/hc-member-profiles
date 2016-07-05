@@ -264,4 +264,106 @@ class Migration {
 		}
 	}
 
+	/**
+	 * depends on the mla-academic-interests plugin, which must be activated
+	 */
+	function import_academic_interests() {
+		global $wpdb;
+
+		// name of text field from which interests will be parsed & migrated
+		// this field is the one which this plugin already created in create_xprofile_fields() and should contain migrated text
+		$migrated_interests_field_name = Profile::XPROFILE_FIELD_NAME_ABOUT;
+
+		$csv_file = "data/academic_interests.csv";
+
+		$mla_academic_interests = new Mla_Academic_Interests;
+		$term_map = [];
+
+		foreach ( $this->profile->xprofile_group->fields as $field ) {
+			if ( $field->name === $migrated_interests_field_name ) {
+				$migrated_interests_field_id = $field->id;
+				break;
+			}
+		}
+
+		// first, create a map of terms to facilitate migration
+		// map contains keys which are primary terms and values which are arrays of variations of those terms to map to the key
+		if ( ( $handle = fopen( $csv_file, "r" ) ) !== false ) {
+			while ( ( $data = fgetcsv( $handle ) ) !== false ) {
+				$data = array_filter( $data );
+				if ( ! empty( $data ) ) {
+					$primary_term = $data[0];
+					$term_map[$primary_term] = $data;
+				}
+			}
+			fclose( $handle );
+		}
+
+		// now loop through users & assign interests according to the map
+		$user_id = 1;
+		$max_user_id = $wpdb->get_var( 'SELECT MAX(ID) FROM wp_users' );
+		$user_id = $max_user_id = 31;
+
+		while ( $user_id <= $max_user_id ) {
+			$userdata = \get_userdata( $user_id );
+			$_POST = [];
+
+			if ( $userdata ) {
+				$old_interest_data = \xprofile_get_field_data( $migrated_interests_field_id, $user_id );
+				$new_migrated_interests_field_data = $old_interest_data;
+
+				foreach ( $term_map as $primary_term => $mapped_terms ) {
+					// mapped_terms contains primary_term
+					// this flag helps avoid redundant iterations after the first match
+					$row_match = false;
+
+					// if the old interest data contains any of the mapped terms, add the primary term for this user
+					foreach ( $mapped_terms as $term ) {
+						if ( true || ! $row_match && strpos( strtolower( $old_interest_data ), strtolower( $term ) ) !== false ) {
+							$row_match = true;
+							//var_dump($term);
+
+							// populate $_POST because save_user_mla_academic_interests_terms expects it
+							//$_POST['userid'] = $user_id; // not used to save, only for debugging/logging
+							$_POST['academic-interests'][] = $primary_term;
+
+							// remove matched terms from old data
+							//$new_migrated_interests_field_data = preg_replace(
+							//	"/(,|^)[\s]*$term(,[\s]*|$)/i",
+							//	'\2',
+							//	$new_migrated_interests_field_data
+							//);
+
+							//// remove extra comma if required
+							//$new_migrated_interests_field_data = preg_replace(
+							//	"/([,\s]*$|^[,\s]*)/",
+							//	'',
+							//	$new_migrated_interests_field_data
+							//);
+						}
+					}
+				}
+
+				// if we removed terms, save new data
+				//var_dump($old_interest_data);
+				//var_dump($new_migrated_interests_field_data);
+				/* disabled!
+				if ( $new_migrated_interests_field_data !== $old_interest_data ) {
+					$remove_old_term_result = \xprofile_set_field_data(
+						$migrated_interests_field_id,
+						$user_id,
+						$new_migrated_interests_field_data
+					);
+				}
+				 */
+			}
+
+			if ( ! empty( $_POST ) ) {
+				//var_dump($_POST);
+				$mla_academic_interests->save_user_mla_academic_interests_terms( $user_id );
+			}
+
+			$user_id++;
+		}
+	}
 }
