@@ -188,6 +188,11 @@ class Template {
 	public function get_core_deposits() {
 		$html = '';
 
+		// bail unless humcore is installed & active
+		if ( ! function_exists( 'humcore_has_deposits' ) ) {
+			return $html;
+		}
+
 		$querystring = sprintf( 'facets[author_facet][]=%s', urlencode( bp_get_displayed_user_fullname() ) );
 
 		if ( \humcore_has_deposits( $querystring ) ) {
