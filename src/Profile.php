@@ -146,9 +146,9 @@ class Profile {
 		// If array add any new keywords.
 		if ( is_array( $_POST['academic-interests'] ) ) {
 			foreach ( $_POST['academic-interests'] as $term_id ) {
-				$term_key = \term_exists( $term_id, 'mla_academic_interests' );
+				$term_key = \wpmn_term_exists( $term_id, 'mla_academic_interests' );
 				if ( empty( $term_key ) ) {
-					$term_key = \wp_insert_term( \sanitize_text_field( $term_id ), 'mla_academic_interests' );
+					$term_key = \wpmn_insert_term( \sanitize_text_field( $term_id ), 'mla_academic_interests' );
 				}
 				if ( ! \is_wp_error( $term_key ) ) {
 					$term_ids[] = intval( $term_key['term_id'] );
@@ -159,8 +159,8 @@ class Profile {
 		}
 
 		// Set object terms for tags.
-		$term_taxonomy_ids = \wp_set_object_terms( $user_id, $term_ids, 'mla_academic_interests' );
-		\clean_object_term_cache( $user_id, 'mla_academic_interests' );
+		$term_taxonomy_ids = \wpmn_set_object_terms( $user_id, $term_ids, 'mla_academic_interests' );
+		\wpmn_clean_object_term_cache( $user_id, 'mla_academic_interests' );
 
 		// Set user meta for theme query.
 		\delete_user_meta( $user_id, 'academic_interests' );

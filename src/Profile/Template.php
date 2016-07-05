@@ -19,7 +19,7 @@ class Template {
 
 	public function get_academic_interests() {
 		$tax = \get_taxonomy( 'mla_academic_interests' );
-		$interests = \wp_get_object_terms( \bp_displayed_user_id(), 'mla_academic_interests', array( 'fields' => 'names' ) );
+		$interests = \wpmn_get_object_terms( \bp_displayed_user_id(), 'mla_academic_interests', array( 'fields' => 'names' ) );
 		$html = '<ul>';
 		foreach ( $interests as $term_name ) {
 			$search_url = \add_query_arg( array( 's' => urlencode( $term_name ) ), \bp_get_members_directory_permalink() );
@@ -37,7 +37,7 @@ class Template {
 		$tax = \get_taxonomy( 'mla_academic_interests' );
 
 		$interest_list = $mla_academic_interests->mla_academic_interests_list();
-		$input_interest_list = \wp_get_object_terms( \bp_displayed_user_id(), 'mla_academic_interests', [ 'fields' => 'names' ] );
+		$input_interest_list = \wpmn_get_object_terms( \bp_displayed_user_id(), 'mla_academic_interests', [ 'fields' => 'names' ] );
 
 		$html = '<p class="description">Enter interests from the existing list, or add new interests if needed.</p>';
 		$html .= '<select name="academic-interests[]" class="js-basic-multiple-tags interests" multiple="multiple" data-placeholder="Enter interests.">';
