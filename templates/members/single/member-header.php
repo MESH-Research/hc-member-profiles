@@ -19,7 +19,7 @@ $orcid_link = $template->get_orcid_link();
 
 <div id="item-header-avatar">
 	<a href="<?php bp_displayed_user_link(); ?>">
-		<?php bp_displayed_user_avatar( 'type=full' ); ?>
+		<?php bp_member_avatar( 'type=full' ); ?>
 	</a>
 </div><!-- #item-header-avatar -->
 
