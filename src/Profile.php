@@ -99,8 +99,8 @@ class Profile {
 	}
 
 	function filter_query_vars( $vars ){
-		  $vars[] = 'academic_interests';
-			return $vars;
+		$vars[] = 'academic_interests';
+		return $vars;
 	}
 
 	public function filter_xprofile_allowed_tags( $allowed_tags ) {
