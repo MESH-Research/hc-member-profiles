@@ -79,9 +79,13 @@ class Profile {
 
 		\add_filter( 'xprofile_allowed_tags', [ $this, 'filter_xprofile_allowed_tags' ] );
 
+		if ( ! \bp_is_user_change_avatar() && ( \bp_is_user_profile() || \bp_is_user_profile_edit() || \bp_is_members_directory() ) ) {
+			\add_filter( 'load_template', [ $this, 'filter_load_template' ] );
+			\add_filter( 'query_vars', [ $this, 'filter_query_vars' ] );
+		}
+
 		if ( ! \bp_is_user_change_avatar() && ( \bp_is_user_profile() || \bp_is_user_profile_edit() ) ) {
 			\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-			\add_filter( 'load_template', [ $this, 'filter_load_template' ] );
 			\add_action( 'xprofile_updated_profile', [ $this, 'save_academic_interests' ] );
 			\add_action( 'bp_before_profile_edit_content', [ $this, 'init_profile_edit' ] );
 
@@ -92,6 +96,11 @@ class Profile {
 		// disable buddypress friends component in favor of follow/block
 		$this->disable_bp_component( 'friends' );
 
+	}
+
+	function filter_query_vars( $vars ){
+		  $vars[] = 'academic_interests';
+			return $vars;
 	}
 
 	public function filter_xprofile_allowed_tags( $allowed_tags ) {

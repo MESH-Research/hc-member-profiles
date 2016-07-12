@@ -22,7 +22,7 @@ class Template {
 		$interests = \wpmn_get_object_terms( \bp_displayed_user_id(), 'mla_academic_interests', array( 'fields' => 'names' ) );
 		$html = '<ul>';
 		foreach ( $interests as $term_name ) {
-			$search_url = \add_query_arg( array( 's' => urlencode( $term_name ) ), \bp_get_members_directory_permalink() );
+			$search_url = \add_query_arg( [ 'academic_interests' => urlencode( $term_name ) ], \bp_get_members_directory_permalink() );
 			$html .= '<li><a href="' . \esc_url( $search_url ) . '" rel="nofollow">';
 			$html .=  $term_name;
 			$html .= '</a></li>';
