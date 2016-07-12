@@ -79,13 +79,15 @@ class Profile {
 
 		\add_filter( 'xprofile_allowed_tags', [ $this, 'filter_xprofile_allowed_tags' ] );
 
+		\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_global_scripts' ] );
+
 		if ( ! \bp_is_user_change_avatar() && ( \bp_is_user_profile() || \bp_is_user_profile_edit() || \bp_is_members_directory() ) ) {
 			\add_filter( 'load_template', [ $this, 'filter_load_template' ] );
 			\add_filter( 'query_vars', [ $this, 'filter_query_vars' ] );
 		}
 
 		if ( ! \bp_is_user_change_avatar() && ( \bp_is_user_profile() || \bp_is_user_profile_edit() ) ) {
-			\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+			\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_local_scripts' ] );
 			\add_action( 'xprofile_updated_profile', [ $this, 'save_academic_interests' ] );
 			\add_action( 'bp_before_profile_edit_content', [ $this, 'init_profile_edit' ] );
 
@@ -117,9 +119,19 @@ class Profile {
 		}
 	}
 
-	public function enqueue_scripts() {
-		\wp_enqueue_style( 'mla_commons_profile_main_css', \plugins_url() . '/profile/css/main.css' );
-		\wp_enqueue_script( 'mla_commons_profile_main_js', \plugins_url() . '/profile/js/main.js' );
+	/**
+	 * scripts/styles that apply site/network-wide
+	 */
+	public function enqueue_global_scripts() {
+		\wp_enqueue_style( 'mla-commons-profile-global', \plugins_url() . '/profile/css/site.css' );
+	}
+
+	/**
+	 * scripts/styles that apply on profile & related pages only
+	 */
+	public function enqueue_local_scripts() {
+		\wp_enqueue_style( 'mla-commons-profile-local', \plugins_url() . '/profile/css/profile.css' );
+		\wp_enqueue_script( 'mla-commons-profile-local', \plugins_url() . '/profile/js/main.js' );
 	}
 
 	/**
