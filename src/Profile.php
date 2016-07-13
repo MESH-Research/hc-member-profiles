@@ -64,6 +64,8 @@ class Profile {
 	}
 
 	public function init() {
+		$current_url = ( \is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
 		foreach ( BP_XProfile_Group::get( [ 'fetch_fields' => true ] ) as $group ) {
 			if ( $group->name === self::XPROFILE_GROUP_NAME && $group->description === self::XPROFILE_GROUP_DESCRIPTION ) {
 				$this->xprofile_group = $group;
@@ -71,10 +73,10 @@ class Profile {
 			}
 		}
 
-		// activity view is replaced entirely by profile view, just redirect if we get the request for now
-		//if ( \bp_is_user_activity() ) {
-		//	bp_core_redirect( get_option('siteurl')."/members/".\bp_get_displayed_user_username()."/profile/" );
-		//}
+		// activity home view is replaced entirely by profile view
+		if ( \bp_displayed_user_domain() === $current_url ) {
+			\bp_core_redirect( \get_option('siteurl') . '/members/' . \bp_get_displayed_user_username() . '/profile/' );
+		}
 
 
 		\add_filter( 'xprofile_allowed_tags', [ $this, 'filter_xprofile_allowed_tags' ] );
