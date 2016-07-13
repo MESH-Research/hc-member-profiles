@@ -72,14 +72,14 @@ class Profile {
 		}
 
 		// activity view is replaced entirely by profile view, just redirect if we get the request for now
-		if ( \bp_is_user_activity() ) {
-			bp_core_redirect( get_option('siteurl')."/members/".\bp_get_displayed_user_username()."/profile/" );
-		}
+		//if ( \bp_is_user_activity() ) {
+		//	bp_core_redirect( get_option('siteurl')."/members/".\bp_get_displayed_user_username()."/profile/" );
+		//}
 
 
 		\add_filter( 'xprofile_allowed_tags', [ $this, 'filter_xprofile_allowed_tags' ] );
 
-		\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_global_scripts' ] );
+		//\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_global_scripts' ] );
 
 		if ( ! \bp_is_user_change_avatar() && ( \bp_is_user_profile() || \bp_is_user_profile_edit() || \bp_is_members_directory() ) ) {
 			\add_filter( 'load_template', [ $this, 'filter_load_template' ] );
