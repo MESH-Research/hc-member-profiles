@@ -81,6 +81,8 @@ class Profile {
 
 		\add_filter( 'xprofile_allowed_tags', [ $this, 'filter_xprofile_allowed_tags' ] );
 
+		add_action( 'wp_before_admin_bar_render', [ $this, 'filter_admin_bar' ] );
+
 		//\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_global_scripts' ] );
 
 		if ( ! \bp_is_user_change_avatar() && ( \bp_is_user_profile() || \bp_is_user_profile_edit() || \bp_is_members_directory() ) ) {
@@ -192,4 +194,16 @@ class Profile {
 		}
 	}
 
+	function filter_admin_bar() {
+		global $wp_admin_bar;
+
+		// Portfolio -> Profile
+		foreach ( [ 'my-account-xprofile', 'my-account-settings-profile' ] as $field_id ) {
+			$clone = $wp_admin_bar->get_node( $field_id );
+			if ( $clone ) {
+				$clone->title = 'Profile';
+				$wp_admin_bar->add_menu( $clone );
+			}
+		}
+	}
 }
