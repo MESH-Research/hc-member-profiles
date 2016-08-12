@@ -74,9 +74,9 @@ class Profile {
 		}
 
 		// activity home view is replaced entirely by profile view
-		if ( \bp_displayed_user_domain() === $current_url ) {
-			\bp_core_redirect( \get_option('siteurl') . '/members/' . \bp_get_displayed_user_username() . '/profile/' );
-		}
+		//if ( \bp_displayed_user_domain() === $current_url ) {
+		//	\bp_core_redirect( \get_option('siteurl') . '/members/' . \bp_get_displayed_user_username() . '/profile/' );
+		//}
 
 
 		\add_filter( 'xprofile_allowed_tags', [ $this, 'filter_xprofile_allowed_tags' ] );
