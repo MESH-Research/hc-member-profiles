@@ -11,3 +11,7 @@
 #profile-main .right label {
   display: none;
 }
+
+#profile-main .social input {
+  background-color: white;
+}
