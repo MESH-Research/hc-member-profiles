@@ -5,6 +5,8 @@ namespace MLA\Commons;
 use \BP_XProfile_Group;
 use \RecursiveDirectoryIterator;
 use \RecursiveIteratorIterator;
+use \RecursiveRegexIterator;
+use \RegexIterator;
 use \WP_CLI;
 
 class Profile {
@@ -49,7 +51,7 @@ class Profile {
 	public $xprofile_group;
 
 	public function __construct() {
-		self::$plugin_dir = \plugin_dir_path( __DIR__ . '/../..' );
+		self::$plugin_dir = \plugin_dir_path( realpath( __DIR__ ) );
 		self::$plugin_templates_dir = \trailingslashit( self::$plugin_dir . 'templates' );
 
 		if( defined( 'WP_CLI' ) && WP_CLI ) {
@@ -136,6 +138,9 @@ class Profile {
 	public function enqueue_local_scripts() {
 		\wp_enqueue_style( 'mla-commons-profile-local', \plugins_url() . '/profile/css/profile.css' );
 		\wp_enqueue_script( 'mla-commons-profile-local', \plugins_url() . '/profile/js/main.js' );
+
+		// TODO only enqueue theme-specific styles if that theme is active
+		\wp_enqueue_style( 'mla-commons-profile-boss', \plugins_url() . '/profile/css/boss.css' );
 	}
 
 	/**
@@ -148,16 +153,13 @@ class Profile {
 	}
 
 	public function filter_load_template( $path ) {
-		$their_slug = str_replace( \trailingslashit( STYLESHEETPATH ), '', $path );
-		$template_files = new RecursiveIteratorIterator(
-			new RecursiveDirectoryIterator( self::$plugin_templates_dir ),
-			RecursiveIteratorIterator::SELF_FIRST
-		);
+		$iterator = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( self::$plugin_templates_dir ) );
+		$template_files = new RegexIterator( $iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH );
 
 		foreach( $template_files as $name => $object ){
 			$our_slug = str_replace( self::$plugin_templates_dir, '', $name );
 
-			if ( $our_slug === $their_slug ) {
+			if ( strpos( $path, $our_slug ) !== false ) {
 				return $name;
 			}
 		}
