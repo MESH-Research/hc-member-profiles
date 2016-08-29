@@ -3,3 +3,7 @@
   min-height: auto;
   text-shadow: none;
 }
+
+#change-cover-image {
+  display: none;
+}
