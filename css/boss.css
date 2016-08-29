@@ -15,3 +15,8 @@
 #profile-main .social input {
   background-color: white;
 }
+
+#profile-main #profile-edit-form .left > .editable h4,
+#profile-main #profile-edit-form .right > .editable h4 {
+  margin: 0 2em 0.5em 0;
+}
