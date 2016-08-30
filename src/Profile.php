@@ -156,6 +156,9 @@ class Profile {
 		$iterator = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( self::$plugin_templates_dir ) );
 		$template_files = new RegexIterator( $iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH );
 
+		// TODO currently members/single/profile.php would match for buddypress/members/single/profile.php
+		// this works okay because boss templates need to be loaded first anyway and buddypress/ will match first.
+		// it would be better if matching disambiguation were not dependent on alphabetical iteration.
 		foreach( $template_files as $name => $object ){
 			$our_slug = str_replace( self::$plugin_templates_dir, '', $name );
 
