@@ -57,7 +57,9 @@
 
 		<li>
 			<div class="item-avatar">
-				<a href="<?php bp_member_permalink(); ?>"><?php bp_member_avatar(); ?></a>
+				<?php /* <a href="<?php bp_member_permalink(); ?>"> */ ?>
+					<?php bp_member_avatar( [ 'width' => 70 ] ); ?>
+				<?php /* </a> */ ?>
 			</div>
 
 			<div class="item">
