@@ -4,6 +4,7 @@ php:
 - 7.0
 env:
 - WP_VERSION=4.5
+- WP_VERSION=4.6
 - WP_VERSION=latest
 before_install:
 - git submodule update --init --recursive
