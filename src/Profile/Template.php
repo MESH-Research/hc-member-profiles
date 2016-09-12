@@ -278,13 +278,39 @@ class Template {
 	}
 
 	/**
-	 * returns html linking to the twitter page of the user with the twitter handle as link text
+	 * returns html linking to the orcid page of the user
 	 */
 	public function get_orcid_link() {
 		$value = $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_ORCID );
 
 		if ( ! empty( $value ) ) {
 			$value = "<a href=\"http://orcid.org/$value\">$value</a>";
+		}
+
+		return $value;
+	}
+
+	/**
+	 * returns html linking to the facebook page of the user
+	 */
+	public function get_facebook_link() {
+		$value = $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_FACEBOOK );
+
+		if ( ! empty( $value ) ) {
+			$value = "<a href=\"https://www.facebook.com/$value\">$value</a>";
+		}
+
+		return $value;
+	}
+
+	/**
+	 * returns html linking to the linkedin page of the user
+	 */
+	public function get_linkedin_link() {
+		$value = $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_LINKEDIN );
+
+		if ( ! empty( $value ) ) {
+			$value = "<a href=\"https://www.linkedin.com/in/$value\">$value</a>";
 		}
 
 		return $value;

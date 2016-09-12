@@ -14,6 +14,8 @@ $affiliation_search_url = add_query_arg(
 );
 $twitter_link = $template->get_twitter_link();
 $orcid_link = $template->get_orcid_link();
+$facebook_link = $template->get_facebook_link();
+$linkedin_link = $template->get_linkedin_link();
 
 ?>
 
@@ -46,6 +48,16 @@ $orcid_link = $template->get_orcid_link();
 		<?php if ( $orcid_link ) : ?>
 			<div class="orcid">
 				<?php echo Profile::XPROFILE_FIELD_NAME_ORCID ?>: <?php echo $orcid_link ?>
+			</div>
+		<?php endif ?>
+		<?php if ( $facebook_link ) : ?>
+			<div class="facebook">
+				<?php echo Profile::XPROFILE_FIELD_NAME_FACEBOOK ?>: <?php echo $facebook_link ?>
+			</div>
+		<?php endif ?>
+		<?php if ( $linkedin_link ) : ?>
+			<div class="linkedin">
+				<?php echo Profile::XPROFILE_FIELD_NAME_LINKEDIN ?>: <?php echo $linkedin_link ?>
 			</div>
 		<?php endif ?>
 		<div class="website">
