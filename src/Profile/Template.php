@@ -353,16 +353,44 @@ class Template {
 	}
 
 	/**
-	 * returns field data with header label wrapped in a div
+	 * returns field data or edit form with header label wrapped in a div
 	 */
 	public function get_field( $field_name = '' ) {
-		$html = '';
-		if ( $this->is_field_visible( $field_name ) ) {
-			$html .= '<div class="' . \sanitize_title( $field_name ) . '">';
-			$html .= "<h4>$field_name</h4>";
-			$html .= $this->get_xprofile_field_data( $field_name );
-			$html .= '</div>';
+		$always_hidden_fields = [
+			Profile::XPROFILE_FIELD_NAME_NAME,
+			Profile::XPROFILE_FIELD_NAME_TITLE,
+			Profile::XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION
+		];
+
+		$user_hideable_fields = [
+			Profile::XPROFILE_FIELD_NAME_ABOUT,
+			Profile::XPROFILE_FIELD_NAME_EDUCATION,
+			Profile::XPROFILE_FIELD_NAME_PUBLICATIONS,
+			Profile::XPROFILE_FIELD_NAME_PROJECTS,
+			Profile::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES,
+			Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS
+		];
+
+		$classes = [ \sanitize_title( $field_name ) ];
+
+		if ( in_array( $field_name, $always_hidden_fields ) ) {
+			$classes[] = 'hidden';
 		}
-		return $html;
+
+		if ( in_array( $field_name, $user_hideable_fields ) ) {
+			$classes[] = 'hideable';
+		}
+
+		if ( \bp_is_user_profile_edit() ) {
+			$classes[] = 'editable';
+			$content = $this->get_edit_field( $field_name );
+		} else if ( $this->is_field_visible( $field_name ) ) {
+			$content = $this->get_xprofile_field_data( $field_name );
+		}
+
+		if ( isset( $content ) && ! empty( $content ) ) {
+			$classes = implode( ' ', $classes );
+			return "<div class=\"$classes\"><h4>$field_name</h4>$content</div>";
+		}
 	}
 }

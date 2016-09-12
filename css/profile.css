@@ -133,7 +133,7 @@
   white-space: inherit;
 }
 
-.profile-edit .synced,
+.profile-edit .hidden,
 .profile-edit .editable > label,
 .profile-edit #profile-main form .radio {
   display: none;
@@ -149,6 +149,7 @@
   right: 1em;
 }
 
+.profile-edit .collapsed > input,
 .profile-edit .collapsed > div {
   display: none;
 }
@@ -167,7 +168,7 @@
   margin-bottom: 0.5em;
 }
 
-.profile-edit .social input,
+.profile-edit input,
 .profile-edit .js-basic-multiple-tags {
   width: 100%;
 }

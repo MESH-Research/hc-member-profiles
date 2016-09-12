@@ -1,11 +1,14 @@
 /**
  * MLA Commons Profile
  */
-( function( $ ) {
-  $( document ).ready( function() {
 
-    var init_visibility_controls = ( function() {
-      $( '#profile-edit-form .editable' ).each( function() {
+( function( $ ) {
+
+  window.mla_commons_profile = {
+
+    init: function() {
+      // visibility controls
+       $( '#profile-edit-form .editable.hideable' ).each( function() {
         var div = $( this );
 
         // add visibility controls
@@ -34,15 +37,27 @@
           div.find( '.visibility' ).triggerHandler( 'click' );
         }
       } );
-    } )();
 
-    // cancel button to send user back to view mode
-    var init_cancel_button = ( function() {
+      // cancel button to send user back to view mode
       $( '#profile-edit-form #cancel' ).click( function( e ) {
         e.preventDefault();
         window.location = $( '#public' ).attr( 'href' );
       } );
-    } )();
 
-  } );
+      $( '#profile-edit-form input' ).on( 'change', mla_commons_profile.editor_change_handler );
+    },
+
+    /**
+     * when changes are made to any field, alert the user their changes are not yet saved
+     * for now, just hide the "saved" notice if it exists to avoid confusion
+     * TODO highlight changed field(s) (three separate field types to deal with: normal inputs, select2, & tinymce)
+     */
+    editor_change_handler: function() {
+      $( '.bp-template-notice.updated' ).slideUp();
+    }
+
+  }
+
+  $( document ).ready( mla_commons_profile.init );
+
 } )( jQuery );

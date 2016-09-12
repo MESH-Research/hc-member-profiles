@@ -12,16 +12,12 @@ do_action( 'bp_before_profile_edit_content' );
 <form action="<?php bp_the_profile_group_edit_form_action(); ?>" method="post" id="profile-edit-form" class="standard-form <?php bp_the_profile_group_slug(); ?>">
 
 	<div class="left">
-		<div class="synced">
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_NAME ) ?>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_TITLE ) ?>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION ) ?>
-		</div>
-		<div class="social">
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME ) ?>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_ORCID ) ?>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_SITE ) ?>
-		</div>
+		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_NAME ) ?>
+		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_TITLE ) ?>
+		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION ) ?>
+		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME ) ?>
+		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_ORCID ) ?>
+		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_SITE ) ?>
 		<div class="academic-interests editable">
 			<h4>Academic Interests</h4>
 			<?php echo $template->get_academic_interests_edit(); ?>
@@ -41,34 +37,13 @@ do_action( 'bp_before_profile_edit_content' );
 	</div>
 
 	<div class="right">
-		<div class="about editable">
-			<h4>About</h4>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_ABOUT ) ?>
-		</div>
-		<div class="education editable">
-			<h4>Education</h4>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_EDUCATION ) ?>
-		</div>
-		<div class="publications editable">
-			<h4>Publications</h4>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_PUBLICATIONS ) ?>
-		</div>
-		<div class="projects editable">
-			<h4>Projects</h4>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_PROJECTS ) ?>
-		</div>
-		<div class="work-shared-in-core">
-			<h4>Work Shared in CORE</h4>
-			<?php echo $template->get_core_deposits(); ?>
-		</div>
-		<div class="upcoming-talks-and-conferences editable">
-			<h4>Upcoming Talks and Conferences</h4>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES ) ?>
-		</div>
-		<div class="memberships editable">
-			<h4>Memberships</h4>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS ) ?>
-		</div>
+		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_ABOUT ) ?>
+		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_EDUCATION ) ?>
+		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_PUBLICATIONS ) ?>
+		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_PROJECTS ) ?>
+		<div class="work-shared-in-core"><h4>Work Shared in CORE</h4><?php echo $template->get_core_deposits(); ?></div>
+		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES ) ?>
+		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS ) ?>
 	</div>
 
 	<div class="edit-action-bar">
