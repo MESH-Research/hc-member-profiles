@@ -20,6 +20,8 @@ do_action( 'bp_before_profile_edit_content' );
 		<div class="social">
 			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME ) ?>
 			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_ORCID ) ?>
+			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_FACEBOOK ) ?>
+			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_LINKEDIN ) ?>
 			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_SITE ) ?>
 		</div>
 		<div class="academic-interests editable">
