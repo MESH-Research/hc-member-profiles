@@ -209,7 +209,7 @@
   background-image: url( '../assets/img/Twitter_Logo_Blue.png' );
 }
 .profile #item-main .orcid a::before {
-  background-image: url( '../assets/img/iD Icon.png' );
+  background-image: url( '../assets/img/iD-icon.png' );
 }
 .profile #item-main .facebook a::before {
   background-image: url( '../assets/img/FB-f-Logo__blue_29.png' );
