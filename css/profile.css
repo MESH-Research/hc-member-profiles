@@ -172,3 +172,51 @@
 .profile-edit .js-basic-multiple-tags {
   width: 100%;
 }
+
+
+/* social link icon labels */
+
+.profile #item-main .username .social-label,
+.profile #item-main .twitter .social-label,
+.profile #item-main .orcid .social-label,
+.profile #item-main .facebook .social-label,
+.profile #item-main .linkedin .social-label,
+.profile #item-main .website .social-label {
+  display: none;
+}
+
+.profile #item-main .username a::before,
+.profile #item-main .twitter a::before,
+.profile #item-main .orcid a::before,
+.profile #item-main .facebook a::before,
+.profile #item-main .linkedin a::before,
+.profile #item-main .website a::before {
+  background-repeat: no-repeat;
+  background-size: contain;
+  content: "";
+  display: inline-block;
+  height: 14px;
+  padding-right: 4px;
+  position: relative;
+  top: 3px;
+  width: 14px;
+}
+
+.profile #item-main .username a::before {
+  background-image: url( '../assets/img/hc_july8_smaller.png' );
+}
+.profile #item-main .twitter a::before {
+  background-image: url( '../assets/img/Twitter_Logo_Blue.png' );
+}
+.profile #item-main .orcid a::before {
+  background-image: url( '../assets/img/iD Icon.png' );
+}
+.profile #item-main .facebook a::before {
+  background-image: url( '../assets/img/FB-f-Logo__blue_29.png' );
+}
+.profile #item-main .linkedin a::before {
+  background-image: url( '../assets/img/In-2C-14px.png' );
+}
+.profile #item-main .website a::before {
+  background-image: url( '../assets/img/www-icon.png' );
+}

@@ -38,30 +38,30 @@ $linkedin_link = $template->get_linkedin_link();
 			<a href="<?php echo esc_url( $affiliation_search_url ) ?>" rel="nofollow"><?php echo $affiliation_data ?></a>
 		</h4>
 		<div class="username">
-			<em>Commons</em> username: <?php echo $template->get_username_link() ?>
+			<span class="social-label"><em>Commons</em> username:</span> <?php echo $template->get_username_link() ?>
 		</div>
 		<?php if ( $twitter_link ) : ?>
 			<div class="twitter">
-				<?php echo Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME ?>: <?php echo $twitter_link ?>
+				<span class="social-label"><?php echo Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME ?>:</span> <?php echo $twitter_link ?>
 			</div>
 		<?php endif ?>
 		<?php if ( $orcid_link ) : ?>
 			<div class="orcid">
-				<?php echo Profile::XPROFILE_FIELD_NAME_ORCID ?>: <?php echo $orcid_link ?>
+				<span class="social-label"><?php echo Profile::XPROFILE_FIELD_NAME_ORCID ?>:</span> <?php echo $orcid_link ?>
 			</div>
 		<?php endif ?>
 		<?php if ( $facebook_link ) : ?>
 			<div class="facebook">
-				<?php echo Profile::XPROFILE_FIELD_NAME_FACEBOOK ?>: <?php echo $facebook_link ?>
+				<span class="social-label"><?php echo Profile::XPROFILE_FIELD_NAME_FACEBOOK ?>:</span> <?php echo $facebook_link ?>
 			</div>
 		<?php endif ?>
 		<?php if ( $linkedin_link ) : ?>
 			<div class="linkedin">
-				<?php echo Profile::XPROFILE_FIELD_NAME_LINKEDIN ?>: <?php echo $linkedin_link ?>
+				<span class="social-label"><?php echo Profile::XPROFILE_FIELD_NAME_LINKEDIN ?>:</span> <?php echo $linkedin_link ?>
 			</div>
 		<?php endif ?>
 		<div class="website">
-			<?php echo $template->get_site_link() ?>
+			<span class="social-label"><?php echo Profile::XPROFILE_FIELD_NAME_SITE ?>:</span> <?php echo $template->get_site_link() ?>
 		</div>
 	</div><!-- #item-main -->
 
