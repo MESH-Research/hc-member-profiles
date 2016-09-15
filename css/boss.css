@@ -20,3 +20,33 @@
 #profile-main #profile-edit-form .right > .editable h4 {
   margin: 0 2em 0.5em 0;
 }
+
+.profile #item-header-avatar,
+#buddypress div#item-header img.avatar {
+  float: none;
+  margin-right: 0;
+}
+
+.profile #item-main {
+  margin-left: 0;
+}
+
+.profile #item-main .affiliation {
+  margin-bottom: 0.5em;
+}
+
+.profile #item-main .name {
+  font-size: 200%;
+}
+
+.avatar-wrap {
+  display: inline-block;
+  float: right;
+  height: 100px;
+  width: 100px;
+}
+
+.following-n-members {
+  clear: both;
+  padding-top: 0.5em;
+}

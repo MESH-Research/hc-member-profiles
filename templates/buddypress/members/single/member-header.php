@@ -19,12 +19,6 @@ $linkedin_link = $template->get_linkedin_link();
 
 ?>
 
-<div id="item-header-avatar">
-	<a href="<?php bp_displayed_user_link(); ?>">
-		<?php bp_member_avatar( 'type=full' ); ?>
-	</a>
-</div><!-- #item-header-avatar -->
-
 <div id="item-header-content">
 
 	<div id="item-main">
@@ -68,6 +62,14 @@ $linkedin_link = $template->get_linkedin_link();
 	<?php do_action( 'bp_before_member_header_meta' ); ?>
 
 	<div id="item-meta">
+		<div class="avatar-wrap">
+			<div id="item-header-avatar">
+				<a href="<?php bp_displayed_user_link(); ?>">
+					<?php bp_member_avatar( 'type=full' ); ?>
+				</a>
+			</div><!-- #item-header-avatar -->
+		</div>
+
 		<div class="following-n-members">
 			<?php if ( bp_displayed_user_id() === bp_loggedin_user_id() ): ?>
 				<a href="<?php echo bp_loggedin_user_domain() . BP_FOLLOWING_SLUG ?>">
