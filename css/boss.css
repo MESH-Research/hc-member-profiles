@@ -50,3 +50,8 @@
   clear: both;
   padding-top: 0.5em;
 }
+
+.network-profile #item-header {
+  margin-bottom: 0; /* no need for bottom margin since xprofile boxes underneath header have a top margin anyway */
+  margin-top: 1.5em;
+}
