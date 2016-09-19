@@ -337,11 +337,6 @@ class Template {
 		if ( ! empty( $value ) ) {
 			$url = $value;
 
-			// add scheme to value if necessary to create (hopefully) valid url for href
-			if ( strpos( $value, 'http' ) !== 0 ) {
-				$url = 'http://' . $value;
-			}
-
 			$value = "<a href=\"$url\">" . preg_replace( '/http(s)?:\/\//', '', $value ) . "</a>";
 		}
 
