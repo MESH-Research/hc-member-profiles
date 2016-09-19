@@ -271,7 +271,7 @@ class Template {
 		$value = str_replace( '@', '', $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME ) );
 
 		if ( ! empty( $value ) ) {
-			$value = "<a href=\"https://twitter.com/$value\">@$value</a>";
+			$value = "<a href=\"https://twitter.com/$value\">$value</a>";
 		}
 
 		return $value;
