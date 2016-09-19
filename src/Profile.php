@@ -24,10 +24,10 @@ class Profile {
 	const XPROFILE_FIELD_NAME_NAME = 'Name';
 	const XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION = 'Institutional or Other Affiliation';
 	const XPROFILE_FIELD_NAME_TITLE = 'Title';
-	const XPROFILE_FIELD_NAME_SITE = 'Site';
+	const XPROFILE_FIELD_NAME_SITE = 'Website URL';
 	const XPROFILE_FIELD_NAME_TWITTER_USER_NAME = '<em>Twitter</em> handle';
-	const XPROFILE_FIELD_NAME_FACEBOOK = 'Facebook handle';
-	const XPROFILE_FIELD_NAME_LINKEDIN = 'LinkedIn handle';
+	const XPROFILE_FIELD_NAME_FACEBOOK = 'Facebook URL';
+	const XPROFILE_FIELD_NAME_LINKEDIN = 'LinkedIn URL';
 	const XPROFILE_FIELD_NAME_ORCID = '<em>ORCID</em> iD';
 	const XPROFILE_FIELD_NAME_ABOUT = 'About';
 	const XPROFILE_FIELD_NAME_EDUCATION = 'Education';
