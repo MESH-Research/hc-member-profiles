@@ -296,11 +296,13 @@ class Template {
 	public function get_facebook_link() {
 		$value = $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_FACEBOOK );
 
-		/*
 		if ( ! empty( $value ) ) {
-			$value = "<a href=\"https://www.facebook.com/$value\">$value</a>";
+			$path = parse_url( $value, PHP_URL_PATH );
+			$parts = explode( '/', $path );
+			$text = end( $parts );
+
+			$value = "<a href=\"$value\">$text</a>";
 		}
-		 */
 
 		return $value;
 	}
@@ -311,11 +313,13 @@ class Template {
 	public function get_linkedin_link() {
 		$value = $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_LINKEDIN );
 
-		/*
 		if ( ! empty( $value ) ) {
-			$value = "<a href=\"https://www.linkedin.com/in/$value\">$value</a>";
+			$path = parse_url( $value, PHP_URL_PATH );
+			$parts = explode( '/', $path );
+			$text = end( $parts );
+
+			$value = "<a href=\"$value\">$text</a>";
 		}
-		 */
 
 		return $value;
 	}
@@ -338,7 +342,7 @@ class Template {
 				$url = 'http://' . $value;
 			}
 
-			$value = "<a href=\"$url\">$value</a>";
+			$value = "<a href=\"$url\">" . preg_replace( '/http(s)?:\/\//', '', $value ) . "</a>";
 		}
 
 		return $value;
