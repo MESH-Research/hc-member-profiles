@@ -59,6 +59,7 @@ class Template {
 	/**
 	 * for edit view. use like bp_the_profile_field().
 	 * works inside or outside the fields loop.
+	 * TODO handle hideable fields like get_field() here rather than in template
 	 */
 	public function get_edit_field( $field_name ) {
 		\bp_has_profile( [ 'profile_group_id' => Profile::get_instance()->xprofile_group->id ] ); // select our group

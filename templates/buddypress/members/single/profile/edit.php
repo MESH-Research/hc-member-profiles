@@ -43,19 +43,19 @@ do_action( 'bp_before_profile_edit_content' );
 	</div>
 
 	<div class="right">
-		<div class="about editable">
+		<div class="about editable hideable">
 			<h4>About</h4>
 			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_ABOUT ) ?>
 		</div>
-		<div class="education editable">
+		<div class="education editable hideable">
 			<h4>Education</h4>
 			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_EDUCATION ) ?>
 		</div>
-		<div class="publications editable">
+		<div class="publications editable hideable">
 			<h4>Publications</h4>
 			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_PUBLICATIONS ) ?>
 		</div>
-		<div class="projects editable">
+		<div class="projects editable hideable">
 			<h4>Projects</h4>
 			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_PROJECTS ) ?>
 		</div>
@@ -63,11 +63,11 @@ do_action( 'bp_before_profile_edit_content' );
 			<h4>Work Shared in CORE</h4>
 			<?php echo $template->get_core_deposits(); ?>
 		</div>
-		<div class="upcoming-talks-and-conferences editable">
+		<div class="upcoming-talks-and-conferences editable hideable">
 			<h4>Upcoming Talks and Conferences</h4>
 			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES ) ?>
 		</div>
-		<div class="memberships editable">
+		<div class="memberships editable hideable">
 			<h4>Memberships</h4>
 			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS ) ?>
 		</div>
