@@ -7,8 +7,11 @@ Inspired by (and not compatible with) [CAC Advanced Profiles](https://github.com
 ## Dependencies
 
 [Commons In A Box](http://commonsinabox.org/) or [Buddypress](https://buddypress.org/)
+
 [BuddyPress Follow](https://wordpress.org/plugins/buddypress-followers/)
+
 [BuddyBlock](http://www.philopress.com/products/buddyblock/)
+
 [MLA Academic Interests](https://github.com/mlaa/mla-academic-interests)
 
 ## Installation
