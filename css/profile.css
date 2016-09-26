@@ -220,3 +220,53 @@
 .profile #item-main .website a::before {
   background-image: url( '../assets/img/www-icon.png' );
 }
+
+
+@media screen and (max-width: 721px)  {
+
+  .profile #profile-main form {
+    display: block;
+  }
+
+  .profile #profile-main .left > div,
+  .profile #profile-main .right > div {
+    margin: 1em 0;
+  }
+
+  .profile #item-header #item-header-content {
+    display: block;
+  }
+
+  .network-profile #item-header {
+    margin: 0;
+  }
+
+  body.bp-user #buddypress div#item-header div#item-header-content {
+    margin-left: 0;
+  }
+
+  .profile #buddypress div#item-header div#item-meta {
+    margin: 1em 0 0;
+  }
+
+  .profile #item-meta {
+    text-align: inherit;
+  }
+
+  .profile .avatar-wrap {
+    float: none;
+    height: 60px;
+    width: 60px;
+  }
+
+  .profile #buddypress div#item-header #item-buttons {
+    margin: 0;
+    padding: 0;
+    width: auto;
+  }
+
+  .profile .network-profile #item-header {
+    margin: 1em 2em;
+  }
+
+}
