@@ -222,6 +222,12 @@ class Template {
 
 		$html = ob_get_clean();
 
+		// add change-cover-image link to replace default button controls
+		if ( is_user_logged_in() ) {
+			$profile_link = trailingslashit( bp_loggedin_user_domain() . bp_get_profile_slug() );
+			$html .= '<li><a href="' . trailingslashit( $profile_link . 'change-cover-image' ) . '">Change Cover Image</a></li>';
+		}
+
 		$html_doc = new DOMDocument;
 
 		// encoding prevents mangling of multibyte characters

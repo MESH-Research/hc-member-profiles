@@ -54,4 +54,45 @@
 .network-profile #item-header {
   margin-bottom: 0; /* no need for bottom margin since xprofile boxes underneath header have a top margin anyway */
   margin-top: 1.5em;
+  min-height: 320px;
+}
+
+#item-header-content {
+  float: none;
+}
+
+.profile .bb-cover-photo button {
+  display: none; /* replaced these buttons with links */
+}
+
+.profile #item-header #item-header-content {
+  margin: 0;
+  position: relative;
+}
+
+.profile #item-header #item-header-content #item-main,
+.profile #item-header #item-header-content #item-meta {
+  padding: 1em;
+  background-color: rgba(255, 255, 255, 0.85);;
+  text-shadow: none;
+  flex: unset;
+}
+
+.profile #item-header #item-header-content #item-main {
+}
+
+.profile #item-header #item-header-content #item-meta {
+  position: absolute;
+  right: 0;
+}
+
+@media screen and (max-width: 721px)  {
+
+  .profile #item-header #item-header-content #item-meta {
+    position: relative;
+  }
+
+  .profile .bb-cover-photo {
+    display: none;
+  }
 }
