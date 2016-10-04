@@ -53,14 +53,14 @@ class Profile {
 	public $xprofile_group;
 
 	public function __construct() {
-		self::$plugin_dir = \plugin_dir_path( realpath( __DIR__ ) );
-		self::$plugin_templates_dir = \trailingslashit( self::$plugin_dir . 'templates' );
+		self::$plugin_dir = plugin_dir_path( realpath( __DIR__ ) );
+		self::$plugin_templates_dir = trailingslashit( self::$plugin_dir . 'templates' );
 
 		if( defined( 'WP_CLI' ) && WP_CLI ) {
 			WP_CLI::add_command( 'profile', __NAMESPACE__ . '\Profile\CLI' );
 		}
 
-		\add_action( 'bp_init', [ $this, 'init' ] );
+		add_action( 'bp_init', [ $this, 'init' ] );
 	}
 
 	public static function get_instance() {
@@ -68,7 +68,7 @@ class Profile {
 	}
 
 	public function init() {
-		$current_url = ( \is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+		$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 		foreach ( BP_XProfile_Group::get( [ 'fetch_fields' => true ] ) as $group ) {
 			if ( $group->name === self::XPROFILE_GROUP_NAME && $group->description === self::XPROFILE_GROUP_DESCRIPTION ) {
@@ -78,29 +78,29 @@ class Profile {
 		}
 
 		// activity home view is replaced entirely by profile view
-		//if ( \bp_displayed_user_domain() === $current_url ) {
-		//	\bp_core_redirect( \get_option('siteurl') . '/members/' . \bp_get_displayed_user_username() . '/profile/' );
+		//if ( bp_displayed_user_domain() === $current_url ) {
+		//	bp_core_redirect( get_option('siteurl') . '/members/' . bp_get_displayed_user_username() . '/profile/' );
 		//}
 
 
-		\add_filter( 'xprofile_allowed_tags', [ $this, 'filter_xprofile_allowed_tags' ] );
+		add_filter( 'xprofile_allowed_tags', [ $this, 'filter_xprofile_allowed_tags' ] );
 
 		add_action( 'wp_before_admin_bar_render', [ $this, 'filter_admin_bar' ] );
 
 		//\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_global_scripts' ] );
 
-		if ( ! \bp_is_user_change_avatar() && ! bp_is_user_change_cover_image() && ( \bp_is_user_profile() || \bp_is_user_profile_edit() || \bp_is_members_directory() || \bp_is_groups_directory() ) ) {
-			\add_filter( 'load_template', [ $this, 'filter_load_template' ] );
-			\add_filter( 'query_vars', [ $this, 'filter_query_vars' ] );
-			\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_local_scripts' ] );
-			\add_filter( 'teeny_mce_before_init', [ $this, 'filter_teeny_mce_before_init' ] );
-			\add_filter( 'load_template', [ $this, 'filter_load_template' ] );
+		if ( ! bp_is_user_change_avatar() && ! bp_is_user_change_cover_image() && ( bp_is_user_profile() || bp_is_user_profile_edit() || bp_is_members_directory() || bp_is_groups_directory() ) ) {
+			add_filter( 'load_template', [ $this, 'filter_load_template' ] );
+			add_filter( 'query_vars', [ $this, 'filter_query_vars' ] );
+			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_local_scripts' ] );
+			add_filter( 'teeny_mce_before_init', [ $this, 'filter_teeny_mce_before_init' ] );
+			add_filter( 'load_template', [ $this, 'filter_load_template' ] );
 
-			\add_action( 'xprofile_updated_profile', [ $this, 'save_academic_interests' ] );
-			\add_action( 'bp_before_profile_edit_content', [ $this, 'init_profile_edit' ] );
+			add_action( 'xprofile_updated_profile', [ $this, 'save_academic_interests' ] );
+			add_action( 'bp_before_profile_edit_content', [ $this, 'init_profile_edit' ] );
 
 			// we want the full value including existing html in edit field inputs
-			\remove_filter( 'bp_get_the_profile_field_edit_value', 'wp_filter_kses', 1 );
+			remove_filter( 'bp_get_the_profile_field_edit_value', 'wp_filter_kses', 1 );
 		}
 
 		// disable buddypress friends component in favor of follow/block
@@ -129,11 +129,11 @@ class Profile {
 	}
 
 	public function disable_bp_component( $component_name ) {
-		$active_components = \bp_get_option( 'bp-active-components' );
+		$active_components = bp_get_option( 'bp-active-components' );
 
 		if ( isset( $active_components[$component_name] ) ) {
 			unset( $active_components[$component_name] );
-			\bp_update_option( 'bp-active-components', $active_components );
+			bp_update_option( 'bp-active-components', $active_components );
 		}
 	}
 
@@ -141,18 +141,18 @@ class Profile {
 	 * scripts/styles that apply site/network-wide
 	 */
 	public function enqueue_global_scripts() {
-		\wp_enqueue_style( 'mla-commons-profile-global', \plugins_url() . '/profile/css/site.css' );
+		wp_enqueue_style( 'mla-commons-profile-global', plugins_url() . '/profile/css/site.css' );
 	}
 
 	/**
 	 * scripts/styles that apply on profile & related pages only
 	 */
 	public function enqueue_local_scripts() {
-		\wp_enqueue_style( 'mla-commons-profile-local', \plugins_url() . '/profile/css/profile.css' );
-		\wp_enqueue_script( 'mla-commons-profile-local', \plugins_url() . '/profile/js/main.js' );
+		wp_enqueue_style( 'mla-commons-profile-local', plugins_url() . '/profile/css/profile.css' );
+		wp_enqueue_script( 'mla-commons-profile-local', plugins_url() . '/profile/js/main.js' );
 
 		// TODO only enqueue theme-specific styles if that theme is active
-		\wp_enqueue_style( 'mla-commons-profile-boss', \plugins_url() . '/profile/css/boss.css' );
+		wp_enqueue_style( 'mla-commons-profile-boss', plugins_url() . '/profile/css/boss.css' );
 	}
 
 	/**
@@ -183,16 +183,16 @@ class Profile {
 	}
 
 	public function save_academic_interests( $user_id ) {
-		$tax = \get_taxonomy( 'mla_academic_interests' );
+		$tax = get_taxonomy( 'mla_academic_interests' );
 
 		// If array add any new keywords.
 		if ( is_array( $_POST['academic-interests'] ) ) {
 			foreach ( $_POST['academic-interests'] as $term_id ) {
-				$term_key = \wpmn_term_exists( $term_id, 'mla_academic_interests' );
+				$term_key = wpmn_term_exists( $term_id, 'mla_academic_interests' );
 				if ( empty( $term_key ) ) {
-					$term_key = \wpmn_insert_term( \sanitize_text_field( $term_id ), 'mla_academic_interests' );
+					$term_key = wpmn_insert_term( sanitize_text_field( $term_id ), 'mla_academic_interests' );
 				}
-				if ( ! \is_wp_error( $term_key ) ) {
+				if ( ! is_wp_error( $term_key ) ) {
 					$term_ids[] = intval( $term_key['term_id'] );
 				} else {
 					error_log( '*****CAC Academic Interests Error - bad tag*****' . var_export( $term_key, true ) );
@@ -201,13 +201,13 @@ class Profile {
 		}
 
 		// Set object terms for tags.
-		$term_taxonomy_ids = \wpmn_set_object_terms( $user_id, $term_ids, 'mla_academic_interests' );
-		\wpmn_clean_object_term_cache( $user_id, 'mla_academic_interests' );
+		$term_taxonomy_ids = wpmn_set_object_terms( $user_id, $term_ids, 'mla_academic_interests' );
+		wpmn_clean_object_term_cache( $user_id, 'mla_academic_interests' );
 
 		// Set user meta for theme query.
-		\delete_user_meta( $user_id, 'academic_interests' );
+		delete_user_meta( $user_id, 'academic_interests' );
 		foreach ( $term_taxonomy_ids as $term_taxonomy_id ) {
-			\add_user_meta( $user_id, 'academic_interests', $term_taxonomy_id, $unique = false );
+			add_user_meta( $user_id, 'academic_interests', $term_taxonomy_id, $unique = false );
 		}
 	}
 

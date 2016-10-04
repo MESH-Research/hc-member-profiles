@@ -78,7 +78,7 @@ class Migration {
 
 		foreach ( $this->xprofile_fields as $field_name => $field_type ) {
 			if ( ! $field_exists() ) {
-				\xprofile_insert_field( [
+				xprofile_insert_field( [
 					'name' => $field_name,
 					'type' => $field_type,
 					'field_group_id' => $this->profile->xprofile_group->id,
@@ -140,15 +140,15 @@ class Migration {
 		};
 
 		while ( $user_id <= $max_user_id ) {
-			$userdata = \get_userdata( $user_id );
+			$userdata = get_userdata( $user_id );
 
 			if ( $userdata ) {
 				foreach ( $old_fields as $field ) {
 					if ( in_array( $field->name, array_keys( $old_field_to_new_field_map ) ) ) {
-						$result = \xprofile_set_field_data(
+						$result = xprofile_set_field_data(
 							$get_new_field_id_by_name( $old_field_to_new_field_map[$field->name] ),
 							$user_id,
-							\xprofile_get_field_data( $field->id, $user_id )
+							xprofile_get_field_data( $field->id, $user_id )
 						);
 
 						if ( ! $result ) {
@@ -204,11 +204,11 @@ class Migration {
 		$max_user_id = $wpdb->get_var( 'SELECT MAX(ID) FROM wp_users' );
 
 		while ( $user_id <= $max_user_id ) {
-			$userdata = \get_userdata( $user_id );
+			$userdata = get_userdata( $user_id );
 			$_POST = [];
 
 			if ( $userdata ) {
-				$old_interest_data = \xprofile_get_field_data( $migrated_interests_field_id, $user_id );
+				$old_interest_data = xprofile_get_field_data( $migrated_interests_field_id, $user_id );
 				$new_migrated_interests_field_data = $old_interest_data;
 
 				foreach ( $term_map as $primary_term => $mapped_terms ) {
@@ -248,7 +248,7 @@ class Migration {
 				//var_dump($new_migrated_interests_field_data);
 				/* disabled!
 				if ( $new_migrated_interests_field_data !== $old_interest_data ) {
-					$remove_old_term_result = \xprofile_set_field_data(
+					$remove_old_term_result = xprofile_set_field_data(
 						$migrated_interests_field_id,
 						$user_id,
 						$new_migrated_interests_field_data
@@ -307,11 +307,11 @@ class Migration {
 		$user_id = $max_user_id = 31;
 
 		while ( $user_id <= $max_user_id ) {
-			$userdata = \get_userdata( $user_id );
+			$userdata = get_userdata( $user_id );
 			$_POST = [];
 
 			if ( $userdata ) {
-				$old_interest_data = \xprofile_get_field_data( $migrated_interests_field_id, $user_id );
+				$old_interest_data = xprofile_get_field_data( $migrated_interests_field_id, $user_id );
 				$new_migrated_interests_field_data = $old_interest_data;
 
 				foreach ( $term_map as $primary_term => $mapped_terms ) {
@@ -351,7 +351,7 @@ class Migration {
 				//var_dump($new_migrated_interests_field_data);
 				/* disabled!
 				if ( $new_migrated_interests_field_data !== $old_interest_data ) {
-					$remove_old_term_result = \xprofile_set_field_data(
+					$remove_old_term_result = xprofile_set_field_data(
 						$migrated_interests_field_id,
 						$user_id,
 						$new_migrated_interests_field_data
