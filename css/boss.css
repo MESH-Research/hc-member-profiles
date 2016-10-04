@@ -91,4 +91,8 @@
   .profile .bb-cover-photo {
     display: none;
   }
+
+  .profile #buddypress #item-header-cover {
+    position: unset;
+  }
 }
