@@ -89,7 +89,7 @@ class Profile {
 
 		//\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_global_scripts' ] );
 
-		if ( ! \bp_is_user_change_avatar() && ( \bp_is_user_profile() || \bp_is_user_profile_edit() || \bp_is_members_directory() || \bp_is_groups_directory() ) ) {
+		if ( ! \bp_is_user_change_avatar() && ! bp_is_user_change_cover_image() && ( \bp_is_user_profile() || \bp_is_user_profile_edit() || \bp_is_members_directory() || \bp_is_groups_directory() ) ) {
 			\add_filter( 'load_template', [ $this, 'filter_load_template' ] );
 			\add_filter( 'query_vars', [ $this, 'filter_query_vars' ] );
 			\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_local_scripts' ] );
