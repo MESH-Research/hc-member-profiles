@@ -75,9 +75,14 @@
 }
 
 .profile #item-header #item-header-content #item-main {
+  border-radius: 1em;
+  left: 1em;
+  position: relative;
+  top: 1em;
 }
 
 .profile #item-header #item-header-content #item-meta {
+  height: 292px;
   position: absolute;
   right: 0;
 }
