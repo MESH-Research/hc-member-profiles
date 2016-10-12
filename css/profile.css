@@ -120,7 +120,7 @@
 }
 
 .profile #item-header #edit {
-  color: #07d;
+  /*color: #07d;*/ /* leave this up to theme */
   margin: 0.5em 0 0;
 }
 
