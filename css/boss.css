@@ -87,6 +87,10 @@
   right: 0;
 }
 
+.my-profile #item-nav {
+  display: none;
+}
+
 @media screen and (max-width: 721px)  {
 
   .profile #item-header #item-header-content #item-main {
