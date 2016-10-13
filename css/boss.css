@@ -110,3 +110,18 @@
     position: unset;
   }
 }
+
+/* override boss main-mobile styles */
+body.bp-user.is-mobile #buddypress div#item-header div#item-header-content {
+  margin: 0;
+  width: 100%;
+}
+.is-mobile .bb-cover-photo {
+  height: 320px;
+}
+.is-mobile #buddypress div#item-header div#item-meta {
+  margin: 0;
+}
+.is-mobile #buddypress div#item-header #item-buttons {
+  width: unset;
+}
