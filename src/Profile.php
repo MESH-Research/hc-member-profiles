@@ -68,8 +68,6 @@ class Profile {
 	}
 
 	public function init() {
-		$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-
 		foreach ( BP_XProfile_Group::get( [ 'fetch_fields' => true ] ) as $group ) {
 			if ( $group->name === self::XPROFILE_GROUP_NAME && $group->description === self::XPROFILE_GROUP_DESCRIPTION ) {
 				$this->xprofile_group = $group;
@@ -77,19 +75,22 @@ class Profile {
 			}
 		}
 
-		// activity home view is replaced entirely by profile view
-		//if ( bp_displayed_user_domain() === $current_url ) {
-		//	bp_core_redirect( get_option('siteurl') . '/members/' . bp_get_displayed_user_username() . '/profile/' );
-		//}
-
-
+		add_filter( 'bp_get_canonical_url', [ $this, 'filter_bp_get_canonical_url' ] );
 		add_filter( 'xprofile_allowed_tags', [ $this, 'filter_xprofile_allowed_tags' ] );
 
 		add_action( 'wp_before_admin_bar_render', [ $this, 'filter_admin_bar' ] );
+		//add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_global_scripts' ] );
 
-		//\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_global_scripts' ] );
-
-		if ( ! bp_is_user_change_avatar() && ! bp_is_user_change_cover_image() && ( bp_is_user_profile() || bp_is_user_profile_edit() || bp_is_members_directory() || bp_is_groups_directory() ) ) {
+		if (
+			! bp_is_user_change_avatar() &&
+			! bp_is_user_change_cover_image() &&
+			(
+				bp_is_user_profile() ||
+				bp_is_user_profile_edit() ||
+				bp_is_members_directory() ||
+				bp_is_groups_directory()
+			)
+		) {
 			add_filter( 'load_template', [ $this, 'filter_load_template' ] );
 			add_filter( 'query_vars', [ $this, 'filter_query_vars' ] );
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_local_scripts' ] );
@@ -106,6 +107,28 @@ class Profile {
 		// disable buddypress friends component in favor of follow/block
 		$this->disable_bp_component( 'friends' );
 
+	}
+
+	/**
+	 * filter the profile canonical url so we go straight to our custom view rather than the default overview
+	 */
+	public function filter_bp_get_canonical_url( $url ) {
+		global $wp;
+
+		$current_url = trailingslashit( home_url( $wp->request ) );
+
+		if (
+			strpos( $current_url, bp_displayed_user_domain() ) !== false &&
+			strpos( $current_url, 'profile' ) === false &&
+			(
+				! is_user_logged_in() ||
+				bp_displayed_user_id() !== get_current_user_id()
+			)
+		) {
+			$url = trailingslashit( $url ) . 'profile/';
+		}
+
+		return $url;
 	}
 
 	function filter_query_vars( $vars ){
