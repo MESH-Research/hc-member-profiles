@@ -32,7 +32,7 @@
 }
 
 .profile #item-main {
-  flex: 1;
+  /* flex: 1; */ /* no longer necessary since moving to card-style layout, and breaks safari/IE */
   margin-left: 1em;
 }
 
