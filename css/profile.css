@@ -32,8 +32,8 @@
 }
 
 .profile #item-main {
-  /* flex: 1; */ /* no longer necessary since moving to card-style layout, and breaks safari/IE */
   margin-left: 1em;
+  float: left;
 }
 
 .profile #item-main h4 {
@@ -245,6 +245,10 @@
 
   .profile #buddypress div#item-header div#item-meta {
     margin: 1em 0 0;
+  }
+
+  .profile #item-main {
+    float: none;
   }
 
   .profile #item-meta {
