@@ -75,7 +75,8 @@ class Profile {
 			}
 		}
 
-		add_filter( 'bp_get_canonical_url', [ $this, 'filter_bp_get_canonical_url' ] );
+		// TODO this still causes redirect loops in certain cases.
+		//add_filter( 'bp_get_canonical_url', [ $this, 'filter_bp_get_canonical_url' ] );
 		add_filter( 'xprofile_allowed_tags', [ $this, 'filter_xprofile_allowed_tags' ] );
 
 		add_action( 'wp_before_admin_bar_render', [ $this, 'filter_admin_bar' ] );
