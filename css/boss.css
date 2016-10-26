@@ -79,6 +79,7 @@
   left: 1em;
   position: relative;
   top: 1em;
+  max-width: 50%;
 }
 
 .profile #item-header #item-header-content #item-meta {
