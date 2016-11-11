@@ -17,7 +17,7 @@
 	$interest = get_query_var( 'academic_interests', false );
 	$interest_query_filter = '';
 	if ( false !== $interest ) {
-		$term = get_term_by( 'name', urldecode( $interest ), 'mla_academic_interests' );
+		$term = wpmn_get_term_by( 'name', urldecode( $interest ), 'mla_academic_interests' );
 	?>
 	<h4>Academic Interest: <?php echo $term->name; ?></h4>
 	<?php
