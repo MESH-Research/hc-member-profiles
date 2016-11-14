@@ -45,6 +45,15 @@
       } );
 
       $( '#profile-edit-form input' ).on( 'change', mla_commons_profile.editor_change_handler );
+
+      $( '#remove_academic_interest_filter' ).live( 'click', mla_commons_profile.remove_academic_interest_filter );
+    },
+
+    remove_academic_interest_filter: function( e ) {
+      e.preventDefault();
+      $( '#academic_interest' ).slideUp();
+      jQuery.removeCookie( 'academic_interest_term_taxonomy_id', { path: '/' } );
+      // TODO remove querystring & run members query again without querystring
     },
 
     /**

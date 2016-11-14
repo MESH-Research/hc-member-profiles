@@ -126,3 +126,7 @@ body.bp-user.is-mobile #buddypress div#item-header div#item-header-content {
 .is-mobile #buddypress div#item-header #item-buttons {
   width: unset;
 }
+
+#academic_interest {
+  margin: 1em 0;
+}

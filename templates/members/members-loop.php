@@ -14,15 +14,14 @@
 <?php do_action( 'bp_before_members_loop' ); ?>
 
 <?php
-	$interest = get_query_var( 'academic_interests', false );
-	$interest_query_filter = '';
-	if ( false !== $interest ) {
-		$term = wpmn_get_term_by( 'name', urldecode( $interest ), 'mla_academic_interests' );
-	?>
-	<h4>Academic Interest: <?php echo $term->name; ?></h4>
-	<?php
-		$interest_query_filter = '&meta_key=academic_interests&meta_value=' . $term->term_taxonomy_id;
-	} ?>
+
+$cookie_name = 'academic_interest_term_taxonomy_id'; // TODO DRY
+$interest_query_filter = ( isset( $_COOKIE[ $cookie_name ] ) ) ?
+	'&meta_key=academic_interests&meta_value=' . $_COOKIE[ $cookie_name ] :
+	'';
+
+?>
+
 <?php if ( bp_has_members( bp_ajax_querystring( 'members' ) . $interest_query_filter ) ) : ?>
 
 	<div id="pag-top" class="pagination">
