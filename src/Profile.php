@@ -272,10 +272,10 @@ class Profile {
 				 */
 				$format =
 					'<div id="academic_interest">
-						<h4>Academic Interest: %1$s <sup><a href="#" id="remove_academic_interest_filter">x</a></sup></h4>
+						<h4>Academic Interest: %s <sup><a href="#" id="remove_academic_interest_filter">x</a></sup></h4>
 					</div>';
 
-				printf( $format, $term->name, $js );
+				printf( $format, $term->name );
 			}
 		}
 
