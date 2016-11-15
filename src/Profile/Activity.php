@@ -121,7 +121,6 @@ class Activity {
 			)
 		);
 
-		$profile_link = trailingslashit( bp_core_get_user_domain( $user_id ) . bp_get_profile_slug() );
 		$action = sprintf(
 			__( "%s updated %s in their %s", 'buddypress' ),
 			'<a href="' . $profile_link . '">' . bp_core_get_user_displayname( $user_id ) . '</a>',
