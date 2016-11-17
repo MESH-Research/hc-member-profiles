@@ -108,6 +108,7 @@ class Activity {
 		if ( ! empty( Humanities_Commons::$main_network->domain ) ) {
 			$profile_link = trailingslashit(
 				trailingslashit( 'https://' . Humanities_Commons::$main_network->domain ) .
+				trailingslashit(  bp_get_members_root_slug() . '/' . bp_core_get_username( $user_id ) ) .
 				bp_get_profile_slug()
 			);
 		} else {
