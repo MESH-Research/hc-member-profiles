@@ -2,7 +2,7 @@
 
 namespace MLA\Commons\Profile;
 
-//use \MLA\Commons\Profile;
+use \Humanities_Commons;
 
 class Activity {
 
@@ -105,7 +105,14 @@ class Activity {
 		}
 
 		// If we've reached this point, assemble and post the activity item.
-		$profile_link = trailingslashit( bp_core_get_user_domain( $user_id ) . bp_get_profile_slug() );
+		if ( ! empty( Humanities_Commons::$main_network->domain ) ) {
+			$profile_link = trailingslashit(
+				trailingslashit( 'https://' . Humanities_Commons::$main_network->domain ) .
+				bp_get_profile_slug()
+			);
+		} else {
+			$profile_link = trailingslashit( bp_core_get_user_domain( $user_id ) . bp_get_profile_slug() );
+		}
 
 		$changed_field_names = [];
 		foreach ( $changed_fields as $field ) {
@@ -121,7 +128,6 @@ class Activity {
 			)
 		);
 
-		$profile_link = trailingslashit( bp_core_get_user_domain( $user_id ) . bp_get_profile_slug() );
 		$action = sprintf(
 			__( "%s updated %s in their %s", 'buddypress' ),
 			'<a href="' . $profile_link . '">' . bp_core_get_user_displayname( $user_id ) . '</a>',
