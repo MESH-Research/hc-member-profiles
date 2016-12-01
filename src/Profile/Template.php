@@ -158,14 +158,20 @@ class Template {
 
 	public function get_groups() {
 		$html = '';
+		$group_types = bp_groups_get_group_types();
 
-		if ( bp_has_groups( bp_ajax_querystring( 'groups' ) ) ) {
-			$html = '<ul>';
-			while ( bp_groups() ) {
-				bp_the_group();
-				$html .= '<li><a href="' . bp_get_group_permalink() . '">' . bp_get_group_name() . '</a></li>';
+		foreach ( $group_types as $group_type ) {
+			$querystring = bp_ajax_querystring( 'groups' ) . "&group_type=$group_type";
+
+			if ( bp_has_groups( $querystring ) ) {
+				$html .= '<h5>' . strtoupper( $group_type ) . '</h5>';
+				$html .= '<ul class="group-type-' . $group_type . '">';
+				while ( bp_groups() ) {
+					bp_the_group();
+					$html .= '<li><a href="' . bp_get_group_permalink() . '">' . bp_get_group_name() . '</a></li>';
+				}
+				$html .= '</ul>';
 			}
-			$html .= '</ul>';
 		}
 
 		return $html;
