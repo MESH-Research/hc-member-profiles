@@ -19,9 +19,19 @@ class Activity {
 
 	/**
 	 * formats the output of existing activity records
-	 * since we store the activity action in the format we want already with the filter below, just output directly
 	 */
 	public static function format_activity_action_updated_profile( $action, $activity ) {
+		if ( ! empty( Humanities_Commons::$main_network->domain ) && 'hc' === Humanities_Commons::$society_id ) {
+			$hc_profile_link = trailingslashit(
+				trailingslashit( 'https://' . Humanities_Commons::$main_network->domain ) .
+				trailingslashit(  bp_get_members_root_slug() . '/' . bp_core_get_username( $activity->user_id ) ) .
+				bp_get_profile_slug()
+			);
+
+			$action = str_replace( $activity->primary_link, $hc_profile_link, $action );
+			$activity->primary_link = $hc_profile_link;
+		}
+
 		return apply_filters( 'bp_xprofile_format_activity_action_updated_profile', $action, $activity );
 	}
 
@@ -105,15 +115,7 @@ class Activity {
 		}
 
 		// If we've reached this point, assemble and post the activity item.
-		if ( ! empty( Humanities_Commons::$main_network->domain ) ) {
-			$profile_link = trailingslashit(
-				trailingslashit( 'https://' . Humanities_Commons::$main_network->domain ) .
-				trailingslashit(  bp_get_members_root_slug() . '/' . bp_core_get_username( $user_id ) ) .
-				bp_get_profile_slug()
-			);
-		} else {
-			$profile_link = trailingslashit( bp_core_get_user_domain( $user_id ) . bp_get_profile_slug() );
-		}
+		$profile_link = trailingslashit( bp_core_get_user_domain( $user_id ) . bp_get_profile_slug() );
 
 		$changed_field_names = [];
 		foreach ( $changed_fields as $field ) {
