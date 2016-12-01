@@ -97,7 +97,15 @@ class Template {
 	 * @uses DOMDocument
 	 */
 	public function get_activity( $max = 5 ) {
-		if ( bp_has_activities( bp_ajax_querystring( 'activity' ) . "&max=$max&scope=just-me" ) ) {
+		$querystring = bp_ajax_querystring( 'activity' ) . '&' . http_build_query( [
+			'max' => $max,
+			'scope' => 'just-me',
+			// action & type are blank to override cookies setting filters from directory
+			'action' => '',
+			'type' => '',
+		] );
+
+		if ( bp_has_activities( $querystring ) ) {
 
 			$actions_html = '';
 
