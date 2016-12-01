@@ -169,7 +169,15 @@ class Template {
 		$group_types = bp_groups_get_group_types();
 
 		foreach ( $group_types as $group_type ) {
-			$querystring = bp_ajax_querystring( 'groups' ) . "&group_type=$group_type";
+			$querystring = bp_ajax_querystring( 'groups' ) . '&' . http_build_query( [
+				'group_type' => $group_type,
+				// action & type are blank to override cookies setting filters from directory
+				'action' => '',
+				'type' => '',
+				// use alpha order rather than whatever directory set
+				'orderby' => 'name',
+				'order' => 'ASC',
+			] );
 
 			if ( bp_has_groups( $querystring ) ) {
 				$html .= '<h5>' . strtoupper( $group_type ) . '</h5>';
