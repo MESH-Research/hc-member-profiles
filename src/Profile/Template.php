@@ -113,6 +113,10 @@ class Template {
 				bp_the_activity();
 
 				$action = trim( strip_tags( bp_get_activity_action( [ 'no_timestamp' => true ] ), '<a>' ) );
+				if ( 'activity_update' === bp_get_activity_type() && bp_activity_has_content() ) {
+					$action .= ': ' . trim( strip_tags( bp_get_activity_content_body() ) );
+				}
+
 				$activity_type = bp_get_activity_type() ;
 				$displayed_user_fullname = bp_get_displayed_user_fullname();
 				$link_text_char_limit = 30;
