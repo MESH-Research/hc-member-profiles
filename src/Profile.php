@@ -146,9 +146,10 @@ class Profile {
 
 		if ( $js ) {
 			$args['setup'] = $js;
-			$args['plugins'] = 'paste';
-			$args['paste_as_text'] = 'true'; // this is the critical option that turns "paste as text" mode on
 		}
+
+		$args['plugins'] = 'paste';
+		$args['paste_as_text'] = 'true'; // this is the critical option that turns "paste as text" mode on
 
 		return $args;
 	}
