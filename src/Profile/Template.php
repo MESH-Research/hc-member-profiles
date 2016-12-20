@@ -114,7 +114,7 @@ class Template {
 
 				$action = trim( strip_tags( bp_get_activity_action( [ 'no_timestamp' => true ] ), '<a>' ) );
 				if ( 'activity_update' === bp_get_activity_type() && bp_activity_has_content() ) {
-					$action .= ': ' . trim( strip_tags( bp_get_activity_content_body() ) );
+					$action .= ': ' . trim( bp_get_activity_content_body() );
 				}
 
 				$activity_type = bp_get_activity_type() ;
