@@ -51,6 +51,12 @@
       $('.js-dynamic-show-hide').click(function(e) {
         e.preventDefault();
       });
+      // button is also not automatically hid if itemheight < maxheight. fix it
+      $.each($('.js-dynamic-height'), function() {
+        if ($(this).attr('data-maxheight') < $(this).attr('data-itemheight')) {
+          $(this).find('.js-dynamic-show-hide').hide();
+        }
+      });
     },
 
     /**
