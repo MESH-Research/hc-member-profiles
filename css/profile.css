@@ -219,6 +219,33 @@
   background-image: url( '../assets/img/www-icon.png' );
 }
 
+/* jquery dynamic max height */
+.dynamic-height-wrap {
+  overflow: hidden;
+  position: relative;
+  transition: max-height 0.25s ease-in-out;
+  width: 100%;
+}
+
+/* Bottom gradient (optional, but recommended)*/
+.dynamic-height-active .dynamic-height-wrap:before {
+  background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,#fafafa 100%);
+  bottom: 0;
+  content:'';
+  height: 30px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  z-index: 1;
+}
+
+.dynamic-height-active .dynamic-show-more {
+  display: inline-block;
+}
+
+.dynamic-show-more {
+  display: none;
+}
 
 @media screen and (max-width: 721px)  {
 

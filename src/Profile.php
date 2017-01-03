@@ -180,6 +180,7 @@ class Profile {
 	 */
 	public function enqueue_local_scripts() {
 		wp_enqueue_style( 'mla-commons-profile-local', plugins_url() . '/profile/css/profile.css' );
+		wp_enqueue_script( 'mla-commons-profile-jqdmh', plugins_url() . '/profile/js/lib/jquery.dynamicmaxheight.min.js' );
 		wp_enqueue_script( 'mla-commons-profile-local', plugins_url() . '/profile/js/main.js' );
 
 		// TODO only enqueue theme-specific styles if that theme is active

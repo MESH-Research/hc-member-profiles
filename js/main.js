@@ -45,6 +45,12 @@
       } );
 
       $( '#profile-edit-form input' ).on( 'change', mla_commons_profile.editor_change_handler );
+
+      $('.js-dynamic-height').dynamicMaxHeight();
+      // buddypress adds ajax & link-like functionality to buttons. prevent page from reloading when "show more" button pressed.
+      $('.js-dynamic-show-hide').click(function(e) {
+        e.preventDefault();
+      });
     },
 
     /**

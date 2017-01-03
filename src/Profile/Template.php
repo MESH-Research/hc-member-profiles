@@ -401,7 +401,10 @@ class Template {
 			Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS
 		];
 
-		$classes = [ sanitize_title( $field_name ) ];
+		$classes = [
+			sanitize_title( $field_name ),
+			//'js-dynamic-height'
+		];
 
 		if ( in_array( $field_name, $always_hidden_fields ) ) {
 			$classes[] = 'hidden';
@@ -419,8 +422,15 @@ class Template {
 		}
 
 		if ( isset( $content ) && ! empty( $content ) ) {
-			$classes = implode( ' ', $classes );
-			return "<div class=\"$classes\"><h4>$field_name</h4>$content</div>";
+			return sprintf(
+				'<div class="%s" data-maxheight="50">
+					<h4>%s</h4>
+					<div class="dynamic-height-wrap">%s</div>
+				</div>',
+				implode( ' ', $classes ),
+				$field_name,
+				$content
+			);
 		}
 	}
 }
