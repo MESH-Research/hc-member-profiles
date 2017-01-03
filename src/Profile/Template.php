@@ -423,10 +423,8 @@ class Template {
 
 		if ( isset( $content ) && ! empty( $content ) ) {
 			return sprintf(
-				'<div class="%s" data-maxheight="50">
-					<h4>%s</h4>
-					<div class="dynamic-height-wrap">%s</div>
-				</div>',
+				// must be on one line with no extra whitespace due to 'white-space: pre-wrap;'
+				'<div class="%s" data-maxheight="50"><h4>%s</h4><div class="dynamic-height-wrap">%s</div></div>',
 				implode( ' ', $classes ),
 				$field_name,
 				$content
