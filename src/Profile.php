@@ -75,12 +75,9 @@ class Profile {
 			}
 		}
 
-		// TODO this still causes redirect loops in certain cases.
-		//add_filter( 'bp_get_canonical_url', [ $this, 'filter_bp_get_canonical_url' ] );
 		add_filter( 'xprofile_allowed_tags', [ $this, 'filter_xprofile_allowed_tags' ] );
 
 		add_action( 'wp_before_admin_bar_render', [ $this, 'filter_admin_bar' ] );
-		//add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_global_scripts' ] );
 
 		// replace the default updated_profile activity handler with our own
 		remove_action( 'xprofile_updated_profile', 'bp_xprofile_updated_profile_activity', 10, 5 );
@@ -115,28 +112,6 @@ class Profile {
 
 	}
 
-	/**
-	 * filter the profile canonical url so we go straight to our custom view rather than the default overview
-	 */
-	public function filter_bp_get_canonical_url( $url ) {
-		global $wp;
-
-		$current_url = trailingslashit( home_url( $wp->request ) );
-
-		if (
-			strpos( $current_url, bp_displayed_user_domain() ) !== false &&
-			strpos( $current_url, 'profile' ) === false &&
-			(
-				! is_user_logged_in() ||
-				bp_displayed_user_id() !== get_current_user_id()
-			)
-		) {
-			$url = trailingslashit( $url ) . 'profile/';
-		}
-
-		return $url;
-	}
-
 	public function filter_teeny_mce_before_init( $args ) {
 		$js = file_get_contents( self::$plugin_dir . 'js/teeny_mce_before_init.js' );
 
@@ -162,13 +137,6 @@ class Profile {
 			unset( $active_components[$component_name] );
 			bp_update_option( 'bp-active-components', $active_components );
 		}
-	}
-
-	/**
-	 * scripts/styles that apply site/network-wide
-	 */
-	public function enqueue_global_scripts() {
-		wp_enqueue_style( 'mla-commons-profile-global', plugins_url() . '/profile/css/site.css' );
 	}
 
 	/**
