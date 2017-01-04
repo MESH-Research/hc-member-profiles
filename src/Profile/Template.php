@@ -97,7 +97,15 @@ class Template {
 	 * @uses DOMDocument
 	 */
 	public function get_activity( $max = 5 ) {
-		if ( bp_has_activities( bp_ajax_querystring( 'activity' ) . "&max=$max&scope=just-me" ) ) {
+		$querystring = bp_ajax_querystring( 'activity' ) . '&' . http_build_query( [
+			'max' => $max,
+			'scope' => 'just-me',
+			// action & type are blank to override cookies setting filters from directory
+			'action' => '',
+			'type' => '',
+		] );
+
+		if ( bp_has_activities( $querystring ) ) {
 
 			$actions_html = '';
 
@@ -105,6 +113,10 @@ class Template {
 				bp_the_activity();
 
 				$action = trim( strip_tags( bp_get_activity_action( [ 'no_timestamp' => true ] ), '<a>' ) );
+				if ( 'activity_update' === bp_get_activity_type() && bp_activity_has_content() ) {
+					$action .= ': ' . trim( bp_get_activity_content_body() );
+				}
+
 				$activity_type = bp_get_activity_type() ;
 				$displayed_user_fullname = bp_get_displayed_user_fullname();
 				$link_text_char_limit = 30;
@@ -158,14 +170,28 @@ class Template {
 
 	public function get_groups() {
 		$html = '';
+		$group_types = bp_groups_get_group_types();
 
-		if ( bp_has_groups( bp_ajax_querystring( 'groups' ) ) ) {
-			$html = '<ul>';
-			while ( bp_groups() ) {
-				bp_the_group();
-				$html .= '<li><a href="' . bp_get_group_permalink() . '">' . bp_get_group_name() . '</a></li>';
+		foreach ( $group_types as $group_type ) {
+			$querystring = bp_ajax_querystring( 'groups' ) . '&' . http_build_query( [
+				'group_type' => $group_type,
+				// action & type are blank to override cookies setting filters from directory
+				'action' => '',
+				'type' => '',
+				// use alpha order rather than whatever directory set
+				'orderby' => 'name',
+				'order' => 'ASC',
+			] );
+
+			if ( bp_has_groups( $querystring ) ) {
+				$html .= '<h5>' . strtoupper( $group_type ) . '</h5>';
+				$html .= '<ul class="group-type-' . $group_type . '">';
+				while ( bp_groups() ) {
+					bp_the_group();
+					$html .= '<li><a href="' . bp_get_group_permalink() . '">' . bp_get_group_name() . '</a></li>';
+				}
+				$html .= '</ul>';
 			}
-			$html .= '</ul>';
 		}
 
 		return $html;
@@ -375,7 +401,10 @@ class Template {
 			Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS
 		];
 
-		$classes = [ sanitize_title( $field_name ) ];
+		$classes = [
+			sanitize_title( $field_name ),
+			//'js-dynamic-height'
+		];
 
 		if ( in_array( $field_name, $always_hidden_fields ) ) {
 			$classes[] = 'hidden';
@@ -393,8 +422,13 @@ class Template {
 		}
 
 		if ( isset( $content ) && ! empty( $content ) ) {
-			$classes = implode( ' ', $classes );
-			return "<div class=\"$classes\"><h4>$field_name</h4>$content</div>";
+			return sprintf(
+				// must be on one line with no extra whitespace due to 'white-space: pre-wrap;'
+				'<div class="%s" data-maxheight="50"><h4>%s</h4><div class="dynamic-height-wrap">%s</div></div>',
+				implode( ' ', $classes ),
+				$field_name,
+				$content
+			);
 		}
 	}
 }

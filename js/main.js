@@ -46,6 +46,18 @@
 
       $( '#profile-edit-form input' ).on( 'change', mla_commons_profile.editor_change_handler );
 
+      $('.js-dynamic-height').dynamicMaxHeight();
+      // buddypress adds ajax & link-like functionality to buttons. prevent page from reloading when "show more" button pressed.
+      $('.js-dynamic-show-hide').click(function(e) {
+        e.preventDefault();
+      });
+      // button is also not automatically hid if itemheight < maxheight. fix it
+      $.each($('.js-dynamic-height'), function() {
+        if (parseInt($(this).attr('data-maxheight')) > parseInt($(this).attr('data-itemheight'))) {
+          $(this).find('.js-dynamic-show-hide').hide();
+        }
+      });
+
       $( '#remove_academic_interest_filter' ).live( 'click', mla_commons_profile.remove_academic_interest_filter );
     },
 
