@@ -55,7 +55,7 @@ class Academic_Interests {
 	}
 
 	/**
-	 * injects markup/js to support filtering a search/list by academic interest in member directory
+	 * injects markup to support filtering a search/list by academic interest in member directory
 	 */
 	static function add_academic_interests_to_directory( $template ) {
 		if ( in_array( 'members/members-loop.php', (array) $template ) && isset( $_COOKIE[ self::$cookie_name ] ) ) {
@@ -66,20 +66,15 @@ class Academic_Interests {
 			}
 
 			if ( $term ) {
-				/*
-						<div id="message" class="info notice">
-							<p>
-								<strong>"Academic Interest: %1$s" filter removed</strong>
-								You can run another filtered search by clicking on an Academic Interest in any member profile.
-							</p>
-						</div>
-				 */
-				$format =
+				echo sprintf(
 					'<div id="academic_interest">
-						<h4>Academic Interest: %s <sup><a href="#" id="remove_academic_interest_filter">x</a></sup></h4>
-					</div>';
-
-				printf( $format, $term->name );
+						<h4>Academic Interest: %1$s <sup><a href="#" id="remove_academic_interest_filter">x</a></sup></h4>
+					</div>
+					<div id="message" class="academic_interest_removed" class="info notice" style="display:none">
+						<p>"Academic Interest: %1$s" filter removed</p>
+					</div>',
+					$term->name
+				);
 			}
 		}
 

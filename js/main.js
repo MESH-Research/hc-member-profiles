@@ -63,8 +63,14 @@
 
     remove_academic_interest_filter: function( e ) {
       e.preventDefault();
-      $( '#academic_interest' ).slideUp();
+
+      $( '#academic_interest' ).hide();
+
+      // show message until new results load
+      $( '.academic_interest_removed' ).show();
+
       jQuery.removeCookie( 'academic_interest_term_taxonomy_id', { path: '/' } );
+
       window.location.replace( window.location.pathname + window.location.search.replace( /academic_interests=[^&]+/, '' ) );
     },
 
