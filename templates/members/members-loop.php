@@ -9,15 +9,16 @@
  * @subpackage bp-default
  */
 
+use MLA\Commons\Profile\Academic_Interests;
+
 ?>
 
 <?php do_action( 'bp_before_members_loop' ); ?>
 
 <?php
 
-$cookie_name = 'academic_interest_term_taxonomy_id'; // TODO DRY
-$interest_query_filter = ( isset( $_COOKIE[ $cookie_name ] ) ) ?
-	'&meta_key=academic_interests&meta_value=' . $_COOKIE[ $cookie_name ] :
+$interest_query_filter = ( isset( $_COOKIE[ Academic_Interests::$cookie_name ] ) ) ?
+	'&meta_key=academic_interests&meta_value=' . $_COOKIE[ Academic_Interests::$cookie_name ] :
 	'';
 
 ?>

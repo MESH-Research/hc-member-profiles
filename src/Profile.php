@@ -101,7 +101,9 @@ class Profile {
 			add_action( 'xprofile_updated_profile', [ '\MLA\Commons\Profile\Academic_Interests', 'save_academic_interests' ] );
 			add_action( 'bp_before_profile_edit_content', [ $this, 'init_profile_edit' ] );
 			add_action( 'bp_get_template_part', [ '\MLA\Commons\Profile\Academic_Interests', 'add_academic_interests_to_directory' ] );
-			add_action( 'pre_get_posts', [ '\MLA\Commons\Profile\Academic_Interests', 'set_academic_interests_cookie_query' ] );
+
+			// this needs to be able to send a set-cookie header
+			add_action( 'send_headers', [ '\MLA\Commons\Profile\Academic_Interests', 'set_academic_interests_cookie_query' ] );
 
 			// we want the full value including existing html in edit field inputs
 			remove_filter( 'bp_get_the_profile_field_edit_value', 'wp_filter_kses', 1 );

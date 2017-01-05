@@ -4,6 +4,10 @@ namespace MLA\Commons\Profile;
 
 class Academic_Interests {
 
+	static $cookie_name = 'academic_interest_term_taxonomy_id';
+
+	static $query_param = 'academic_interests';
+
 	static function save_academic_interests( $user_id ) {
 		$tax = get_taxonomy( 'mla_academic_interests' );
 
@@ -34,34 +38,28 @@ class Academic_Interests {
 	}
 
 	static function set_academic_interests_cookie_query() {
-		$cookie_name = 'academic_interest_term_taxonomy_id'; // TODO DRY
-
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-			$term_taxonomy_id = $_COOKIE[ $cookie_name ];
+			$term_taxonomy_id = $_COOKIE[ self::$cookie_name ];
 		} else {
-			$interest = isset( $_REQUEST['academic_interest'] ) ? $_REQUEST['academic_interest'] : null;
+			$interest = isset( $_REQUEST[ self::$query_param ] ) ? $_REQUEST[ self::$query_param ] : null;
 
 			if ( ! empty( $interest ) ) {
 				$term = wpmn_get_term_by( 'name', $interest, 'mla_academic_interests' );
 
-				setcookie( $cookie_name, $term->term_taxonomy_id, null, '/' );
-				$_COOKIE[ $cookie_name ] = $term->term_taxonomy_id;
-			}
-
-			if ( empty( $interest ) ) {
-				setcookie( $cookie_name, null, null, '/' );
+				setcookie( self::$cookie_name, $term->term_taxonomy_id, null, '/' );
+				$_COOKIE[ self::$cookie_name ] = $term->term_taxonomy_id;
+			} else {
+				setcookie( self::$cookie_name, null, null, '/' );
 			}
 		}
 	}
 
 	/**
 	 * injects markup/js to support filtering a search/list by academic interest in member directory
-	 * TODO academic-interest-related functions & variables should move to their own class. see Activity
 	 */
 	static function add_academic_interests_to_directory( $template ) {
-		if ( in_array( 'members/members-loop.php', (array) $template ) ) {
-			$cookie_name = 'academic_interest_term_taxonomy_id'; // TODO DRY
-			$term_taxonomy_id = $_COOKIE[ $cookie_name ];
+		if ( in_array( 'members/members-loop.php', (array) $template ) && isset( $_COOKIE[ self::$cookie_name ] ) ) {
+			$term_taxonomy_id = $_COOKIE[ self::$cookie_name ];
 
 			if ( ! empty( $term_taxonomy_id ) ) {
 				$term = wpmn_get_term_by( 'term_taxonomy_id', $term_taxonomy_id, 'mla_academic_interests' );

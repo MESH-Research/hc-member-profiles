@@ -65,7 +65,7 @@
       e.preventDefault();
       $( '#academic_interest' ).slideUp();
       jQuery.removeCookie( 'academic_interest_term_taxonomy_id', { path: '/' } );
-      // TODO remove querystring & run members query again without querystring
+      window.location.replace( window.location.pathname + window.location.search.replace( /academic_interests=[^&]+/, '' ) );
     },
 
     /**
