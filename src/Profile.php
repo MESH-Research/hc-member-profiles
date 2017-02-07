@@ -93,10 +93,10 @@ class Profile {
 				bp_is_groups_directory()
 			)
 		) {
-			add_filter( 'load_template', [ $this, 'filter_load_template' ] );
+			bp_register_template_stack( [ $this, 'register_template_stack' ], 0 );
+
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_local_scripts' ] );
 			add_filter( 'teeny_mce_before_init', [ $this, 'filter_teeny_mce_before_init' ] );
-			add_filter( 'load_template', [ $this, 'filter_load_template' ] );
 
 			add_action( 'xprofile_updated_profile', [ '\MLA\Commons\Profile\Academic_Interests', 'save_academic_interests' ] );
 			add_action( 'bp_before_profile_edit_content', [ $this, 'init_profile_edit' ] );
@@ -162,22 +162,8 @@ class Profile {
 		bp_the_profile_group();
 	}
 
-	public function filter_load_template( $path ) {
-		$iterator = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( self::$plugin_templates_dir ) );
-		$template_files = new RegexIterator( $iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH );
-
-		// TODO currently members/single/profile.php would match for buddypress/members/single/profile.php
-		// this works okay because boss templates need to be loaded first anyway and buddypress/ will match first.
-		// it would be better if matching disambiguation were not dependent on alphabetical iteration.
-		foreach( $template_files as $name => $object ){
-			$our_slug = str_replace( self::$plugin_templates_dir, '', $name );
-
-			if ( strpos( $path, $our_slug ) !== false ) {
-				return $name;
-			}
-		}
-
-		return $path;
+	public function register_template_stack() {
+		return self::$plugin_templates_dir;
 	}
 
 	function filter_admin_bar() {
