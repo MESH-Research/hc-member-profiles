@@ -130,3 +130,18 @@ body.bp-user.is-mobile #buddypress div#item-header div#item-header-content {
 #academic_interest {
   margin: 1em 0;
 }
+
+.profile ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  white-space: normal;
+}
+.profile ol {
+  list-style-type: decimal;
+  padding-left: 20px;
+  white-space: normal;
+}
+.profile p {
+  margin-bottom: 1em;
+  white-space: normal;
+}
