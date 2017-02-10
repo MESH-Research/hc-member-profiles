@@ -131,17 +131,17 @@ body.bp-user.is-mobile #buddypress div#item-header div#item-header-content {
   margin: 1em 0;
 }
 
-#profile-main ul {
+#profile-main .hideable ul {
   list-style-type: disc;
   padding-left: 20px;
   white-space: normal;
 }
-#profile-main ol {
+#profile-main .hideable ol {
   list-style-type: decimal;
   padding-left: 20px;
   white-space: normal;
 }
-#profile-main p {
+#profile-main .hideable p {
   margin-bottom: 1em;
   white-space: normal;
 }
