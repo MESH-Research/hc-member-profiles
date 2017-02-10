@@ -115,14 +115,20 @@ class Profile {
 	}
 
 	public function filter_teeny_mce_before_init( $args ) {
+		/* TODO
 		$js = file_get_contents( self::$plugin_dir . 'js/teeny_mce_before_init.js' );
 
 		if ( $js ) {
 			$args['setup'] = $js;
 		}
+		 */
 
-		$args['plugins'] = 'paste';
-		$args['paste_as_text'] = 'true'; // this is the critical option that turns "paste as text" mode on
+		// mimick bbpress
+		$args['plugins'] = 'charmap,colorpicker,hr,lists,media,paste,tabfocus,textcolor,wordpress,wpautoresize,wpeditimage,wpemoji,wpgallery,wplink,wpdialogs,wptextpattern,wpview,wpembed,image';
+		$args['toolbar1'] = "bold,italic,strikethrough,bullist,numlist,blockquote,hr,alignleft,aligncenter,alignright,tabindent,link,unlink,spellchecker,print,image,paste,undo,redo";
+		$args['toolbar3'] = "tablecontrols";
+
+		//$args['paste_as_text'] = 'true'; // turn on by default
 
 		return $args;
 	}
