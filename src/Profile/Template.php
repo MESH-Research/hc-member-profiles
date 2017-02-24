@@ -337,7 +337,7 @@ class Template {
 			);
 
 			foreach ( $genres_html as $genre => $genre_html ) {
-				$html .= "<h5>${genres_pluralized[ $genre ]}</h5>";
+				$html .= '<h5>' . isset( $genres_pluralized[$genre] ) ? $genres_pluralized[$genre] : $genre . '</h5>';
 				$html .= '<ul>' . implode( '', $genre_html ) . '</ul>';
 			}
 		}
