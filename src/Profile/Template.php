@@ -226,12 +226,96 @@ class Template {
 	}
 
 	public function get_core_deposits() {
-		$html = '';
-
 		// bail unless humcore is installed & active
 		if ( ! function_exists( 'humcore_has_deposits' ) ) {
-			return $html;
+			return;
 		}
+
+		$genres = humcore_deposits_genre_list();
+
+		// deposits display under one of these genre headers in this order
+		$genres_order = [
+			'Monograph',
+			'Book',
+			'Article',
+			'Book Chapter',
+			'Book Section',
+			'Code',
+			'Conference Proceeding',
+			'Dissertation',
+			'Documentary',
+			'Essay',
+			'Fictional Work',
+			'Music',
+			'Performance',
+			'Photograph',
+			'Poetry',
+			'Thesis',
+			'Translation',
+			'Video Essay',
+			'Visual Art',
+			'Conference Paper',
+			'Course Material',
+			'Syllabus',
+			'Abstract',
+			'Bibliography',
+			'Blog Post',
+			'Book Review',
+			'Catalog',
+			'Chart',
+			'Code',
+			'Data Set',
+			'Finding Aid',
+			'Image',
+			'Interview',
+			'Map',
+			'Presentation',
+			'Report',
+			'Review',
+			'Technical Report',
+			'White Paper',
+			'Other',
+		];
+
+		// genres with a plural form not equal to the value returned by humcore_deposits_genre_list()
+		$genres_pluralized = [
+			'Abstract' => 'Abstracts',
+			'Article' => 'Articles',
+			'Bibliography' => 'Bibliographies',
+			'Blog Post' => 'Blog posts',
+			'Book' => 'Books',
+			'Book chapter' => 'Book chapters',
+			'Book review' => 'Book reviews',
+			'Book section' => 'Book sections',
+			'Catalog' => 'Catalogs',
+			'Chart' => 'Charts',
+			'Conference paper' => 'Conference papers',
+			'Conference proceeding' => 'Conference proceedings',
+			'Data set' => 'Data sets',
+			'Dissertation' => 'Dissertations',
+			'Documentary' => 'Documentaries',
+			'Essay' => 'Essays',
+			'Fictional work' => 'Fictional works',
+			'Finding aid' => 'Finding aids',
+			'Image' => 'Images',
+			'Interview' => 'Interviews',
+			'Map' => 'Maps',
+			'Monograph' => 'Monographs',
+			'Performance' => 'Performances',
+			'Photograph' => 'Photographs',
+			'Presentation' => 'Presentations',
+			'Report' => 'Reports',
+			'Review' => 'Reviews',
+			'Syllabus' => 'Syllabi',
+			'Technical report' => 'Technical reports',
+			'Thesis' => 'Theses',
+			'Translation' => 'Translations',
+			'Video essay' => 'Video essays',
+			'White paper' => 'White papers',
+		];
+
+		$html = '';
+		$genres_html = [];
 
 		$querystring = sprintf( 'facets[author_facet][]=%s', urlencode( bp_get_displayed_user_fullname() ) );
 
@@ -242,10 +326,20 @@ class Template {
 				humcore_the_deposit();
 				$metadata = (array) humcore_get_current_deposit();
 				$item_url = sprintf( '%1$s/deposits/item/%2$s', bp_get_root_domain(), $metadata['pid'] );
-				$html .= '<li><a href="' . esc_url( $item_url ) . '/">' . $metadata['title_unchanged'] . '</a></li>';
+
+				$genres_html[ $metadata['genre'] ][] = '<li><a href="' . esc_url( $item_url ) . '/">' . $metadata['title_unchanged'] . '</a></li>';
 			}
 
-			$html .= '</ul>';
+			// sort results according to $genres_order
+			$genres_html = array_filter(
+				array_replace( array_flip( $genres_order ), $genres_html ),
+				'is_array'
+			);
+
+			foreach ( $genres_html as $genre => $genre_html ) {
+				$html .= "<h5>${genres_pluralized[ $genre ]}</h5>";
+				$html .= '<ul>' . implode( '', $genre_html ) . '</ul>';
+			}
 		}
 
 		return $html;
