@@ -28,13 +28,13 @@ do_action( 'bp_before_profile_edit_content' );
 			<h4>Academic Interests</h4>
 			<?php echo $template->get_academic_interests_edit(); ?>
 		</div>
-		<div class="recent-commons-activity">
-			<h4>Recent Commons Activity</h4>
-			<?php echo $template->get_activity(); ?>
-		</div>
 		<div class="commons-groups wordblock">
 			<h4>Commons Groups</h4>
 			<?php echo $template->get_groups(); ?>
+		</div>
+		<div class="recent-commons-activity">
+			<h4>Recent Commons Activity</h4>
+			<?php echo $template->get_activity(); ?>
 		</div>
 		<div class="commons-sites wordblock">
 			<h4>Commons Sites</h4>
