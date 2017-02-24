@@ -124,7 +124,11 @@
 }
 
 .profile .work-shared-in-core h5 {
-  margin-top: 0.5em;
+  margin-top: 0.75em;
+}
+
+.profile .work-shared-in-core li {
+  margin-top: 0.25em;
 }
 
 /**
