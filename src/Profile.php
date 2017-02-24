@@ -80,8 +80,8 @@ class Profile {
 		add_action( 'wp_before_admin_bar_render', [ $this, 'filter_admin_bar' ] );
 
 		// replace the default updated_profile activity handler with our own
-		remove_action( 'xprofile_updated_profile', 'bp_xprofile_updated_profile_activity', 10, 5 );
-		add_action( 'xprofile_updated_profile', [ '\MLA\Commons\Profile\Activity', 'updated_profile_activity' ], 10, 5 );
+		//remove_action( 'xprofile_updated_profile', 'bp_xprofile_updated_profile_activity', 10, 5 );
+		//add_action( 'xprofile_updated_profile', [ '\MLA\Commons\Profile\Activity', 'updated_profile_activity' ], 10, 5 );
 
 		if (
 			! bp_is_user_change_avatar() &&
