@@ -27,9 +27,12 @@ do_action( 'bp_before_profile_loop_content' );
 			</div>
 			<button class="js-dynamic-show-hide button" title="Show more" data-replace-text="Show less">Show more</button>
 		</div>
-		<div class="commons-sites wordblock">
+		<div class="commons-sites wordblock js-dynamic-height" data-maxheight="250">
 			<h4>Commons Sites</h4>
-			<?php echo $template->get_sites(); ?>
+			<div class="dynamic-height-wrap">
+				<?php echo $template->get_sites(); ?>
+			</div>
+			<button class="js-dynamic-show-hide button" title="Show more" data-replace-text="Show less">Show more</button>
 		</div>
 	</div>
 
