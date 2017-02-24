@@ -31,7 +31,7 @@ class Profile {
 	const XPROFILE_FIELD_NAME_ORCID = '<em>ORCID</em> iD';
 	const XPROFILE_FIELD_NAME_ABOUT = 'About';
 	const XPROFILE_FIELD_NAME_EDUCATION = 'Education';
-	const XPROFILE_FIELD_NAME_PUBLICATIONS = 'Publications';
+	const XPROFILE_FIELD_NAME_PUBLICATIONS = 'Other Publications';
 	const XPROFILE_FIELD_NAME_PROJECTS = 'Projects';
 	const XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES = 'Upcoming Talks and Conferences';
 	const XPROFILE_FIELD_NAME_MEMBERSHIPS = 'Memberships';
