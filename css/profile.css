@@ -123,6 +123,10 @@
   margin: 0.5em 0 0;
 }
 
+.profile #profile-main .right .work-shared-in-core {
+  white-space: normal;
+}
+
 .profile .work-shared-in-core h5 {
   margin-top: 0.75em;
 }
@@ -245,6 +249,10 @@
   position: absolute;
   right: 0;
   z-index: 1;
+}
+
+.js-dynamic-show-hide.button {
+  margin-top: 1em;
 }
 
 .dynamic-height-active .dynamic-show-more {
