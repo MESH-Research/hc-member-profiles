@@ -41,7 +41,13 @@ do_action( 'bp_before_profile_loop_content' );
 		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_EDUCATION ) ?>
 		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_PUBLICATIONS ) ?>
 		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_PROJECTS ) ?>
-		<div class="work-shared-in-core"><h4>Work Shared in CORE</h4><?php echo $template->get_core_deposits(); ?></div>
+		<div class="work-shared-in-core js-dynamic-height" data-maxheight="250">
+			<h4>Work Shared in CORE</h4>
+			<div class="dynamic-height-wrap">
+				<?php echo $template->get_core_deposits(); ?>
+			</div>
+			<button class="js-dynamic-show-hide button" title="Show more" data-replace-text="Show less">Show more</button>
+		</div>
 		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES ) ?>
 		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS ) ?>
 	</div>
