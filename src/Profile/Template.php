@@ -320,8 +320,6 @@ class Template {
 		$querystring = sprintf( 'facets[author_facet][]=%s', urlencode( bp_get_displayed_user_fullname() ) );
 
 		if ( humcore_has_deposits( $querystring ) ) {
-			$html = '<ul>';
-
 			while ( humcore_deposits() ) {
 				humcore_the_deposit();
 				$metadata = (array) humcore_get_current_deposit();
@@ -337,8 +335,9 @@ class Template {
 			);
 
 			foreach ( $genres_html as $genre => $genre_html ) {
-				$html .= '<h5>' . isset( $genres_pluralized[$genre] ) ? $genres_pluralized[$genre] : $genre . '</h5>';
+				$html .= '<h5>' . ( isset( $genres_pluralized[$genre] ) ? $genres_pluralized[$genre] : $genre ) . '</h5>';
 				$html .= '<ul>' . implode( '', $genre_html ) . '</ul>';
+//var_dump($genre_html);
 			}
 		}
 
