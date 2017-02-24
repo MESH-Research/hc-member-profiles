@@ -173,7 +173,7 @@ class Template {
 		$group_types = bp_groups_get_group_types();
 
 		foreach ( $group_types as $group_type ) {
-			$querystring = bp_ajax_querystring( 'groups' ) . '&' . http_build_query( [
+			$querystring = bp_ajax_querystring( 'groups&' . http_build_query( [
 				'group_type' => $group_type,
 				// action & type are blank to override cookies setting filters from directory
 				'action' => '',
@@ -181,7 +181,7 @@ class Template {
 				// use alpha order rather than whatever directory set
 				'orderby' => 'name',
 				'order' => 'ASC',
-			] );
+			] ) );
 
 			if ( bp_has_groups( $querystring ) ) {
 				$html .= '<h5>' . strtoupper( $group_type ) . '</h5>';
@@ -198,15 +198,28 @@ class Template {
 	}
 
 	public function get_sites() {
-		$html = '';
+		global $humanities_commons;
 
-		if ( bp_has_blogs( bp_ajax_querystring( 'blogs' ) ) ) {
-			$html .= '<ul>';
+		$html = '';
+		$societies_html = [];
+
+		$querystring =  bp_ajax_querystring( 'blogs&' . http_build_query( [
+			'type' => 'alphabetical',
+		] ) );
+
+		if ( bp_has_blogs( $querystring ) ) {
 			while ( bp_blogs() ) {
 				bp_the_blog();
-				$html .= '<li><a href="' . bp_get_blog_permalink() . '">' . bp_get_blog_name() . '</a></li>';
+				$society_id = $humanities_commons->hcommons_get_blog_society_id( bp_get_blog_id() );
+				$societies_html[ $society_id ][] = '<li><a href="' . bp_get_blog_permalink() . '">' . bp_get_blog_name() . '</a></li>';
 			}
-			$html .= '</ul>';
+
+			ksort( $societies_html );
+
+			foreach ( $societies_html as $society_id => $society_html ) {
+				$html .= '<h5>' . strtoupper( $society_id ) . '</h5>';
+				$html .= '<ul>' . implode( '', $society_html ) . '</ul>';
+			}
 		}
 
 		return $html;
