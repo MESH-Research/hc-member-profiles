@@ -46,19 +46,44 @@
 
       $( '#profile-edit-form input' ).on( 'change', mla_commons_profile.editor_change_handler );
 
-      $('.js-dynamic-height').dynamicMaxHeight();
-      // buddypress adds ajax & link-like functionality to buttons. prevent page from reloading when "show more" button pressed.
-      $('.js-dynamic-show-hide').click(function(e) {
-        e.preventDefault();
-      });
-      // button is also not automatically hid if itemheight < maxheight. fix it
-      $.each($('.js-dynamic-height'), function() {
-        if (parseInt($(this).attr('data-maxheight')) > parseInt($(this).attr('data-itemheight'))) {
-          $(this).find('.js-dynamic-show-hide').hide();
-        }
-      });
-
       $( '#remove_academic_interest_filter' ).live( 'click', mla_commons_profile.remove_academic_interest_filter );
+
+      mla_commons_profile.init_show_more_buttons();
+    },
+
+    init_show_more_buttons: function() {
+      $( '.profile .show-more' ).each( function() {
+        var div = $( this );
+        var header = div.find( 'h4' );
+        var show_more_button = $( '<button class="js-dynamic-show-hide button" title="Show more" data-replace-text="Show less">Show more</button>' );
+
+        header.remove(); // this will be restored after wrapping the remaining contents in div.dynamic-height-wrap
+
+        div
+          .addClass( 'js-dynamic-height' )
+          .attr( 'data-maxheight', 250 )
+          .html( header[0].outerHTML + '<div class="dynamic-height-wrap">' + div.html() + '</div>' + show_more_button[0].outerHTML );
+      } );
+
+      // some fields should be taller than the rest
+      $( '.profile .work-shared-in-core, .profile .other-publications' ).each( function() {
+        $( this ).attr( 'data-maxheight', 400 );
+      } );
+
+      $( '.js-dynamic-height' ).dynamicMaxHeight();
+
+      // buddypress adds ajax & link-like functionality to buttons.
+      // prevent page from reloading when "show more" button pressed.
+      $( '.js-dynamic-show-hide' ).click( function( e ) {
+        e.preventDefault();
+      } );
+
+      // button is also not automatically hid if itemheight < maxheight. fix it
+      $.each( $( '.js-dynamic-height' ), function() {
+        if ( parseInt( $( this ).attr('data-maxheight') ) > parseInt( $( this ).attr( 'data-itemheight' ) ) ) {
+          $( this ).find( '.js-dynamic-show-hide' ).hide();
+        }
+      } );
     },
 
     remove_academic_interest_filter: function( e ) {

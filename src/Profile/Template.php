@@ -506,9 +506,12 @@ class Template {
 			Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS
 		];
 
+		$show_more_fields = [
+			Profile::XPROFILE_FIELD_NAME_PUBLICATIONS,
+		];
+
 		$classes = [
 			sanitize_title( $field_name ),
-			//'js-dynamic-height'
 		];
 
 		if ( in_array( $field_name, $always_hidden_fields ) ) {
@@ -517,6 +520,10 @@ class Template {
 
 		if ( in_array( $field_name, $user_hideable_fields ) ) {
 			$classes[] = 'hideable';
+		}
+
+		if ( in_array( $field_name, $show_more_fields ) ) {
+			//$classes[] = 'show-more';
 		}
 
 		if ( bp_is_user_profile_edit() ) {
@@ -529,7 +536,7 @@ class Template {
 		if ( isset( $content ) && ! empty( $content ) ) {
 			return sprintf(
 				// must be on one line with no extra whitespace due to 'white-space: pre-wrap;'
-				'<div class="%s" data-maxheight="50"><h4>%s</h4><div class="dynamic-height-wrap">%s</div></div>',
+				'<div class="%s"><h4>%s</h4>%s</div>',
 				implode( ' ', $classes ),
 				$field_name,
 				$content
