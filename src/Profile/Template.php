@@ -523,7 +523,7 @@ class Template {
 		}
 
 		if ( in_array( $field_name, $show_more_fields ) ) {
-			//$classes[] = 'show-more';
+			$classes[] = 'show-more';
 		}
 
 		if ( bp_is_user_profile_edit() ) {
