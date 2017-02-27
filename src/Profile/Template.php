@@ -255,7 +255,7 @@ class Template {
 			'Video essay',
 			'Visual art',
 			'Conference paper',
-			'Course material',
+			'Course material or learning objects',
 			'Syllabus',
 			'Abstract',
 			'Bibliography',
