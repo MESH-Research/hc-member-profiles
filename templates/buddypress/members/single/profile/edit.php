@@ -44,11 +44,11 @@ do_action( 'bp_before_profile_edit_content' );
 
 	<div class="right">
 		<div class="about editable hideable">
-			<h4>About</h4>
+			<h4><?php echo Profile::XPROFILE_FIELD_NAME_ABOUT ?></h4>
 			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_ABOUT ) ?>
 		</div>
 		<div class="education editable hideable">
-			<h4>Education</h4>
+			<h4><?php echo Profile::XPROFILE_FIELD_NAME_EDUCATION ?></h4>
 			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_EDUCATION ) ?>
 		</div>
 		<div class="work-shared-in-core">
@@ -56,19 +56,19 @@ do_action( 'bp_before_profile_edit_content' );
 			<?php echo $template->get_core_deposits(); ?>
 		</div>
 		<div class="publications editable hideable">
-			<h4>Publications</h4>
+			<h4><?php echo Profile::XPROFILE_FIELD_NAME_PUBLICATIONS ?></h4>
 			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_PUBLICATIONS ) ?>
 		</div>
 		<div class="projects editable hideable">
-			<h4>Projects</h4>
+			<h4><?php echo Profile::XPROFILE_FIELD_NAME_PROJECTS ?></h4>
 			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_PROJECTS ) ?>
 		</div>
 		<div class="upcoming-talks-and-conferences editable hideable">
-			<h4>Upcoming Talks and Conferences</h4>
+			<h4><?php echo Profile::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES ?></h4>
 			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES ) ?>
 		</div>
 		<div class="memberships editable hideable">
-			<h4>Memberships</h4>
+			<h4><?php echo Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS ?></h4>
 			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS ) ?>
 		</div>
 	</div>
