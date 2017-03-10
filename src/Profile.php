@@ -71,7 +71,7 @@ class Profile {
 			self::XPROFILE_FIELD_NAME_ORCID => '<em>ORCID</em> iD',
 			self::XPROFILE_FIELD_NAME_ABOUT => 'About',
 			self::XPROFILE_FIELD_NAME_EDUCATION => 'Education',
-			self::XPROFILE_FIELD_NAME_PUBLICATIONS => 'Other Publications',
+			self::XPROFILE_FIELD_NAME_PUBLICATIONS => 'Publications',
 			self::XPROFILE_FIELD_NAME_PROJECTS => 'Projects',
 			self::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES => 'Upcoming Talks and Conferences',
 			self::XPROFILE_FIELD_NAME_MEMBERSHIPS => 'Memberships',
