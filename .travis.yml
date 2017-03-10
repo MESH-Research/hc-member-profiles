@@ -9,6 +9,7 @@ env:
 - WP_VERSION=latest
 before_install:
 - git submodule update --init --recursive
+- composer install
 before_script:
 - bash tests/install.sh $WP_VERSION
 script: phpunit
