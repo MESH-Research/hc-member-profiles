@@ -29,10 +29,10 @@ $linkedin_link = $template->get_linkedin_link();
 
 	<div id="item-main">
 		<h4 class="name">
-			<?php echo $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_NAME ) ?>
+			<?php echo $template->get_xprofile_field_data( Profile::$display_names[ Profile::XPROFILE_FIELD_NAME_NAME ] ) ?>
 		</h4>
 		<h4 class="title">
-			<?php echo $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_TITLE ) ?>
+			<?php echo $template->get_xprofile_field_data( Profile::$display_names[ Profile::XPROFILE_FIELD_NAME_TITLE ] ) ?>
 		</h4>
 		<h4 class="affiliation">
 			<a href="<?php echo esc_url( $affiliation_search_url ) ?>" rel="nofollow"><?php echo $affiliation_data ?></a>
@@ -42,26 +42,26 @@ $linkedin_link = $template->get_linkedin_link();
 		</div>
 		<?php if ( $twitter_link ) : ?>
 			<div class="twitter">
-				<span class="social-label"><?php echo Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME ?>:</span> <?php echo $twitter_link ?>
+				<span class="social-label"><?php echo Profile::$display_names[ Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME ] ?>:</span> <?php echo $twitter_link ?>
 			</div>
 		<?php endif ?>
 		<?php if ( $orcid_link ) : ?>
 			<div class="orcid">
-				<span class="social-label"><?php echo Profile::XPROFILE_FIELD_NAME_ORCID ?>:</span> <?php echo $orcid_link ?>
+				<span class="social-label"><?php echo Profile::$display_names[ Profile::XPROFILE_FIELD_NAME_ORCID ] ?>:</span> <?php echo $orcid_link ?>
 			</div>
 		<?php endif ?>
 		<?php if ( $facebook_link ) : ?>
 			<div class="facebook">
-				<span class="social-label"><?php echo Profile::XPROFILE_FIELD_NAME_FACEBOOK ?>:</span> <?php echo $facebook_link ?>
+				<span class="social-label"><?php echo Profile::$display_names[ Profile::XPROFILE_FIELD_NAME_FACEBOOK ] ?>:</span> <?php echo $facebook_link ?>
 			</div>
 		<?php endif ?>
 		<?php if ( $linkedin_link ) : ?>
 			<div class="linkedin">
-				<span class="social-label"><?php echo Profile::XPROFILE_FIELD_NAME_LINKEDIN ?>:</span> <?php echo $linkedin_link ?>
+				<span class="social-label"><?php echo Profile::$display_names[ Profile::XPROFILE_FIELD_NAME_LINKEDIN ] ?>:</span> <?php echo $linkedin_link ?>
 			</div>
 		<?php endif ?>
 		<div class="website">
-			<span class="social-label"><?php echo Profile::XPROFILE_FIELD_NAME_SITE ?>:</span> <?php echo $template->get_site_link() ?>
+			<span class="social-label"><?php echo Profile::$display_names[ Profile::XPROFILE_FIELD_NAME_SITE ] ?>:</span> <?php echo $template->get_site_link() ?>
 		</div>
 	</div><!-- #item-main -->
 

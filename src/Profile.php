@@ -19,7 +19,7 @@ class Profile {
 	const XPROFILE_GROUP_DESCRIPTION = 'Created and used by the MLA Commons Profile plugin.';
 
 	/**
-	 * names of xprofile fields used across the plugin
+	 * real/database names of xprofile fields used across the plugin
 	 */
 	const XPROFILE_FIELD_NAME_NAME = 'Name';
 	const XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION = 'Institutional or Other Affiliation';
@@ -35,6 +35,11 @@ class Profile {
 	const XPROFILE_FIELD_NAME_PROJECTS = 'Projects';
 	const XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES = 'Upcoming Talks and Conferences';
 	const XPROFILE_FIELD_NAME_MEMBERSHIPS = 'Memberships';
+
+	/**
+	 * display names of the above fields
+	 */
+	public static $display_names;
 
 	/**
 	 * paths to commonly used directories
@@ -55,6 +60,22 @@ class Profile {
 	public function __construct() {
 		self::$plugin_dir = plugin_dir_path( realpath( __DIR__ ) );
 		self::$plugin_templates_dir = trailingslashit( self::$plugin_dir . 'templates' );
+		self::$display_names = [
+			self::XPROFILE_FIELD_NAME_NAME => 'Name',
+			self::XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION => 'Institutional or Other Affiliation',
+			self::XPROFILE_FIELD_NAME_TITLE => 'Title',
+			self::XPROFILE_FIELD_NAME_SITE => 'Website URL',
+			self::XPROFILE_FIELD_NAME_TWITTER_USER_NAME => '<em>Twitter</em> handle',
+			self::XPROFILE_FIELD_NAME_FACEBOOK => 'Facebook URL',
+			self::XPROFILE_FIELD_NAME_LINKEDIN => 'LinkedIn URL',
+			self::XPROFILE_FIELD_NAME_ORCID => '<em>ORCID</em> iD',
+			self::XPROFILE_FIELD_NAME_ABOUT => 'About',
+			self::XPROFILE_FIELD_NAME_EDUCATION => 'Education',
+			self::XPROFILE_FIELD_NAME_PUBLICATIONS => 'Other Publications',
+			self::XPROFILE_FIELD_NAME_PROJECTS => 'Projects',
+			self::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES => 'Upcoming Talks and Conferences',
+			self::XPROFILE_FIELD_NAME_MEMBERSHIPS => 'Memberships',
+		];
 
 		if( defined( 'WP_CLI' ) && WP_CLI ) {
 			WP_CLI::add_command( 'profile', __NAMESPACE__ . '\Profile\CLI' );

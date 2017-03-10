@@ -538,7 +538,7 @@ class Template {
 				// must be on one line with no extra whitespace due to 'white-space: pre-wrap;'
 				'<div class="%s"><h4>%s</h4>%s</div>',
 				implode( ' ', $classes ),
-				$field_name,
+				Profile::$display_names[ $field_name ],
 				$content
 			);
 		}
