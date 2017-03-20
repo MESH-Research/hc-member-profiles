@@ -96,6 +96,12 @@ class Profile {
 			}
 		}
 
+		// change publications field name depending on whether the user has CORE deposits
+		$querystring = sprintf( 'facets[author_facet][]=%s', urlencode( bp_get_displayed_user_fullname() ) );
+		if ( humcore_has_deposits( $querystring ) ) {
+			self::$display_names[ self::XPROFILE_FIELD_NAME_PUBLICATIONS ] = 'Other Publications';
+		}
+
 		add_filter( 'xprofile_allowed_tags', [ $this, 'filter_xprofile_allowed_tags' ] );
 
 		add_action( 'wp_before_admin_bar_render', [ $this, 'filter_admin_bar' ] );
