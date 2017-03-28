@@ -416,6 +416,7 @@ class Template {
 
 		$show_more_fields = [
 			Profile::XPROFILE_FIELD_NAME_PUBLICATIONS,
+			Profile::XPROFILE_FIELD_NAME_CORE_DEPOSITS,
 		];
 
 		$classes = [
