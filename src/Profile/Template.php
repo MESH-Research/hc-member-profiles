@@ -225,124 +225,6 @@ class Template {
 		return $html;
 	}
 
-	public function get_core_deposits() {
-		// bail unless humcore is installed & active
-		if ( ! function_exists( 'humcore_has_deposits' ) ) {
-			return;
-		}
-
-		$genres = humcore_deposits_genre_list();
-
-		// deposits display under one of these genre headers in this order
-		$genres_order = [
-			'Monograph',
-			'Book',
-			'Article',
-			'Book chapter',
-			'Book section',
-			'Code',
-			'Conference proceeding',
-			'Dissertation',
-			'Documentary',
-			'Essay',
-			'Fictional work',
-			'Music',
-			'Performance',
-			'Photograph',
-			'Poetry',
-			'Thesis',
-			'Translation',
-			'Video essay',
-			'Visual art',
-			'Conference paper',
-			'Course material or learning objects',
-			'Syllabus',
-			'Abstract',
-			'Bibliography',
-			'Blog Post',
-			'Book review',
-			'Catalog',
-			'Chart',
-			'Code',
-			'Data set',
-			'Finding aid',
-			'Image',
-			'Interview',
-			'Map',
-			'Presentation',
-			'Report',
-			'Review',
-			'Technical report',
-			'White paper',
-			'Other',
-		];
-
-		// genres with a plural form not equal to the value returned by humcore_deposits_genre_list()
-		$genres_pluralized = [
-			'Abstract' => 'Abstracts',
-			'Article' => 'Articles',
-			'Bibliography' => 'Bibliographies',
-			'Blog Post' => 'Blog Posts',
-			'Book' => 'Books',
-			'Book chapter' => 'Book chapters',
-			'Book review' => 'Book reviews',
-			'Book section' => 'Book sections',
-			'Catalog' => 'Catalogs',
-			'Chart' => 'Charts',
-			'Conference paper' => 'Conference papers',
-			'Conference proceeding' => 'Conference proceedings',
-			'Data set' => 'Data sets',
-			'Dissertation' => 'Dissertations',
-			'Documentary' => 'Documentaries',
-			'Essay' => 'Essays',
-			'Fictional work' => 'Fictional works',
-			'Finding aid' => 'Finding aids',
-			'Image' => 'Images',
-			'Interview' => 'Interviews',
-			'Map' => 'Maps',
-			'Monograph' => 'Monographs',
-			'Performance' => 'Performances',
-			'Photograph' => 'Photographs',
-			'Presentation' => 'Presentations',
-			'Report' => 'Reports',
-			'Review' => 'Reviews',
-			'Syllabus' => 'Syllabi',
-			'Technical report' => 'Technical reports',
-			'Thesis' => 'Theses',
-			'Translation' => 'Translations',
-			'Video essay' => 'Video essays',
-			'White paper' => 'White papers',
-		];
-
-		$html = '';
-		$genres_html = [];
-
-		$querystring = sprintf( 'facets[author_facet][]=%s', urlencode( bp_get_displayed_user_fullname() ) );
-
-		if ( humcore_has_deposits( $querystring ) ) {
-			while ( humcore_deposits() ) {
-				humcore_the_deposit();
-				$metadata = (array) humcore_get_current_deposit();
-				$item_url = sprintf( '%1$s/deposits/item/%2$s', bp_get_root_domain(), $metadata['pid'] );
-
-				$genres_html[ $metadata['genre'] ][] = '<li><a href="' . esc_url( $item_url ) . '/">' . $metadata['title_unchanged'] . '</a></li>';
-			}
-
-			// sort results according to $genres_order
-			$genres_html = array_filter(
-				array_replace( array_flip( $genres_order ), $genres_html ),
-				'is_array'
-			);
-
-			foreach ( $genres_html as $genre => $genre_html ) {
-				$html .= '<h5>' . ( isset( $genres_pluralized[$genre] ) ? $genres_pluralized[$genre] : $genre ) . '</h5>';
-				$html .= '<ul>' . implode( '', $genre_html ) . '</ul>';
-			}
-		}
-
-		return $html;
-	}
-
 	public function get_header_actions() {
 		$html = '';
 
@@ -388,12 +270,37 @@ class Template {
 		return $html;
 	}
 
+	/**
+	 * TODO find a way to directly access the field value without looping
+	 */
 	public function get_xprofile_field_data( $field_name = '' ) {
-		foreach ( Profile::get_instance()->xprofile_group->fields as $field ) {
-			if ( $field->name === $field_name ) {
-				return $field->get_field_data( bp_displayed_user_id() )->value;
+		global $profile_template;
+
+		$args = [
+			'profile_group_id' => Profile::get_instance()->xprofile_group->id,
+			'hide_empty_fields' => false, // some custom fields are "empty" by design e.g. 'CORE Deposits'
+		];
+
+		$reval = '';
+
+		if ( bp_has_profile( $args ) ) {
+			while ( bp_profile_groups() ) {
+				bp_the_profile_group();
+
+				if ( bp_profile_group_has_fields() ) {
+					while ( bp_profile_fields() ) {
+						bp_the_profile_field();
+
+						if ( bp_get_the_profile_field_name() === $field_name ) {
+							$retval = bp_get_the_profile_field_value();
+							break;
+						}
+					}
+				}
 			}
 		}
+
+		return $retval;
 	}
 
 	/**
@@ -503,7 +410,8 @@ class Template {
 			Profile::XPROFILE_FIELD_NAME_PUBLICATIONS,
 			Profile::XPROFILE_FIELD_NAME_PROJECTS,
 			Profile::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES,
-			Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS
+			Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS,
+			Profile::XPROFILE_FIELD_NAME_CORE_DEPOSITS,
 		];
 
 		$show_more_fields = [

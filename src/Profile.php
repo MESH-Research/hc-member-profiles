@@ -35,6 +35,7 @@ class Profile {
 	const XPROFILE_FIELD_NAME_PROJECTS = 'Projects';
 	const XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES = 'Upcoming Talks and Conferences';
 	const XPROFILE_FIELD_NAME_MEMBERSHIPS = 'Memberships';
+	const XPROFILE_FIELD_NAME_CORE_DEPOSITS = 'CORE Deposits';
 
 	/**
 	 * display names of the above fields
@@ -75,6 +76,7 @@ class Profile {
 			self::XPROFILE_FIELD_NAME_PROJECTS => 'Projects',
 			self::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES => 'Upcoming Talks and Conferences',
 			self::XPROFILE_FIELD_NAME_MEMBERSHIPS => 'Memberships',
+			self::XPROFILE_FIELD_NAME_CORE_DEPOSITS => 'Work Shared in CORE',
 		];
 
 		if( defined( 'WP_CLI' ) && WP_CLI ) {
@@ -103,6 +105,8 @@ class Profile {
 				self::$display_names[ self::XPROFILE_FIELD_NAME_PUBLICATIONS ] = 'Other Publications';
 			}
 		}
+
+		add_filter( 'bp_xprofile_get_field_types', [ $this, 'filter_xprofile_get_field_types' ] );
 
 		add_filter( 'xprofile_allowed_tags', [ $this, 'filter_xprofile_allowed_tags' ] );
 
@@ -141,6 +145,19 @@ class Profile {
 		// disable buddypress friends component in favor of follow/block
 		$this->disable_bp_component( 'friends' );
 
+	}
+
+	/**
+	 * register custom xprofile field types
+	 */
+	public function filter_xprofile_get_field_types( $field_types ) {
+		require_once 'Profile/CORE_Deposits_Field_Type.php';
+
+		$custom_field_types = [
+			'core_deposits' => 'MLA\Commons\Profile\CORE_Deposits_Field_Type',
+		];
+
+		return array_merge( $field_types, $custom_field_types );
 	}
 
 	public function filter_teeny_mce_before_init( $args ) {
