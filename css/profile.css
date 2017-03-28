@@ -123,15 +123,15 @@
   margin: 0.5em 0 0;
 }
 
-.profile #profile-main .right .work-shared-in-core {
+.profile #profile-main .right .core-deposits {
   white-space: normal;
 }
 
-.profile .work-shared-in-core h5 {
+.profile .core-deposits h5 {
   margin-top: 0.75em;
 }
 
-.profile .work-shared-in-core li {
+.profile .core-deposits li {
   margin-top: 0.25em;
 }
 
