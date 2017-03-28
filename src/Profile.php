@@ -183,6 +183,8 @@ class Profile {
 
 	public function filter_xprofile_allowed_tags( $allowed_tags ) {
 		$allowed_tags['br'] = [];
+		$allowed_tags['ul'] = [];
+		$allowed_tags['li'] = [];
 		return $allowed_tags;
 	}
 
