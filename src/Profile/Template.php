@@ -320,7 +320,7 @@ class Template {
 	 * returns html linking to the orcid page of the user
 	 */
 	public function get_orcid_link() {
-		$value = $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_ORCID );
+		$value = strip_tags( $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_ORCID ) );
 
 		if ( ! empty( $value ) ) {
 			$value = "<a href=\"http://orcid.org/$value\">$value</a>";
@@ -333,7 +333,7 @@ class Template {
 	 * returns html linking to the facebook page of the user
 	 */
 	public function get_facebook_link() {
-		$value = $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_FACEBOOK );
+		$value = strip_tags( $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_FACEBOOK ) );
 
 		if ( ! empty( $value ) ) {
 			$path = parse_url( $value, PHP_URL_PATH );
@@ -350,7 +350,7 @@ class Template {
 	 * returns html linking to the linkedin page of the user
 	 */
 	public function get_linkedin_link() {
-		$value = $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_LINKEDIN );
+		$value = strip_tags( $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_LINKEDIN ) );
 
 		if ( ! empty( $value ) ) {
 			$path = parse_url( $value, PHP_URL_PATH );
@@ -371,7 +371,7 @@ class Template {
 	}
 
 	public function get_site_link() {
-		$value = $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_SITE );
+		$value = strip_tags( $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_SITE ) );
 
 		if ( ! empty( $value ) ) {
 			$url = $value;
