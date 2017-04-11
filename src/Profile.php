@@ -142,6 +142,9 @@ class Profile {
 
 			// we want the full value including existing html in edit field inputs
 			remove_filter( 'bp_get_the_profile_field_edit_value', 'wp_filter_kses', 1 );
+
+			// this breaks content containing [] characters (unless they're using the feature it provides, which our data is not)
+			remove_filter( 'bp_get_the_profile_field_value', 'cpfb_add_brackets', 999, 1 );
 		}
 
 		// disable buddypress friends component in favor of follow/block
