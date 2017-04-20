@@ -371,15 +371,7 @@ class Template {
 	}
 
 	public function get_site_link() {
-		$value = strip_tags( $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_SITE ) );
-
-		if ( ! empty( $value ) ) {
-			$url = $value;
-
-			$value = "<a href=\"$url\">" . preg_replace( '/http(s)?:\/\//', '', $value ) . "</a>";
-		}
-
-		return $value;
+		return $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_SITE );
 	}
 
 	public function get_xprofile_field_visibility( $field_name = '' ) {
