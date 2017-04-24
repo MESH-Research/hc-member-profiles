@@ -16,6 +16,7 @@ $twitter_link = $template->get_twitter_link();
 $orcid_link = $template->get_orcid_link();
 $facebook_link = $template->get_facebook_link();
 $linkedin_link = $template->get_linkedin_link();
+$site_link = $template->get_site_link();
 
 ?>
 
@@ -58,9 +59,11 @@ $linkedin_link = $template->get_linkedin_link();
 					<span class="social-label"><?php echo Profile::$display_names[ Profile::XPROFILE_FIELD_NAME_LINKEDIN ] ?>:</span> <?php echo $linkedin_link ?>
 				</div>
 			<?php endif ?>
-			<div class="website">
-				<?php echo $template->get_site_link() ?>
-			</div>
+			<?php if ( strip_tags( $site_link ) ) : ?>
+				<div class="website">
+					<?php echo $site_link ?>
+				</div>
+			<?php endif ?>
 		</div><!-- #item-main -->
 
 		<?php do_action( 'bp_before_member_header_meta' ); ?>
