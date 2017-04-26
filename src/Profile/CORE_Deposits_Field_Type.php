@@ -104,7 +104,8 @@ class CORE_Deposits_Field_Type extends \BP_XProfile_Field_Type {
 		$html = '';
 		$genres_html = [];
 
-		$querystring = sprintf( 'facets[author_facet][]=%s', urlencode( bp_get_displayed_user_fullname() ) );
+		$displayed_user = bp_get_displayed_user();
+		$querystring = sprintf( 'username=%s', urlencode( $displayed_user->userdata->user_login ) );
 
 		if ( humcore_has_deposits( $querystring ) ) {
 			while ( humcore_deposits() ) {
