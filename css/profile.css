@@ -144,6 +144,7 @@
   white-space: inherit;
 }
 
+.profile-edit .synced,
 .profile-edit .hidden,
 .profile-edit .editable > label,
 .profile-edit #profile-main form .radio {
