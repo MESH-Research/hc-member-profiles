@@ -208,10 +208,16 @@ class Template {
 		] );
 
 		if ( bp_has_blogs( $querystring ) ) {
+			$user = bp_get_displayed_user();
+
 			while ( bp_blogs() ) {
 				bp_the_blog();
-				$society_id = $humanities_commons->hcommons_get_blog_society_id( bp_get_blog_id() );
-				$societies_html[ $society_id ][] = '<li><a href="' . bp_get_blog_permalink() . '">' . bp_get_blog_name() . '</a></li>';
+				switch_to_blog( bp_get_blog_id() );
+				if ( ! empty( array_intersect( ['administrator', 'editor'], $user->roles ) ) ) {
+					$society_id = $humanities_commons->hcommons_get_blog_society_id( bp_get_blog_id() );
+					$societies_html[ $society_id ][] = '<li><a href="' . bp_get_blog_permalink() . '">' . bp_get_blog_name() . '</a></li>';
+				}
+				restore_current_blog();
 			}
 
 			ksort( $societies_html );
