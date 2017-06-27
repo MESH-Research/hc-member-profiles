@@ -177,7 +177,7 @@ class Profile {
 
 		// mimick bbpress
 		$args['plugins'] = 'charmap,colorpicker,hr,lists,media,paste,tabfocus,textcolor,wordpress,wpautoresize,wpeditimage,wpemoji,wpgallery,wplink,wpdialogs,wptextpattern,wpview,wpembed,image';
-		$args['toolbar1'] = "bold,italic,strikethrough,bullist,numlist,blockquote,hr,alignleft,aligncenter,alignright,tabindent,link,unlink,spellchecker,print,image,paste,undo,redo";
+		$args['toolbar1'] = "bold,italic,strikethrough,bullist,numlist,blockquote,hr,alignleft,aligncenter,alignright,tabindent,link,unlink,spellchecker,print,paste,undo,redo";
 		$args['toolbar3'] = "tablecontrols";
 
 		//$args['paste_as_text'] = 'true'; // turn on by default
