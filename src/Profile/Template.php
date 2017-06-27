@@ -312,7 +312,16 @@ class Template {
 	 * returns html linking to the twitter page of the user with the twitter handle as link text
 	 */
 	public function get_twitter_link() {
-		$value = str_replace( '@', '', $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME ) );
+		$patterns = [
+			'/@/',
+			'/https?:\/\/twitter.com\//',
+		];
+
+		$value = strip_tags( preg_replace(
+			$patterns,
+			'',
+			$this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME )
+		) );
 
 		if ( ! empty( $value ) ) {
 			$value = "<a href=\"https://twitter.com/$value\">$value</a>";
