@@ -286,7 +286,7 @@ class Template {
 			'hide_empty_fields' => false, // some custom fields are "empty" by design e.g. 'CORE Deposits'
 		];
 
-		$reval = '';
+		$retval = '';
 
 		if ( bp_has_profile( $args ) ) {
 			while ( bp_profile_groups() ) {
