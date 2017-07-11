@@ -305,76 +305,71 @@ class Template {
 			}
 		}
 
-		return $retval;
+		return apply_filters( 'commons_profile_field_value_' . sanitize_title( $field_name ), $retval );
+	}
+
+	/**
+	 * helper function for url fields. handle user input including:
+	 * username/path
+	 * (for twitter) '@username'
+	 * domain + username/path
+	 * scheme + domain + username/path
+	 *
+	 * @param $field_name
+	 * @return string normalized value
+	 */
+	public function get_normalized_url_field_value( $field_name ) {
+		$domains = [
+			Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME => 'twitter.com',
+			Profile::XPROFILE_FIELD_NAME_FACEBOOK => 'facebook.com',
+			Profile::XPROFILE_FIELD_NAME_LINKEDIN => 'linkedin.com/in',
+			Profile::XPROFILE_FIELD_NAME_ORCID => 'orcid.org',
+		];
+
+		$patterns = [
+			'#@#',
+			'#(https?://)?(www\.)?' . preg_quote( $domains[ $field_name ], '#' ) . '/?#',
+		];
+
+		$value = strip_tags( preg_replace(
+			$patterns,
+			'',
+			$this->get_xprofile_field_data( $field_name )
+		) );
+
+		if ( ! empty( $value ) ) {
+			$value = "<a href=\"https://{$domains[ $field_name ]}/$value\">$value</a>";
+		}
+
+		return $value;
 	}
 
 	/**
 	 * returns html linking to the twitter page of the user with the twitter handle as link text
 	 */
 	public function get_twitter_link() {
-		$patterns = [
-			'/@/',
-			'/https?:\/\/twitter.com\//',
-		];
-
-		$value = strip_tags( preg_replace(
-			$patterns,
-			'',
-			$this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME )
-		) );
-
-		if ( ! empty( $value ) ) {
-			$value = "<a href=\"https://twitter.com/$value\">$value</a>";
-		}
-
-		return $value;
+		return $this->get_normalized_url_field_value( Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME );
 	}
 
 	/**
 	 * returns html linking to the orcid page of the user
 	 */
 	public function get_orcid_link() {
-		$value = strip_tags( $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_ORCID ) );
-
-		if ( ! empty( $value ) ) {
-			$value = "<a href=\"http://orcid.org/$value\">$value</a>";
-		}
-
-		return $value;
+		return $this->get_normalized_url_field_value( Profile::XPROFILE_FIELD_NAME_ORCID );
 	}
 
 	/**
 	 * returns html linking to the facebook page of the user
 	 */
 	public function get_facebook_link() {
-		$value = strip_tags( $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_FACEBOOK ) );
-
-		if ( ! empty( $value ) ) {
-			$path = parse_url( $value, PHP_URL_PATH );
-			$parts = explode( '/', $path );
-			$text = end( $parts );
-
-			$value = "<a href=\"$value\">$text</a>";
-		}
-
-		return $value;
+		return $this->get_normalized_url_field_value( Profile::XPROFILE_FIELD_NAME_FACEBOOK );
 	}
 
 	/**
 	 * returns html linking to the linkedin page of the user
 	 */
 	public function get_linkedin_link() {
-		$value = strip_tags( $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_LINKEDIN ) );
-
-		if ( ! empty( $value ) ) {
-			$path = parse_url( $value, PHP_URL_PATH );
-			$parts = explode( '/', $path );
-			$text = end( $parts );
-
-			$value = "<a href=\"$value\">$text</a>";
-		}
-
-		return $value;
+		return $this->get_normalized_url_field_value( Profile::XPROFILE_FIELD_NAME_LINKEDIN );
 	}
 
 	public function get_username_link() {
