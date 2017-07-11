@@ -63,6 +63,7 @@
 
 .profile #profile-main .right {
   flex: 2;
+  overflow: auto;
 }
 
 .profile #profile-main .left > div,
