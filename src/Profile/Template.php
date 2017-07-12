@@ -18,42 +18,46 @@ class Template {
 	}
 
 	public function get_academic_interests() {
-		$tax = get_taxonomy( 'mla_academic_interests' );
-		$interests = wpmn_get_object_terms( bp_displayed_user_id(), 'mla_academic_interests', array( 'fields' => 'names' ) );
-		$html = '<ul>';
-		foreach ( $interests as $term_name ) {
-			$search_url = add_query_arg( [ 'academic_interests' => urlencode( $term_name ) ], bp_get_members_directory_permalink() );
-			$html .= '<li><a href="' . esc_url( $search_url ) . '" rel="nofollow">';
-			$html .=  $term_name;
-			$html .= '</a></li>';
+		if ( class_exists( 'Mla_Academic_Interests' ) ) {
+			$tax = get_taxonomy( 'mla_academic_interests' );
+			$interests = wpmn_get_object_terms( bp_displayed_user_id(), 'mla_academic_interests', array( 'fields' => 'names' ) );
+			$html = '<ul>';
+			foreach ( $interests as $term_name ) {
+				$search_url = add_query_arg( [ 'academic_interests' => urlencode( $term_name ) ], bp_get_members_directory_permalink() );
+				$html .= '<li><a href="' . esc_url( $search_url ) . '" rel="nofollow">';
+				$html .=  $term_name;
+				$html .= '</a></li>';
+			}
+			$html .= '</ul>';
+			return $html;
 		}
-		$html .= '</ul>';
-		return $html;
 	}
 
 	public function get_academic_interests_edit() {
-		global $mla_academic_interests;
+		if ( class_exists( 'Mla_Academic_Interests' ) ) {
+			global $mla_academic_interests;
 
-		$tax = get_taxonomy( 'mla_academic_interests' );
+			$tax = get_taxonomy( 'mla_academic_interests' );
 
-		$interest_list = $mla_academic_interests->mla_academic_interests_list();
-		$input_interest_list = wpmn_get_object_terms( bp_displayed_user_id(), 'mla_academic_interests', [ 'fields' => 'names' ] );
+			$interest_list = $mla_academic_interests->mla_academic_interests_list();
+			$input_interest_list = wpmn_get_object_terms( bp_displayed_user_id(), 'mla_academic_interests', [ 'fields' => 'names' ] );
 
-		$html = '<p class="description">Enter interests from the existing list, or add new interests if needed.</p>';
-		$html .= '<select name="academic-interests[]" class="js-basic-multiple-tags interests" multiple="multiple" data-placeholder="Enter interests.">';
+			$html = '<p class="description">Enter interests from the existing list, or add new interests if needed.</p>';
+			$html .= '<select name="academic-interests[]" class="js-basic-multiple-tags interests" multiple="multiple" data-placeholder="Enter interests.">';
 
-		foreach ( $interest_list as $interest_key => $interest_value ) {
-			$html .= sprintf('
-				<option class="level-1" %1$s value="%2$s">%3$s</option>' . "\n",
-				( in_array( $interest_key, $input_interest_list ) ) ? 'selected="selected"' : '',
-				$interest_key,
-				$interest_value
-			);
+			foreach ( $interest_list as $interest_key => $interest_value ) {
+				$html .= sprintf('
+					<option class="level-1" %1$s value="%2$s">%3$s</option>' . "\n",
+					( in_array( $interest_key, $input_interest_list ) ) ? 'selected="selected"' : '',
+					$interest_key,
+					$interest_value
+				);
+			}
+
+			$html .= '</select>';
+
+			return $html;
 		}
-
-		$html .= '</select>';
-
-		return $html;
 	}
 
 	/**
