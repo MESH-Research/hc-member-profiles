@@ -147,10 +147,6 @@ class Profile {
 			// this breaks content containing [] characters (unless they're using the feature it provides, which our data is not)
 			remove_filter( 'bp_get_the_profile_field_value', 'cpfb_add_brackets', 999, 1 );
 		}
-
-		// disable buddypress friends component in favor of follow/block
-		$this->disable_bp_component( 'friends' );
-
 	}
 
 	/**
