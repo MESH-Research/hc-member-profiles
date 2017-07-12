@@ -157,13 +157,15 @@ class Profile {
 	 * register custom xprofile field types
 	 */
 	public function filter_xprofile_get_field_types( $field_types ) {
-		require_once 'Profile/CORE_Deposits_Field_Type.php';
+		if ( bp_is_active( 'humcore_deposits' ) ) {
+			require_once 'Profile/CORE_Deposits_Field_Type.php';
 
-		$custom_field_types = [
-			'core_deposits' => 'MLA\Commons\Profile\CORE_Deposits_Field_Type',
-		];
+			$field_types = array_merge( $field_types, [
+				'core_deposits' => 'MLA\Commons\Profile\CORE_Deposits_Field_Type',
+			] );
+		}
 
-		return array_merge( $field_types, $custom_field_types );
+		return $field_types;
 	}
 
 	public function filter_teeny_mce_before_init( $args ) {
