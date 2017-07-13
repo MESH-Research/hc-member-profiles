@@ -1,18 +1,27 @@
-# Advanced profiles for [Humanities Commons](https://hcommons.org)
+# Academic Member Profiles for BuddyPress
 
 [![Build Status](https://travis-ci.org/mlaa/profile.svg)](https://travis-ci.org/mlaa/profile)
 
 Inspired by (and not compatible with) [CAC Advanced Profiles](https://github.com/cuny-academic-commons/cac-advanced-profiles).
 
-## Dependencies
+Built for [Humanities Commons](https://hcommons.org).
 
-[Commons In A Box](http://commonsinabox.org/) or [Buddypress](https://buddypress.org/)
 
-[BuddyPress Follow](https://wordpress.org/plugins/buddypress-followers/)
+## Required Dependencies
 
-[BuddyBlock](http://www.philopress.com/products/buddyblock/)
+[BuddyPress](https://buddypress.org) `xprofile`, `activity`, `blogs`, `groups`, and `members` components must be enabled.
 
-[MLA Academic Interests](https://github.com/mlaa/mla-academic-interests)
+You must also enable [Multisite](https://codex.wordpress.org/Create_A_Network) in WordPress.
+
+
+## Optional Dependencies
+
+[BuddyPress Follow](https://wordpress.org/plugins/buddypress-followers) enables displaying follower count on profiles. (Humanities Commons uses [BuddyBlock](http://www.philopress.com/products/buddyblock) to complement BuddyPress Follow but it changes nothing about how this plugin works.)
+
+[MLA Academic Interests](https://github.com/mlaa/mla-academic-interests) enables the "Academic Interests" xprofile field.
+
+[HumCORE](https://github.com/mlaa/humcore) enables the "CORE Deposits" xprofile field.
+
 
 ## Installation
 
