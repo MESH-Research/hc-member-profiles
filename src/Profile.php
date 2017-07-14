@@ -20,6 +20,7 @@ class Profile {
 
 	/**
 	 * real/database names of xprofile fields used across the plugin
+	 * TODO translatable
 	 */
 	const XPROFILE_FIELD_NAME_NAME = 'Name';
 	const XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION = 'Institutional or Other Affiliation';
@@ -36,6 +37,10 @@ class Profile {
 	const XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES = 'Upcoming Talks and Conferences';
 	const XPROFILE_FIELD_NAME_MEMBERSHIPS = 'Memberships';
 	const XPROFILE_FIELD_NAME_CORE_DEPOSITS = 'CORE Deposits';
+	const XPROFILE_FIELD_NAME_ACADEMIC_INTERESTS = 'Academic Interests';
+	const XPROFILE_FIELD_NAME_GROUPS = 'Commons Groups';
+	const XPROFILE_FIELD_NAME_ACTIVITY = 'Recent Commons Activity';
+	const XPROFILE_FIELD_NAME_BLOGS = 'Commons Sites';
 
 	/**
 	 * display names of the above fields
@@ -136,6 +141,7 @@ class Profile {
 
 			add_action( 'bp_before_profile_edit_content', [ $this, 'init_profile_edit' ] );
 
+			// TODO make part of field
 			if ( class_exists( 'Mla_Academic_Interests' ) ) {
 				add_action( 'bp_get_template_part', [ '\MLA\Commons\Profile\Academic_Interests', 'add_academic_interests_to_directory' ] );
 				add_action( 'xprofile_updated_profile', [ '\MLA\Commons\Profile\Academic_Interests', 'save_academic_interests' ] );
@@ -152,20 +158,36 @@ class Profile {
 	}
 
 	/**
-	 * register custom xprofile field types
+	 * Register custom xprofile field types.
+	 *
+	 * @return array
 	 */
-	public function filter_xprofile_get_field_types( $field_types ) {
-		if ( bp_is_active( 'humcore_deposits' ) ) {
-			require_once 'Profile/CORE_Deposits_Field_Type.php';
+	public function filter_xprofile_get_field_types( array $field_types ) {
+		if ( bp_is_active( 'activity' ) ) {
+			$field_types['activity'] = __NAMESPACE__ . '\Profile\Activity_Field_Type';
+		}
 
-			$field_types = array_merge( $field_types, [
-				'core_deposits' => 'MLA\Commons\Profile\CORE_Deposits_Field_Type',
-			] );
+		if ( bp_is_active( 'blogs' ) ) {
+			$field_types['blogs'] = __NAMESPACE__ . '\Profile\Blogs_Field_Type';
+		}
+
+		if ( bp_is_active( 'groups' ) ) {
+			$field_types['groups'] = __NAMESPACE__ . '\Profile\Groups_Field_Type';
+		}
+
+		if ( bp_is_active( 'humcore_deposits' ) ) {
+			// TODO identifier in hc db, must change there before updating here - but ideally should match component name
+			$field_types['core_deposits'] = __NAMESPACE__ . '\Profile\CORE_Deposits_Field_Type';
+		}
+
+		if ( class_exists( 'Mla_Academic_Interests' ) ) {
+			$field_types['academic_interests'] = __NAMESPACE__ . '\Profile\Academic_Interests_Field_Type';
 		}
 
 		return $field_types;
 	}
 
+	// TODO move
 	public function filter_teeny_mce_before_init( $args ) {
 		/* TODO
 		$js = file_get_contents( self::$plugin_dir . 'js/teeny_mce_before_init.js' );
@@ -185,6 +207,7 @@ class Profile {
 		return $args;
 	}
 
+	// TODO move
 	public function filter_xprofile_allowed_tags( $allowed_tags ) {
 		$allowed_tags['br'] = [];
 		$allowed_tags['ul'] = [];
@@ -192,6 +215,7 @@ class Profile {
 		return $allowed_tags;
 	}
 
+	// TODO get rid of this. ensure component is off in hc db
 	public function disable_bp_component( $component_name ) {
 		$active_components = bp_get_option( 'bp-active-components' );
 
@@ -203,6 +227,7 @@ class Profile {
 
 	/**
 	 * scripts/styles that apply on profile & related pages only
+	 * TODO move
 	 */
 	public function enqueue_local_scripts() {
 		wp_enqueue_style( 'mla-commons-profile-local', plugins_url() . '/profile/css/profile.css' );

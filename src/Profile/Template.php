@@ -7,6 +7,7 @@ use \MLA\Commons\Profile;
 
 class Template {
 
+	// TODO optional
 	public function get_follow_counts() {
 		$follow_counts = 0;
 
@@ -15,49 +16,6 @@ class Template {
 		}
 
 		return $follow_counts;
-	}
-
-	public function get_academic_interests() {
-		if ( class_exists( 'Mla_Academic_Interests' ) ) {
-			$tax = get_taxonomy( 'mla_academic_interests' );
-			$interests = wpmn_get_object_terms( bp_displayed_user_id(), 'mla_academic_interests', array( 'fields' => 'names' ) );
-			$html = '<ul>';
-			foreach ( $interests as $term_name ) {
-				$search_url = add_query_arg( [ 'academic_interests' => urlencode( $term_name ) ], bp_get_members_directory_permalink() );
-				$html .= '<li><a href="' . esc_url( $search_url ) . '" rel="nofollow">';
-				$html .=  $term_name;
-				$html .= '</a></li>';
-			}
-			$html .= '</ul>';
-			return $html;
-		}
-	}
-
-	public function get_academic_interests_edit() {
-		if ( class_exists( 'Mla_Academic_Interests' ) ) {
-			global $mla_academic_interests;
-
-			$tax = get_taxonomy( 'mla_academic_interests' );
-
-			$interest_list = $mla_academic_interests->mla_academic_interests_list();
-			$input_interest_list = wpmn_get_object_terms( bp_displayed_user_id(), 'mla_academic_interests', [ 'fields' => 'names' ] );
-
-			$html = '<p class="description">Enter interests from the existing list, or add new interests if needed.</p>';
-			$html .= '<select name="academic-interests[]" class="js-basic-multiple-tags interests" multiple="multiple" data-placeholder="Enter interests.">';
-
-			foreach ( $interest_list as $interest_key => $interest_value ) {
-				$html .= sprintf('
-					<option class="level-1" %1$s value="%2$s">%3$s</option>' . "\n",
-					( in_array( $interest_key, $input_interest_list ) ) ? 'selected="selected"' : '',
-					$interest_key,
-					$interest_value
-				);
-			}
-
-			$html .= '</select>';
-
-			return $html;
-		}
 	}
 
 	/**
@@ -92,143 +50,6 @@ class Template {
 			$html = ob_get_clean();
 
 			break; // once we output the field we want, no need to continue looping
-		}
-
-		return $html;
-	}
-
-	/**
-	 * @uses DOMDocument
-	 */
-	public function get_activity( $max = 5 ) {
-		$querystring = bp_ajax_querystring( 'activity' ) . '&' . http_build_query( [
-			'max' => $max,
-			'scope' => 'just-me',
-			// action & type are blank to override cookies setting filters from directory
-			'action' => '',
-			'type' => '',
-		] );
-
-		if ( bp_has_activities( $querystring ) ) {
-
-			$actions_html = '';
-
-			while ( bp_activities() ) {
-				bp_the_activity();
-
-				$action = trim( strip_tags( bp_get_activity_action( [ 'no_timestamp' => true ] ), '<a>' ) );
-				if ( 'activity_update' === bp_get_activity_type() && bp_activity_has_content() ) {
-					$action .= ': ' . trim( bp_get_activity_content_body() );
-				}
-
-				$activity_type = bp_get_activity_type() ;
-				$displayed_user_fullname = bp_get_displayed_user_fullname();
-				$link_text_char_limit = 30;
-
-				if ( $activity_type === 'updated_profile' ) {
-					continue;
-				}
-
-				// some types end their action strings with ':' - remove it
-				$action = preg_replace( '/:$/', '', $action );
-
-				// replace "blog post" with "post"
-				$action = str_ireplace( 'blog post', 'post', $action );
-
-				// wrapper not only serves to contain the action text but also helps DOMDocument traverse the "tree" without breaking it
-				$action = "<li class=\"$activity_type\">" . $action . '</li>';
-				$action_doc = new DOMDocument;
-
-				// encoding prevents mangling of multibyte characters
-				// constants ensure no <body> or <doctype> tags are added
-				$action_doc->loadHTML(
-					mb_convert_encoding( $action, 'HTML-ENTITIES', 'UTF-8' ),
-					LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
-				);
-
-				// for reasons yet unknown, removeChild() causes the next anchor to be skipped entirely.
-				// using a second foreach is a workaround.
-				foreach ( $action_doc->getElementsByTagName( 'a' ) as $anchor ) {
-					if ( $anchor->nodeValue === $displayed_user_fullname ) {
-						$anchor->parentNode->removeChild( $anchor );
-						break;
-					}
-				}
-				foreach ( $action_doc->getElementsByTagName( 'a' ) as $anchor ) {
-					if ( strlen( $anchor->nodeValue ) > $link_text_char_limit ) {
-						$anchor->nodeValue = substr( $anchor->nodeValue, 0, $link_text_char_limit - 1 ) . '…';
-					}
-				}
-
-				$action = $action_doc->saveHTML();
-
-				// only add actions which are unique in the feed
-				if ( empty( $actions_html ) || strpos( $action, $actions_html ) === false ) {
-					$actions_html .= $action;
-				}
-			}
-
-			return "<ul>$actions_html</ul>";
-		}
-	}
-
-	public function get_groups() {
-		$html = '';
-		$group_types = bp_groups_get_group_types();
-
-		foreach ( $group_types as $group_type ) {
-			$querystring = bp_ajax_querystring( 'groups' ) . '&' . http_build_query( [
-				'group_type' => $group_type,
-				// action & type are blank to override cookies setting filters from directory
-				'action' => '',
-				'type' => '',
-				// use alpha order rather than whatever directory set
-				'orderby' => 'name',
-				'order' => 'ASC',
-			] );
-
-			if ( bp_has_groups( $querystring ) ) {
-				$html .= '<h5>' . strtoupper( $group_type ) . '</h5>';
-				$html .= '<ul class="group-type-' . $group_type . '">';
-				while ( bp_groups() ) {
-					bp_the_group();
-					$html .= '<li><a href="' . bp_get_group_permalink() . '">' . bp_get_group_name() . '</a></li>';
-				}
-				$html .= '</ul>';
-			}
-		}
-
-		return $html;
-	}
-
-	public function get_sites() {
-		global $humanities_commons;
-
-		$html = '';
-		$societies_html = [];
-
-		$querystring =  bp_ajax_querystring( 'blogs' ) . '&' . http_build_query( [
-			'type' => 'alphabetical',
-		] );
-
-		if ( bp_has_blogs( $querystring ) ) {
-			while ( bp_blogs() ) {
-				bp_the_blog();
-				switch_to_blog( bp_get_blog_id() );
-				$user = get_userdata( bp_core_get_displayed_userid( bp_get_displayed_user_username() ) );
-				if ( ! empty( array_intersect( ['administrator', 'editor'], $user->roles ) ) ) {
-					$society_id = $humanities_commons->hcommons_get_blog_society_id( bp_get_blog_id() );
-					$societies_html[ $society_id ][] = '<li><a href="' . bp_get_blog_permalink() . '">' . bp_get_blog_name() . '</a></li>';
-				}
-				restore_current_blog();
-			}
-
-			ksort( $societies_html );
-
-			foreach ( $societies_html as $society_id => $society_html ) {
-				$html .= '<h5>' . strtoupper( $society_id ) . '</h5>';
-				$html .= '<ul>' . implode( '', $society_html ) . '</ul>';
-			}
 		}
 
 		return $html;
@@ -348,6 +169,8 @@ class Template {
 		return $value;
 	}
 
+	// TODO consolidate links into one call, output ones that exist
+	//
 	/**
 	 * returns html linking to the twitter page of the user with the twitter handle as link text
 	 */
@@ -421,6 +244,8 @@ class Template {
 		$show_more_fields = [
 			Profile::XPROFILE_FIELD_NAME_PUBLICATIONS,
 			Profile::XPROFILE_FIELD_NAME_CORE_DEPOSITS,
+			Profile::XPROFILE_FIELD_NAME_GROUPS,
+			Profile::XPROFILE_FIELD_NAME_BLOGS,
 		];
 
 		$classes = [
