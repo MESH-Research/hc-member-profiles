@@ -2,19 +2,19 @@
 
 [![Build Status](https://travis-ci.org/mlaa/profile.svg)](https://travis-ci.org/mlaa/profile)
 
-Inspired by (and not compatible with) [CAC Advanced Profiles](https://github.com/cuny-academic-commons/cac-advanced-profiles).
+Inspired by (and incompatible with) [CAC Advanced Profiles](https://github.com/cuny-academic-commons/cac-advanced-profiles).
 
 Built for [Humanities Commons](https://hcommons.org).
 
 
 ## Required Dependencies
 
-[BuddyPress](https://buddypress.org) `xprofile`, `activity`, `blogs`, `groups`, and `members` components must be enabled.
-
-You must also enable [Multisite](https://codex.wordpress.org/Create_A_Network) in WordPress.
+[BuddyPress](https://buddypress.org) `xprofile`, `activity`, and `groups` components must be enabled.
 
 
 ## Optional Dependencies
+
+The BuddyPress `blogs` component enables the "Sites" xprofile field.
 
 [BuddyPress Follow](https://wordpress.org/plugins/buddypress-followers) enables displaying follower count on profiles. (Humanities Commons uses [BuddyBlock](http://www.philopress.com/products/buddyblock) to complement BuddyPress Follow but it changes nothing about how this plugin works.)
 
