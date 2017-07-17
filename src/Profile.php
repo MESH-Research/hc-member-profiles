@@ -112,6 +112,8 @@ class Profile {
 			}
 		}
 
+		add_action( bp_core_admin_hook(), [ new Profile\Admin, 'add_admin_menu' ] );
+
 		add_filter( 'bp_xprofile_get_field_types', [ $this, 'filter_xprofile_get_field_types' ] );
 
 		add_filter( 'xprofile_allowed_tags', [ $this, 'filter_xprofile_allowed_tags' ] );
