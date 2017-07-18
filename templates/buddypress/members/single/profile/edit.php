@@ -51,7 +51,7 @@ do_action( 'bp_before_profile_edit_content' );
 			<h4><?php echo Profile::$display_names[ Profile::XPROFILE_FIELD_NAME_EDUCATION ] ?></h4>
 			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_EDUCATION ) ?>
 		</div>
-		<div class="work-shared-in-core editable hideable">
+		<div class="work-shared-in-core editable">
 			<h4><?php echo Profile::$display_names[ Profile::XPROFILE_FIELD_NAME_CORE_DEPOSITS ] ?></h4>
 			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_CORE_DEPOSITS ) ?>
 		</div>
