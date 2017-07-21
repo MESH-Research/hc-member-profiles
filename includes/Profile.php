@@ -84,17 +84,19 @@ class Profile {
 			self::XPROFILE_FIELD_NAME_CORE_DEPOSITS => 'Work Shared in CORE',
 		];
 
-		if( defined( 'WP_CLI' ) && WP_CLI ) {
-			WP_CLI::add_command( 'profile', __NAMESPACE__ . '\CLI' );
-		}
-
 		add_action( 'bp_init', [ $this, 'init' ] );
 	}
 
+	/**
+	 * Singleton factory
+	 */
 	public static function get_instance() {
 		return self::$instance = ( null === self::$instance ) ? new self : self::$instance;
 	}
 
+	/**
+	 * Set up actions and filters.
+	 */
 	public function init() {
 		foreach ( BP_XProfile_Group::get( [ 'fetch_fields' => true ] ) as $group ) {
 			if ( $group->name === self::XPROFILE_GROUP_NAME && $group->description === self::XPROFILE_GROUP_DESCRIPTION ) {
@@ -102,6 +104,19 @@ class Profile {
 				break;
 			}
 		}
+
+		if( defined( 'WP_CLI' ) && WP_CLI ) {
+			WP_CLI::add_command( 'profile', __NAMESPACE__ . '\CLI' );
+		}
+
+/*
+		// TODO make this more configurable & optional, maybe use admin tool menu api
+		if ( ! $this->xprofile_group ) {
+			$migration = new Migration;
+			$migration->create_xprofile_group();
+			$migration->create_xprofile_fields();
+		}
+*/
 
 		// change publications field name depending on whether the user has CORE deposits
 		if ( ! empty( bp_get_displayed_user_fullname() ) ) {
@@ -112,13 +127,10 @@ class Profile {
 			}
 		}
 
-		add_action( bp_core_admin_hook(), [ new Admin, 'add_admin_menu' ] );
-
 		add_filter( 'bp_xprofile_get_field_types', [ $this, 'filter_xprofile_get_field_types' ] );
-
-		add_filter( 'xprofile_allowed_tags', [ $this, 'filter_xprofile_allowed_tags' ] );
-
-		add_action( 'wp_before_admin_bar_render', [ $this, 'filter_admin_bar' ] );
+		add_filter( 'xprofile_allowed_tags', [ new Template, 'filter_xprofile_allowed_tags' ] );
+		add_action( 'wp_before_admin_bar_render', [ new Template, 'filter_admin_bar' ] );
+		//add_action( bp_core_admin_hook(), [ new Admin, 'add_admin_menu' ] );
 
 		remove_filter( 'bp_get_the_profile_field_value', 'wpautop' ); // just need the actual value, no extra tags
 
@@ -132,25 +144,15 @@ class Profile {
 				bp_is_groups_directory()
 			)
 		) {
-			bp_register_template_stack( [ $this, 'register_template_stack' ], 0 );
+			bp_register_template_stack( [ new Template, 'register_template_stack' ], 0 );
 
-			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_local_scripts' ] );
-			add_filter( 'teeny_mce_before_init', [ $this, 'filter_teeny_mce_before_init' ] );
-
-			add_action( 'bp_before_profile_edit_content', [ $this, 'init_profile_edit' ] );
-
-			// TODO make part of field
-			if ( class_exists( 'Mla_Academic_Interests' ) ) {
-				add_action( 'bp_get_template_part', [ '\MLA\Commons\Academic_Interests', 'add_academic_interests_to_directory' ] );
-				add_action( 'xprofile_updated_profile', [ '\MLA\Commons\Academic_Interests', 'save_academic_interests' ] );
-				// this needs to be able to send a set-cookie header
-				add_action( 'send_headers', [ '\MLA\Commons\Academic_Interests', 'set_academic_interests_cookie_query' ] );
-			}
+			add_action( 'wp_enqueue_scripts', [ new Template, 'enqueue_local_scripts' ] );
+			add_filter( 'teeny_mce_before_init', [ new Template, 'filter_teeny_mce_before_init' ] );
 
 			// we want the full value including existing html in edit field inputs
 			remove_filter( 'bp_get_the_profile_field_edit_value', 'wp_filter_kses', 1 );
 
-			// this breaks content containing [] characters (unless they're using the feature it provides, which our data is not)
+			// this breaks content containing [] characters (unless they're using the feature it provides, which we'll assume is not the case)
 			remove_filter( 'bp_get_the_profile_field_value', 'cpfb_add_brackets', 999, 1 );
 		}
 	}
@@ -183,83 +185,6 @@ class Profile {
 		}
 
 		return $field_types;
-	}
-
-	// TODO move
-	public function filter_teeny_mce_before_init( $args ) {
-		/* TODO
-		$js = file_get_contents( self::$plugin_dir . 'js/teeny_mce_before_init.js' );
-
-		if ( $js ) {
-			$args['setup'] = $js;
-		}
-		 */
-
-		// mimick bbpress
-		$args['plugins'] = 'charmap,colorpicker,hr,lists,media,paste,tabfocus,textcolor,wordpress,wpautoresize,wpeditimage,wpemoji,wpgallery,wplink,wpdialogs,wptextpattern,wpview,wpembed,image';
-		$args['toolbar1'] = "bold,italic,strikethrough,bullist,numlist,blockquote,hr,alignleft,aligncenter,alignright,tabindent,link,unlink,spellchecker,print,paste,undo,redo";
-		$args['toolbar3'] = "tablecontrols";
-
-		//$args['paste_as_text'] = 'true'; // turn on by default
-
-		return $args;
-	}
-
-	// TODO move
-	public function filter_xprofile_allowed_tags( $allowed_tags ) {
-		$allowed_tags['br'] = [];
-		$allowed_tags['ul'] = [];
-		$allowed_tags['li'] = [];
-		return $allowed_tags;
-	}
-
-	// TODO get rid of this. ensure component is off in hc db
-	public function disable_bp_component( $component_name ) {
-		$active_components = bp_get_option( 'bp-active-components' );
-
-		if ( isset( $active_components[$component_name] ) ) {
-			unset( $active_components[$component_name] );
-			bp_update_option( 'bp-active-components', $active_components );
-		}
-	}
-
-	/**
-	 * scripts/styles that apply on profile & related pages only
-	 * TODO move
-	 */
-	public function enqueue_local_scripts() {
-		wp_enqueue_style( 'mla-commons-profile-local', plugins_url() . '/profile/css/profile.css' );
-		wp_enqueue_script( 'mla-commons-profile-jqdmh', plugins_url() . '/profile/js/lib/jquery.dynamicmaxheight.min.js' );
-		wp_enqueue_script( 'mla-commons-profile-local', plugins_url() . '/profile/js/main.js' );
-
-		// TODO only enqueue theme-specific styles if that theme is active
-		wp_enqueue_style( 'mla-commons-profile-boss', plugins_url() . '/profile/css/boss.css' );
-	}
-
-	/**
-	 * initializes the profile field group loop
-	 * templates do not actually use this loop, but do use variables initialized by bp_the_profile_group()
-	 */
-	public function init_profile_edit() {
-		bp_has_profile( 'profile_group_id=' . $this->xprofile_group->id );
-		bp_the_profile_group();
-	}
-
-	public function register_template_stack() {
-		return self::$plugin_templates_dir;
-	}
-
-	function filter_admin_bar() {
-		global $wp_admin_bar;
-
-		// Portfolio -> Profile
-		foreach ( [ 'my-account-xprofile', 'my-account-settings-profile' ] as $field_id ) {
-			$clone = $wp_admin_bar->get_node( $field_id );
-			if ( $clone ) {
-				$clone->title = 'Profile';
-				$wp_admin_bar->add_menu( $clone );
-			}
-		}
 	}
 
 }

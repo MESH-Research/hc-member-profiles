@@ -7,6 +7,9 @@ $template = new Template;
 
 do_action( 'bp_before_profile_edit_content' );
 
+bp_has_profile( 'profile_group_id=' . Profile::get_instance()->xprofile_group->id );
+bp_the_profile_group();
+
 ?>
 
 <form action="<?php bp_the_profile_group_edit_form_action(); ?>" method="post" id="profile-edit-form" class="standard-form <?php bp_the_profile_group_slug(); ?>">

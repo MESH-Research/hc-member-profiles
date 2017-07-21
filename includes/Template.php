@@ -280,4 +280,46 @@ class Template {
 			);
 		}
 	}
+
+	static function filter_teeny_mce_before_init( $args ) {
+		// mimick bbpress
+		$args['plugins'] = 'charmap,colorpicker,hr,lists,media,paste,tabfocus,textcolor,wordpress,wpautoresize,wpeditimage,wpemoji,wpgallery,wplink,wpdialogs,wptextpattern,wpview,wpembed,image';
+		$args['toolbar1'] = 'bold,italic,strikethrough,bullist,numlist,blockquote,hr,alignleft,aligncenter,alignright,tabindent,link,unlink,spellchecker,print,paste,undo,redo';
+		$args['toolbar3'] = 'tablecontrols';
+
+		return $args;
+	}
+
+	static function filter_xprofile_allowed_tags( $allowed_tags ) {
+		$allowed_tags['br'] = [];
+		$allowed_tags['ul'] = [];
+		$allowed_tags['li'] = [];
+		return $allowed_tags;
+	}
+
+	/**
+	 * scripts/styles that apply on profile & related pages only
+	 */
+	static function enqueue_local_scripts() {
+		wp_enqueue_style( 'mla-commons-profile-local', plugins_url() . '/profile/css/profile.css' );
+		wp_enqueue_script( 'mla-commons-profile-jqdmh', plugins_url() . '/profile/js/lib/jquery.dynamicmaxheight.min.js' );
+		wp_enqueue_script( 'mla-commons-profile-local', plugins_url() . '/profile/js/main.js' );
+	}
+
+	static function register_template_stack() {
+		return Profile::$plugin_templates_dir;
+	}
+
+	static function filter_admin_bar() {
+		global $wp_admin_bar;
+
+		// Portfolio -> Profile
+		foreach ( [ 'my-account-xprofile', 'my-account-settings-profile' ] as $field_id ) {
+			$clone = $wp_admin_bar->get_node( $field_id );
+			if ( $clone ) {
+				$clone->title = 'Profile';
+				$wp_admin_bar->add_menu( $clone );
+			}
+		}
+	}
 }
