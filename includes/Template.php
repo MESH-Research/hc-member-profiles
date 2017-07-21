@@ -1,9 +1,8 @@
 <?php
 
-namespace MLA\Commons\Profile;
+namespace MLA\Commons;
 
 use \DOMDocument;
-use \MLA\Commons\Profile;
 
 class Template {
 

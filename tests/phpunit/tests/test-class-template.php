@@ -1,8 +1,8 @@
 <?php
 
 use MLA\Commons\Profile;
-use MLA\Commons\Profile\Migration;
-use MLA\Commons\Profile\Template;
+use MLA\Commons\Migration;
+use MLA\Commons\Template;
 
 class Test_Template extends BP_UnitTestCase {
 

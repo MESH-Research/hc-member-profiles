@@ -1,8 +1,8 @@
 <?php
 
-namespace MLA\Commons\Profile;
+namespace MLA\Commons;
 
-use \MLA\Commons\Profile;
+
 
 class Admin {
 

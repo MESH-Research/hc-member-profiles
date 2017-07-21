@@ -1,12 +1,12 @@
 <?php
 
-namespace MLA\Commons\Profile;
+namespace MLA\Commons;
 
 use \BP_Follow;
 use \BP_XProfile_Group;
 use \Exception;
 use \Mla_Academic_Interests;
-use \MLA\Commons\Profile;
+
 
 class Migration {
 

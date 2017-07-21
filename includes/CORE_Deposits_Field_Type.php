@@ -1,6 +1,6 @@
 <?php
 
-namespace MLA\Commons\Profile;
+namespace MLA\Commons;
 
 class CORE_Deposits_Field_Type extends \BP_XProfile_Field_Type {
 

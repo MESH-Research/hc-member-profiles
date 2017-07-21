@@ -1,7 +1,7 @@
 <?php
 
 use MLA\Commons\Profile;
-use MLA\Commons\Profile\Template;
+use MLA\Commons\Template;
 
 $template = new Template;
 

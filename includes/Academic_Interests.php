@@ -1,6 +1,6 @@
 <?php
 
-namespace MLA\Commons\Profile;
+namespace MLA\Commons;
 
 class Academic_Interests {
 

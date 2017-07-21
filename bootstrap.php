@@ -11,4 +11,4 @@ require_once 'autoload.php';
 Profile::get_instance();
 
 // since Profile hooks into bp_init, add this separately since this action runs before that
-//add_action( 'xprofile_register_activity_actions', [ '\MLA\Commons\Profile\Activity', 'register_activity_actions' ] );
+//add_action( 'xprofile_register_activity_actions', [ '\MLA\Commons\Activity', 'register_activity_actions' ] );

@@ -1,13 +1,12 @@
 <?php
 
-namespace MLA\Commons\Profile;
+namespace MLA\Commons;
 
-use \MLA\Commons\Profile;
 
-class Groups_Field_Type extends \BP_XProfile_Field_Type {
 
-	// TODO translatable
-	public $name = Profile::XPROFILE_FIELD_NAME_GROUPS;
+class Blogs_Field_Type extends \BP_XProfile_Field_Type {
+
+	public $name = Profile::XPROFILE_FIELD_NAME_BLOGS;
 
 	public $accepts_null_value = true;
 
@@ -49,7 +48,28 @@ class Groups_Field_Type extends \BP_XProfile_Field_Type {
 	}
 
 	public function edit_field_html( array $raw_properties = [] ) {
-		echo self::display_filter();
+		global $mla_academic_interests;
+
+		$tax = get_taxonomy( 'mla_academic_interests' );
+
+		$interest_list = $mla_academic_interests->mla_academic_interests_list();
+		$input_interest_list = wpmn_get_object_terms( bp_displayed_user_id(), 'mla_academic_interests', [ 'fields' => 'names' ] );
+
+		$html = '<p class="description">Enter interests from the existing list, or add new interests if needed.</p>';
+		$html .= '<select name="academic-interests[]" class="js-basic-multiple-tags interests" multiple="multiple" data-placeholder="Enter interests.">';
+
+		foreach ( $interest_list as $interest_key => $interest_value ) {
+			$html .= sprintf('
+				<option class="level-1" %1$s value="%2$s">%3$s</option>' . "\n",
+				( in_array( $interest_key, $input_interest_list ) ) ? 'selected="selected"' : '',
+				$interest_key,
+				$interest_value
+			);
+		}
+
+		$html .= '</select>';
+
+		return $html;
 	}
 
 	public function admin_field_html( array $raw_properties = [] ) {

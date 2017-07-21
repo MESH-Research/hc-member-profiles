@@ -12,7 +12,7 @@ use \WP_CLI;
 class Profile {
 
 	/**
-	 * Used by MLA\Commons\Profile\Migration when creating the xprofile group this plugin uses.
+	 * Used by MLA\Commons\Migration when creating the xprofile group this plugin uses.
 	 * THERE CAN ONLY BE ONE GROUP WITH THIS NAME AND DESCRIPTION, OTHERWISE THIS PLUGIN WILL BE CONFUSED.
 	 */
 	const XPROFILE_GROUP_NAME = 'MLA Commons Profile';
@@ -112,7 +112,7 @@ class Profile {
 			}
 		}
 
-		add_action( bp_core_admin_hook(), [ new Profile\Admin, 'add_admin_menu' ] );
+		add_action( bp_core_admin_hook(), [ new Admin, 'add_admin_menu' ] );
 
 		add_filter( 'bp_xprofile_get_field_types', [ $this, 'filter_xprofile_get_field_types' ] );
 
@@ -124,7 +124,7 @@ class Profile {
 
 		// replace the default updated_profile activity handler with our own
 		//remove_action( 'xprofile_updated_profile', 'bp_xprofile_updated_profile_activity', 10, 5 );
-		//add_action( 'xprofile_updated_profile', [ '\MLA\Commons\Profile\Activity', 'updated_profile_activity' ], 10, 5 );
+		//add_action( 'xprofile_updated_profile', [ '\MLA\Commons\Activity', 'updated_profile_activity' ], 10, 5 );
 
 		if (
 			! bp_is_user_change_avatar() &&
@@ -145,10 +145,10 @@ class Profile {
 
 			// TODO make part of field
 			if ( class_exists( 'Mla_Academic_Interests' ) ) {
-				add_action( 'bp_get_template_part', [ '\MLA\Commons\Profile\Academic_Interests', 'add_academic_interests_to_directory' ] );
-				add_action( 'xprofile_updated_profile', [ '\MLA\Commons\Profile\Academic_Interests', 'save_academic_interests' ] );
+				add_action( 'bp_get_template_part', [ '\MLA\Commons\Academic_Interests', 'add_academic_interests_to_directory' ] );
+				add_action( 'xprofile_updated_profile', [ '\MLA\Commons\Academic_Interests', 'save_academic_interests' ] );
 				// this needs to be able to send a set-cookie header
-				add_action( 'send_headers', [ '\MLA\Commons\Profile\Academic_Interests', 'set_academic_interests_cookie_query' ] );
+				add_action( 'send_headers', [ '\MLA\Commons\Academic_Interests', 'set_academic_interests_cookie_query' ] );
 			}
 
 			// we want the full value including existing html in edit field inputs
