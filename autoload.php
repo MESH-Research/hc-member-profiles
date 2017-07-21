@@ -10,7 +10,7 @@ spl_autoload_register(function ($class) {
     $prefix = 'MLA\\Commons\\';
 
     // base directory for the namespace prefix
-    $base_dir = __DIR__ . '/src/';
+    $base_dir = __DIR__ . '/includes/';
 
     // does the class use the namespace prefix?
     $len = strlen($prefix);
