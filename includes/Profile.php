@@ -85,7 +85,7 @@ class Profile {
 		];
 
 		if( defined( 'WP_CLI' ) && WP_CLI ) {
-			WP_CLI::add_command( 'profile', __NAMESPACE__ . '\Profile\CLI' );
+			WP_CLI::add_command( 'profile', __NAMESPACE__ . '\CLI' );
 		}
 
 		add_action( 'bp_init', [ $this, 'init' ] );
@@ -162,24 +162,24 @@ class Profile {
 	 */
 	public function filter_xprofile_get_field_types( array $field_types ) {
 		if ( bp_is_active( 'activity' ) ) {
-			$field_types['activity'] = __NAMESPACE__ . '\Profile\Activity_Field_Type';
+			$field_types['activity'] = __NAMESPACE__ . '\Activity_Field_Type';
 		}
 
 		if ( bp_is_active( 'blogs' ) ) {
-			$field_types['blogs'] = __NAMESPACE__ . '\Profile\Blogs_Field_Type';
+			$field_types['blogs'] = __NAMESPACE__ . '\Blogs_Field_Type';
 		}
 
 		if ( bp_is_active( 'groups' ) ) {
-			$field_types['groups'] = __NAMESPACE__ . '\Profile\Groups_Field_Type';
+			$field_types['groups'] = __NAMESPACE__ . '\Groups_Field_Type';
 		}
 
 		if ( bp_is_active( 'humcore_deposits' ) ) {
 			// TODO identifier in hc db, must change there before updating here - but ideally should match component name
-			$field_types['core_deposits'] = __NAMESPACE__ . '\Profile\CORE_Deposits_Field_Type';
+			$field_types['core_deposits'] = __NAMESPACE__ . '\CORE_Deposits_Field_Type';
 		}
 
 		if ( class_exists( 'Mla_Academic_Interests' ) ) {
-			$field_types['academic_interests'] = __NAMESPACE__ . '\Profile\Academic_Interests_Field_Type';
+			$field_types['academic_interests'] = __NAMESPACE__ . '\Academic_Interests_Field_Type';
 		}
 
 		return $field_types;
