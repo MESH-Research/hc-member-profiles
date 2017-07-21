@@ -63,6 +63,9 @@ class Profile {
 	 */
 	public $xprofile_group;
 
+	/**
+	 * @return null
+	 */
 	public function __construct() {
 		self::$plugin_dir = plugin_dir_path( realpath( __DIR__ ) );
 		self::$plugin_templates_dir = trailingslashit( self::$plugin_dir . 'templates' );
@@ -89,6 +92,8 @@ class Profile {
 
 	/**
 	 * Singleton factory
+	 *
+	 * @return Profile
 	 */
 	public static function get_instance() {
 		return self::$instance = ( null === self::$instance ) ? new self : self::$instance;
@@ -96,6 +101,8 @@ class Profile {
 
 	/**
 	 * Set up actions and filters.
+	 *
+	 * @return null
 	 */
 	public function init() {
 		foreach ( BP_XProfile_Group::get( [ 'fetch_fields' => true ] ) as $group ) {
@@ -177,6 +184,7 @@ class Profile {
 
 		if ( bp_is_active( 'humcore_deposits' ) ) {
 			// TODO identifier in hc db, must change there before updating here - but ideally should match component name
+			// which is to say, core_deposits -> humcore_deposits
 			$field_types['core_deposits'] = __NAMESPACE__ . '\CORE_Deposits_Field_Type';
 		}
 

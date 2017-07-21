@@ -5,8 +5,18 @@ use MLA\Commons\Migration;
 use MLA\Commons\Template;
 
 class Test_Template extends BP_UnitTestCase {
+	static $users = [];
+	static $groups = [];
 
 	public static function setUpBeforeClass() {
+		$bpf = new BP_UnitTest_Factory();
+
+		self::$users[] = $bpf->user->create();
+		self::$users[] = $bpf->user->create();
+		self::$groups = $bpf->group->create_many( 3, array(
+			'creator_id' => self::$users[1],
+		) );
+
 		$profile = Profile::get_instance();
 
 		// since tests use an empty db, group & fields need to be created
