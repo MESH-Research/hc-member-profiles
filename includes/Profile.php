@@ -122,10 +122,6 @@ class Profile {
 
 		remove_filter( 'bp_get_the_profile_field_value', 'wpautop' ); // just need the actual value, no extra tags
 
-		// replace the default updated_profile activity handler with our own
-		//remove_action( 'xprofile_updated_profile', 'bp_xprofile_updated_profile_activity', 10, 5 );
-		//add_action( 'xprofile_updated_profile', [ '\MLA\Commons\Activity', 'updated_profile_activity' ], 10, 5 );
-
 		if (
 			! bp_is_user_change_avatar() &&
 			! bp_is_user_change_cover_image() &&
