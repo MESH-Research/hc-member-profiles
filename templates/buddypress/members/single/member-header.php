@@ -6,17 +6,23 @@ use MLA\Commons\Template;
 do_action( 'bp_before_member_header' );
 
 $template = new Template;
-$follow_counts = $template->get_follow_counts();
+
+$follow_counts = ( function_exists( 'bp_follow_total_follow_counts' ) )
+	? bp_follow_total_follow_counts( [ 'user_id' => bp_displayed_user_id() ] )
+	: false;
+
 $affiliation_data = $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION );
+
 $affiliation_search_url = add_query_arg(
 	[ 's' => urlencode( $affiliation_data ) ],
 	bp_get_members_directory_permalink()
 );
-$twitter_link = $template->get_twitter_link();
-$orcid_link = $template->get_orcid_link();
-$facebook_link = $template->get_facebook_link();
-$linkedin_link = $template->get_linkedin_link();
-$site_link = $template->get_site_link();
+
+$twitter_link = $template->get_normalized_url_field_value( Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME );
+$orcid_link = $template->get_normalized_url_field_value( Profile::XPROFILE_FIELD_NAME_ORCID );
+$facebook_link = $template->get_normalized_url_field_value( Profile::XPROFILE_FIELD_NAME_FACEBOOK );
+$linkedin_link = $template->get_normalized_url_field_value( Profile::XPROFILE_FIELD_NAME_LINKEDIN );
+$site_link = $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_SITE );
 
 ?>
 
@@ -77,15 +83,17 @@ $site_link = $template->get_site_link();
 				</div><!-- #item-header-avatar -->
 			</div>
 
-			<div class="following-n-members">
-				<?php if ( bp_displayed_user_id() === bp_loggedin_user_id() ): ?>
-					<a href="<?php echo bp_loggedin_user_domain() . BP_FOLLOWING_SLUG ?>">
-				<?php endif ?>
-					<?php printf( __( 'Following <span>%d</span> members', 'bp-follow' ), $follow_counts['following'] ) ?>
-				<?php if ( bp_displayed_user_id() === bp_loggedin_user_id() ): ?>
-					</a>
-				<?php endif ?>
-			</div>
+			<?php if ( $follow_counts ): ?>
+				<div class="following-n-members">
+					<?php if ( bp_displayed_user_id() === bp_loggedin_user_id() ): ?>
+						<a href="<?php echo bp_loggedin_user_domain() . BP_FOLLOWING_SLUG ?>">
+					<?php endif ?>
+						<?php printf( __( 'Following <span>%d</span> members', 'bp-follow' ), $follow_counts['following'] ) ?>
+					<?php if ( bp_displayed_user_id() === bp_loggedin_user_id() ): ?>
+						</a>
+					<?php endif ?>
+				</div>
+			<?php endif ?>
 
 			<div id="item-buttons">
 				<?php

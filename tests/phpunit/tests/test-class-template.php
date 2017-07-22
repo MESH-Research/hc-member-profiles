@@ -26,27 +26,6 @@ class Test_Template extends BP_UnitTestCase {
 	}
 
 	/**
-	 * @dataProvider get_twitter_link_provider
-	 */
-	function test_get_twitter_link( $value ) {
-		// TODO need to populate a mock user with values in relevant fields for this type of thing
-		$this->markTestSkipped();
-
-		$template = new Template;
-		$result = $template->get_twitter_link();
-
-		$this->assertTrue( preg_match( '/^<a href="https:\/\/twitter.com\/[a-z0-9_]+">@[a-z0-9_]+<\/a>$/', $result ) );
-	}
-
-	function get_twitter_link_provider() {
-		return [
-			[ 'example' ],
-			[ '@example' ],
-			[ '@@example' ],
-		];
-	}
-
-	/**
 	 * @dataProvider get_normalized_url_field_value_provider
 	 */
 	function test_get_normalized_url_field_value( $field_name, $field_value, $expected_return_value ) {

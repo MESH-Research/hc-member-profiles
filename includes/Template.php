@@ -168,45 +168,11 @@ class Template {
 		return $value;
 	}
 
-	// TODO consolidate links into one call, output ones that exist
-	//
-	/**
-	 * returns html linking to the twitter page of the user with the twitter handle as link text
-	 */
-	public function get_twitter_link() {
-		return $this->get_normalized_url_field_value( Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME );
-	}
-
-	/**
-	 * returns html linking to the orcid page of the user
-	 */
-	public function get_orcid_link() {
-		return $this->get_normalized_url_field_value( Profile::XPROFILE_FIELD_NAME_ORCID );
-	}
-
-	/**
-	 * returns html linking to the facebook page of the user
-	 */
-	public function get_facebook_link() {
-		return $this->get_normalized_url_field_value( Profile::XPROFILE_FIELD_NAME_FACEBOOK );
-	}
-
-	/**
-	 * returns html linking to the linkedin page of the user
-	 */
-	public function get_linkedin_link() {
-		return $this->get_normalized_url_field_value( Profile::XPROFILE_FIELD_NAME_LINKEDIN );
-	}
-
 	public function get_username_link() {
 		$html = '<a href="' . bp_get_send_private_message_link() . '" title="Send private message">';
 		$html .= '@' . bp_get_displayed_user_username();
 		$html .= '</a>';
 		return $html;
-	}
-
-	public function get_site_link() {
-		return $this->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_SITE );
 	}
 
 	public function get_xprofile_field_visibility( $field_name = '' ) {
