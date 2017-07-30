@@ -5,19 +5,8 @@ use MLA\Commons\Migration;
 use MLA\Commons\Template;
 
 class Test_Template extends BP_UnitTestCase {
-	static $users = [];
-	static $groups = [];
-
 	public static function setUpBeforeClass() {
-		$bpf = new BP_UnitTest_Factory();
-
-		self::$users[] = $bpf->user->create();
-		self::$users[] = $bpf->user->create();
-		self::$groups = $bpf->group->create_many( 3, array(
-			'creator_id' => self::$users[1],
-		) );
-
-		$profile = Profile::get_instance();
+		Profile::get_instance();
 
 		// since tests use an empty db, group & fields need to be created
 		$migration = new Migration;
@@ -26,11 +15,41 @@ class Test_Template extends BP_UnitTestCase {
 	}
 
 	/**
+	 * This covers field types native to BP excluding normalized URL values which are covered by test_get_normalized_url_field_value()
+	 * Adapted from BP_Tests_XProfile_Functions->test_bp_get_member_profile_data_outside_of_loop
+	 *
+	 * @dataProvider get_xprofile_field_data_provider
+	 */
+	function test_get_xprofile_field_data( $field_name, $expected_field_value ) {
+		$user_id = $this->factory->user->create();
+		xprofile_set_field_data( $field_name, $user_id, $expected_field_value );
+
+		$actual_field_value = bp_get_member_profile_data( [
+			'user_id' => $user_id,
+			'field' => $field_name,
+		] );
+
+		$this->assertSame( $expected_field_value, $actual_field_value );
+	}
+
+	function get_xprofile_field_data_provider() {
+		return [
+			[ Profile::XPROFILE_FIELD_NAME_NAME, 'Alice Smith' ],
+			[ Profile::XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION, 'Example Title' ],
+			[ Profile::XPROFILE_FIELD_NAME_TITLE, 'Example Title' ],
+			[ Profile::XPROFILE_FIELD_NAME_ABOUT, 'Example about.' ],
+			[ Profile::XPROFILE_FIELD_NAME_EDUCATION, 'Example education.' ],
+			[ Profile::XPROFILE_FIELD_NAME_PUBLICATIONS, 'Example publications.' ],
+			[ Profile::XPROFILE_FIELD_NAME_PROJECTS, 'Example projects.' ],
+			[ Profile::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES, 'Example talks.' ],
+			[ Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS, 'Example memberships.' ],
+		];
+	}
+
+	/**
 	 * @dataProvider get_normalized_url_field_value_provider
 	 */
 	function test_get_normalized_url_field_value( $field_name, $field_value, $expected_return_value ) {
-		$template = new Template;
-
 		// since the tested method gets data from an empty db, overwrite value with this filter
 		$return_provider_value = function() use ( $field_value ) {
 			return $field_value;
@@ -46,11 +65,6 @@ class Test_Template extends BP_UnitTestCase {
 		remove_filter( 'commons_profile_field_value_' . sanitize_title( $field_name ), $return_provider_value );
 	}
 
-	/**
-	 * only the first two elements are used by the actual test directly,
-	 * the third provides a value to the function being tested so we can
-	 * compare to the second
-	 */
 	function get_normalized_url_field_value_provider() {
 		// TODO these are probably better as consts to DRY with the method being tested
 		$domains = [
