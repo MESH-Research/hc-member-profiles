@@ -99,8 +99,6 @@ class Template {
 	 * TODO find a way to directly access the field value without looping
 	 */
 	static public function get_xprofile_field_data( $field_name = '' ) {
-		global $profile_template;
-
 		$args = [
 			'profile_group_id' => Profile::get_instance()->xprofile_group->id,
 			'hide_empty_fields' => false, // some custom fields are "empty" by design e.g. 'CORE Deposits'
@@ -108,19 +106,17 @@ class Template {
 
 		$retval = '';
 
-		if ( bp_has_profile( $args ) ) {
-			while ( bp_profile_groups() ) {
-				bp_the_profile_group();
+		bp_has_profile( $args );
+		bp_profile_groups();
+		bp_the_profile_group();
 
-				if ( bp_profile_group_has_fields() ) {
-					while ( bp_profile_fields() ) {
-						bp_the_profile_field();
+		if ( bp_profile_group_has_fields() ) {
+			while ( bp_profile_fields() ) {
+				bp_the_profile_field();
 
-						if ( bp_get_the_profile_field_name() === $field_name ) {
-							$retval = bp_get_the_profile_field_value();
-							break;
-						}
-					}
+				if ( bp_get_the_profile_field_name() === $field_name ) {
+					$retval = bp_get_the_profile_field_value();
+					break;
 				}
 			}
 		}
