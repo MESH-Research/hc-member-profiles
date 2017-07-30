@@ -31,6 +31,11 @@ class Migration {
 			Profile::XPROFILE_FIELD_NAME_PROJECTS => 'textarea',
 			Profile::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES => 'textarea',
 			Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS => 'textarea',
+			Profile::XPROFILE_FIELD_NAME_CORE_DEPOSITS => 'core_deposits',
+			Profile::XPROFILE_FIELD_NAME_ACADEMIC_INTERESTS => 'academic_interests',
+			Profile::XPROFILE_FIELD_NAME_GROUPS => 'groups',
+			Profile::XPROFILE_FIELD_NAME_ACTIVITY => 'activity',
+			Profile::XPROFILE_FIELD_NAME_BLOGS => 'blogs',
 		];
 	}
 
