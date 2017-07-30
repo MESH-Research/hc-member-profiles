@@ -6,22 +6,14 @@ use \DOMDocument;
 
 class Template {
 
-	// TODO optional
-	public function get_follow_counts() {
-		$follow_counts = 0;
-
-		if ( function_exists( 'bp_follow_total_follow_counts' ) ) {
-			$follow_counts = bp_follow_total_follow_counts( [ 'user_id' => bp_displayed_user_id() ] );
-		}
-
-		return $follow_counts;
-	}
-
 	/**
 	 * for edit view. use like bp_the_profile_field().
 	 * works inside or outside the fields loop.
+	 *
+	 * @param $field_name
+	 * @return string html
 	 */
-	public function get_edit_field( $field_name ) {
+	static function get_edit_field( $field_name ) {
 		bp_has_profile( [ 'profile_group_id' => Profile::get_instance()->xprofile_group->id ] ); // select our group
 		bp_the_profile_group(); // start (abuse) the loop
 
@@ -53,7 +45,12 @@ class Template {
 		return $html;
 	}
 
-	public function get_header_actions() {
+	/**
+	 * Return html representing member header actions & options nav
+	 *
+	 * @return string html
+	 */
+	static function get_header_actions() {
 		$html = '';
 
 		ob_start();
@@ -101,7 +98,7 @@ class Template {
 	/**
 	 * TODO find a way to directly access the field value without looping
 	 */
-	public function get_xprofile_field_data( $field_name = '' ) {
+	static public function get_xprofile_field_data( $field_name = '' ) {
 		global $profile_template;
 
 		$args = [
@@ -141,7 +138,7 @@ class Template {
 	 * @param $field_name
 	 * @return string normalized value
 	 */
-	public function get_normalized_url_field_value( $field_name ) {
+	static function get_normalized_url_field_value( $field_name ) {
 		$domains = [
 			Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME => 'twitter.com',
 			Profile::XPROFILE_FIELD_NAME_FACEBOOK => 'facebook.com',
@@ -157,7 +154,7 @@ class Template {
 		$value = strip_tags( preg_replace(
 			$patterns,
 			'',
-			$this->get_xprofile_field_data( $field_name )
+			self::get_xprofile_field_data( $field_name )
 		) );
 
 		if ( ! empty( $value ) ) {
@@ -167,29 +164,40 @@ class Template {
 		return $value;
 	}
 
-	public function get_username_link() {
+	/**
+	 * getter for username as link to private message the displayed user
+	 *
+	 * @return string html
+	 */
+	static function get_username_link() {
 		$html = '<a href="' . bp_get_send_private_message_link() . '" title="Send private message">';
 		$html .= '@' . bp_get_displayed_user_username();
 		$html .= '</a>';
 		return $html;
 	}
 
-	public function get_xprofile_field_visibility( $field_name = '' ) {
+	/**
+	 * check if a field is visible
+	 *
+	 * @param $field_name
+	 * @return bool whether field is public or not
+	 */
+	static function is_field_visible( string $field_name = '' ) {
 		foreach ( Profile::get_instance()->xprofile_group->fields as $field ) {
 			if ( $field->name === $field_name ) {
-				return xprofile_get_field_visibility_level( $field->id, bp_displayed_user_id() );
+				return xprofile_get_field_visibility_level( $field->id, bp_displayed_user_id() ) === 'public';
 			}
 		}
 	}
 
-	public function is_field_visible( $field_name = '' ) {
-		return $this->get_xprofile_field_visibility( $field_name ) === 'public';
-	}
-
 	/**
-	 * returns field data or edit form with header label wrapped in a div
+	 * getter for complete field html
+	 * automatically renders either edit or view mode based on current action
+	 *
+	 * @param $field_name
+	 * @return string html representing field data or edit form with header label wrapped in a div
 	 */
-	public function get_field( $field_name = '' ) {
+	static function get_field( string $field_name = '' ) {
 		$always_hidden_fields = [
 			Profile::XPROFILE_FIELD_NAME_NAME,
 			Profile::XPROFILE_FIELD_NAME_TITLE,
@@ -230,9 +238,9 @@ class Template {
 
 		if ( bp_is_user_profile_edit() ) {
 			$classes[] = 'editable';
-			$content = $this->get_edit_field( $field_name );
-		} else if ( $this->is_field_visible( $field_name ) ) {
-			$content = $this->get_xprofile_field_data( $field_name );
+			$content = self::get_edit_field( $field_name );
+		} else if ( self::is_field_visible( $field_name ) ) {
+			$content = self::get_xprofile_field_data( $field_name );
 		}
 
 		if ( isset( $content ) && ! empty( $content ) ) {
@@ -246,8 +254,13 @@ class Template {
 		}
 	}
 
-	static function filter_teeny_mce_before_init( $args ) {
-		// mimick bbpress
+	/**
+	 * filter teeny mce args to mimick bbpress for consistent ux
+	 *
+	 * @param array $args teeny mce args
+	 * @return array filtered teeny mce args
+	 */
+	static function filter_teeny_mce_before_init( array $args ) {
 		$args['plugins'] = 'charmap,colorpicker,hr,lists,media,paste,tabfocus,textcolor,wordpress,wpautoresize,wpeditimage,wpemoji,wpgallery,wplink,wpdialogs,wptextpattern,wpview,wpembed,image';
 		$args['toolbar1'] = 'bold,italic,strikethrough,bullist,numlist,blockquote,hr,alignleft,aligncenter,alignright,tabindent,link,unlink,spellchecker,print,paste,undo,redo';
 		$args['toolbar3'] = 'tablecontrols';
@@ -255,6 +268,12 @@ class Template {
 		return $args;
 	}
 
+	/**
+	 * filter allowed tags to add a few for formatting xprofile field values
+	 *
+	 * @param array $allowed_tags
+	 * @return array filtered allowed tags
+	 */
 	static function filter_xprofile_allowed_tags( $allowed_tags ) {
 		$allowed_tags['br'] = [];
 		$allowed_tags['ul'] = [];
@@ -264,6 +283,8 @@ class Template {
 
 	/**
 	 * scripts/styles that apply on profile & related pages only
+	 *
+	 * @return null
 	 */
 	static function enqueue_local_scripts() {
 		wp_enqueue_style( 'mla-commons-profile-local', plugins_url() . '/profile/css/profile.css' );
@@ -271,10 +292,20 @@ class Template {
 		wp_enqueue_script( 'mla-commons-profile-local', plugins_url() . '/profile/js/main.js' );
 	}
 
+	/**
+	 * register plugin template overrides with buddypress
+	 *
+	 * @return string plugin templates dir
+	 */
 	static function register_template_stack() {
 		return Profile::$plugin_templates_dir;
 	}
 
+	/**
+	 * filter admin bar to change "Portfolio" to "Profile"
+	 *
+	 * @return null
+	 */
 	static function filter_admin_bar() {
 		global $wp_admin_bar;
 

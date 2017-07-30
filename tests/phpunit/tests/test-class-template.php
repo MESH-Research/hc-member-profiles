@@ -39,7 +39,7 @@ class Test_Template extends BP_UnitTestCase {
 		add_filter( 'commons_profile_field_value_' . sanitize_title( $field_name ), $return_provider_value );
 
 		$this->assertEquals(
-			$template->get_normalized_url_field_value( $field_name ),
+			Template::get_normalized_url_field_value( $field_name ),
 			$expected_return_value
 		);
 

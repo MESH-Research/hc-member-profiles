@@ -5,24 +5,22 @@ use MLA\Commons\Template;
 
 do_action( 'bp_before_member_header' );
 
-$template = new Template;
-
 $follow_counts = ( function_exists( 'bp_follow_total_follow_counts' ) )
 	? bp_follow_total_follow_counts( [ 'user_id' => bp_displayed_user_id() ] )
 	: false;
 
-$affiliation_data = $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION );
+$affiliation_data = Template::get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION );
 
 $affiliation_search_url = add_query_arg(
 	[ 's' => urlencode( $affiliation_data ) ],
 	bp_get_members_directory_permalink()
 );
 
-$twitter_link = $template->get_normalized_url_field_value( Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME );
-$orcid_link = $template->get_normalized_url_field_value( Profile::XPROFILE_FIELD_NAME_ORCID );
-$facebook_link = $template->get_normalized_url_field_value( Profile::XPROFILE_FIELD_NAME_FACEBOOK );
-$linkedin_link = $template->get_normalized_url_field_value( Profile::XPROFILE_FIELD_NAME_LINKEDIN );
-$site_link = $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_SITE );
+$twitter_link = Template::get_normalized_url_field_value( Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME );
+$orcid_link = Template::get_normalized_url_field_value( Profile::XPROFILE_FIELD_NAME_ORCID );
+$facebook_link = Template::get_normalized_url_field_value( Profile::XPROFILE_FIELD_NAME_FACEBOOK );
+$linkedin_link = Template::get_normalized_url_field_value( Profile::XPROFILE_FIELD_NAME_LINKEDIN );
+$site_link = Template::get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_SITE );
 
 ?>
 
@@ -34,16 +32,16 @@ $site_link = $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_SI
 
 		<div id="item-main">
 			<h4 class="name">
-				<?php echo $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_NAME ) ?>
+				<?php echo Template::get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_NAME ) ?>
 			</h4>
 			<h4 class="title">
-				<?php echo $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_TITLE ) ?>
+				<?php echo Template::get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_TITLE ) ?>
 			</h4>
 			<h4 class="affiliation">
 				<a href="<?php echo esc_url( $affiliation_search_url ) ?>" rel="nofollow"><?php echo $affiliation_data ?></a>
 			</h4>
 			<div class="username">
-				<span class="social-label"><em>Commons</em> username:</span> <?php echo $template->get_username_link() ?>
+				<span class="social-label"><em>Commons</em> username:</span> <?php echo Template::get_username_link() ?>
 			</div>
 			<?php if ( $twitter_link ) : ?>
 				<div class="twitter">
@@ -102,7 +100,7 @@ $site_link = $template->get_xprofile_field_data( Profile::XPROFILE_FIELD_NAME_SI
 				 */
 				?>
 				<span class="generic-button" style="display: none;"></span>
-				<?php echo $template->get_header_actions(); ?>
+				<?php echo Template::get_header_actions(); ?>
 			</div><!-- #item-buttons -->
 
 			<?php do_action( 'bp_profile_header_meta' ); ?>

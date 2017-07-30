@@ -3,8 +3,6 @@
 use MLA\Commons\Profile;
 use MLA\Commons\Template;
 
-$template = new Template;
-
 do_action( 'bp_before_profile_edit_content' );
 
 bp_has_profile( 'profile_group_id=' . Profile::get_instance()->xprofile_group->id );
@@ -16,63 +14,63 @@ bp_the_profile_group();
 
 	<div class="left">
 		<div class="synced">
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_NAME ) ?>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_TITLE ) ?>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION ) ?>
+			<?php echo Template::get_edit_field( Profile::XPROFILE_FIELD_NAME_NAME ) ?>
+			<?php echo Template::get_edit_field( Profile::XPROFILE_FIELD_NAME_TITLE ) ?>
+			<?php echo Template::get_edit_field( Profile::XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION ) ?>
 		</div>
 		<div class="social">
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME ) ?>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_ORCID ) ?>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_FACEBOOK ) ?>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_LINKEDIN ) ?>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_SITE ) ?>
+			<?php echo Template::get_edit_field( Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME ) ?>
+			<?php echo Template::get_edit_field( Profile::XPROFILE_FIELD_NAME_ORCID ) ?>
+			<?php echo Template::get_edit_field( Profile::XPROFILE_FIELD_NAME_FACEBOOK ) ?>
+			<?php echo Template::get_edit_field( Profile::XPROFILE_FIELD_NAME_LINKEDIN ) ?>
+			<?php echo Template::get_edit_field( Profile::XPROFILE_FIELD_NAME_SITE ) ?>
 		</div>
 		<div class="academic-interests editable">
 			<h4>Academic Interests</h4>
-			<?php echo $template->get_academic_interests_edit(); ?>
+			<?php echo Template::get_academic_interests_edit(); ?>
 		</div>
 		<div class="commons-groups wordblock">
 			<h4>Commons Groups</h4>
-			<?php echo $template->get_groups(); ?>
+			<?php echo Template::get_groups(); ?>
 		</div>
 		<div class="recent-commons-activity">
 			<h4>Recent Commons Activity</h4>
-			<?php echo $template->get_activity(); ?>
+			<?php echo Template::get_activity(); ?>
 		</div>
 		<div class="commons-sites wordblock">
 			<h4>Commons Sites</h4>
-			<?php echo $template->get_sites(); ?>
+			<?php echo Template::get_sites(); ?>
 		</div>
 	</div>
 
 	<div class="right">
 		<div class="about editable hideable">
 			<h4><?php echo Profile::$display_names[ Profile::XPROFILE_FIELD_NAME_ABOUT ] ?></h4>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_ABOUT ) ?>
+			<?php echo Template::get_edit_field( Profile::XPROFILE_FIELD_NAME_ABOUT ) ?>
 		</div>
 		<div class="education editable hideable">
 			<h4><?php echo Profile::$display_names[ Profile::XPROFILE_FIELD_NAME_EDUCATION ] ?></h4>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_EDUCATION ) ?>
+			<?php echo Template::get_edit_field( Profile::XPROFILE_FIELD_NAME_EDUCATION ) ?>
 		</div>
 		<div class="work-shared-in-core editable hideable">
 			<h4><?php echo Profile::$display_names[ Profile::XPROFILE_FIELD_NAME_CORE_DEPOSITS ] ?></h4>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_CORE_DEPOSITS ) ?>
+			<?php echo Template::get_edit_field( Profile::XPROFILE_FIELD_NAME_CORE_DEPOSITS ) ?>
 		</div>
 		<div class="publications editable hideable">
 			<h4><?php echo Profile::$display_names[ Profile::XPROFILE_FIELD_NAME_PUBLICATIONS ] ?></h4>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_PUBLICATIONS ) ?>
+			<?php echo Template::get_edit_field( Profile::XPROFILE_FIELD_NAME_PUBLICATIONS ) ?>
 		</div>
 		<div class="projects editable hideable">
 			<h4><?php echo Profile::$display_names[ Profile::XPROFILE_FIELD_NAME_PROJECTS ] ?></h4>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_PROJECTS ) ?>
+			<?php echo Template::get_edit_field( Profile::XPROFILE_FIELD_NAME_PROJECTS ) ?>
 		</div>
 		<div class="upcoming-talks-and-conferences editable hideable">
 			<h4><?php echo Profile::$display_names[ Profile::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES ] ?></h4>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES ) ?>
+			<?php echo Template::get_edit_field( Profile::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES ) ?>
 		</div>
 		<div class="memberships editable hideable">
 			<h4><?php echo Profile::$display_names[ Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS ] ?></h4>
-			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS ) ?>
+			<?php echo Template::get_edit_field( Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS ) ?>
 		</div>
 	</div>
 
