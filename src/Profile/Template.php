@@ -399,11 +399,7 @@ class Template {
 	 * returns field data or edit form with header label wrapped in a div
 	 */
 	public function get_field( $field_name = '' ) {
-		$always_hidden_fields = [
-			Profile::XPROFILE_FIELD_NAME_NAME,
-			Profile::XPROFILE_FIELD_NAME_TITLE,
-			Profile::XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION
-		];
+		$always_hidden_fields = [];
 
 		$user_hideable_fields = [
 			Profile::XPROFILE_FIELD_NAME_ABOUT,
