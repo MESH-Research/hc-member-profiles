@@ -115,6 +115,8 @@ class Profile {
 
 		remove_filter( 'bp_get_the_profile_field_value', 'wpautop' ); // just need the actual value, no extra tags
 
+		add_filter( 'bp_core_get_user_displayname', [ $this, 'filter_bp_core_get_user_displayname' ], 10, 2 );
+
 		// replace the default updated_profile activity handler with our own
 		//remove_action( 'xprofile_updated_profile', 'bp_xprofile_updated_profile_activity', 10, 5 );
 		//add_action( 'xprofile_updated_profile', [ '\MLA\Commons\Profile\Activity', 'updated_profile_activity' ], 10, 5 );
@@ -152,6 +154,23 @@ class Profile {
 		$this->disable_bp_component( 'friends' );
 
 	}
+
+	/**
+	 * override default & use our xprofile field value for displayname
+	 */
+	public function filter_bp_core_get_user_displayname( $fullname, $user_id ) {
+		$xprofile_name = bp_get_profile_field_data( [
+			'field'   =>  self::XPROFILE_FIELD_NAME_NAME,
+			'user_id' => $user_id
+		] );
+
+		if ( ! empty( $xprofile_name ) ) {
+			$fullname = $xprofile_name;
+		}
+
+		return $fullname;
+	}
+
 
 	/**
 	 * register custom xprofile field types
