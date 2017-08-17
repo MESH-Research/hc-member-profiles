@@ -31,29 +31,26 @@ class Template {
 		return $html;
 	}
 
+	/**
+	 * @uses DOMDocument
+	 */
 	public function get_academic_interests_edit() {
 		global $mla_academic_interests;
 
-		$tax = get_taxonomy( 'mla_academic_interests' );
+		$doc = new DOMDocument;
 
-		$interest_list = $mla_academic_interests->mla_academic_interests_list();
-		$input_interest_list = wpmn_get_object_terms( bp_displayed_user_id(), 'mla_academic_interests', [ 'fields' => 'names' ] );
+		ob_start();
+		$mla_academic_interests->edit_user_mla_academic_interests_section();
 
-		$html = '<p class="description">Enter interests from the existing list, or add new interests if needed.</p>';
-		$html .= '<select name="academic-interests[]" class="js-basic-multiple-tags interests" multiple="multiple" data-placeholder="Enter interests.">';
+		// encoding prevents mangling of multibyte characters
+		// constants ensure no <body> or <doctype> tags are added
+		$doc->loadHTML(
+			mb_convert_encoding( ob_get_clean(), 'HTML-ENTITIES', 'UTF-8' ),
+			LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+		);
 
-		foreach ( $interest_list as $interest_key => $interest_value ) {
-			$html .= sprintf('
-				<option class="level-1" %1$s value="%2$s">%3$s</option>' . "\n",
-				( in_array( $interest_key, $input_interest_list ) ) ? 'selected="selected"' : '',
-				$interest_key,
-				$interest_value
-			);
-		}
-
-		$html .= '</select>';
-
-		return $html;
+		// we only want the actual select element, not the header or table wrapper etc.
+		return $doc->saveHTML( $doc->getElementsByTagName( 'select' )[0] );
 	}
 
 	/**
