@@ -40,7 +40,7 @@ class Template {
 		$doc = new DOMDocument;
 
 		ob_start();
-		$mla_academic_interests->edit_user_mla_academic_interests_section();
+		$mla_academic_interests->edit_user_mla_academic_interests_section( wp_get_current_user() );
 
 		// encoding prevents mangling of multibyte characters
 		// constants ensure no <body> or <doctype> tags are added
