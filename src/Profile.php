@@ -208,6 +208,10 @@ class Profile {
 		$allowed_tags['br'] = [];
 		$allowed_tags['ul'] = [];
 		$allowed_tags['li'] = [];
+		$allowed_tags['a'] = array_merge( $allowed_tags['a'], [
+			'target' => true,
+			'rel' => true
+		] );
 		return $allowed_tags;
 	}
 
