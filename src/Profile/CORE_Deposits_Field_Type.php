@@ -105,7 +105,10 @@ class CORE_Deposits_Field_Type extends \BP_XProfile_Field_Type {
 		$genres_html = [];
 
 		$displayed_user = bp_get_displayed_user();
-		$querystring = sprintf( 'username=%s', urlencode( $displayed_user->userdata->user_login ) );
+		$querystring = http_build_query( [
+			'username' => $displayed_user->userdata->user_login,
+			'per_page' => 99,
+		] );
 
 		if ( humcore_has_deposits( $querystring ) ) {
 			while ( humcore_deposits() ) {
