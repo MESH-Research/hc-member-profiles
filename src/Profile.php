@@ -36,6 +36,7 @@ class Profile {
 	const XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES = 'Upcoming Talks and Conferences';
 	const XPROFILE_FIELD_NAME_MEMBERSHIPS = 'Memberships';
 	const XPROFILE_FIELD_NAME_CORE_DEPOSITS = 'CORE Deposits';
+	const XPROFILE_FIELD_NAME_CV = 'CV';
 
 	/**
 	 * display names of the above fields
@@ -77,6 +78,7 @@ class Profile {
 			self::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES => 'Upcoming Talks and Conferences',
 			self::XPROFILE_FIELD_NAME_MEMBERSHIPS => 'Memberships',
 			self::XPROFILE_FIELD_NAME_CORE_DEPOSITS => 'Work Shared in CORE',
+			self::XPROFILE_FIELD_NAME_CV => 'CV',
 		];
 
 		if( defined( 'WP_CLI' ) && WP_CLI ) {
