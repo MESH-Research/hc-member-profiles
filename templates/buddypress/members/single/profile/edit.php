@@ -71,6 +71,10 @@ do_action( 'bp_before_profile_edit_content' );
 			<h4><?php echo Profile::$display_names[ Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS ] ?></h4>
 			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS ) ?>
 		</div>
+		<div class="memberships editable hideable">
+			<h4><?php echo Profile::$display_names[ Profile::XPROFILE_FIELD_NAME_CV ] ?></h4>
+			<?php echo $template->get_edit_field( Profile::XPROFILE_FIELD_NAME_CV ) ?>
+		</div>
 	</div>
 
 	<div class="edit-action-bar">

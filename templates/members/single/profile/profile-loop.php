@@ -38,6 +38,7 @@ do_action( 'bp_before_profile_loop_content' );
 		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_PROJECTS ) ?>
 		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES ) ?>
 		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_MEMBERSHIPS ) ?>
+		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_CV ) ?>
 	</div>
 
 </form>
