@@ -1,5 +1,5 @@
 {
-	"name": "mlaa/profile",
+	"name": "mlaa/hc-member-profiles",
 	"type": "wordpress-plugin",
 	"require": {
 		"php": "^5.5 || ^7.0",
