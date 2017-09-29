@@ -4,8 +4,9 @@ php:
 - 7.0
 - 7.1
 env:
-- WP_VERSION=4.5
 - WP_VERSION=4.6
+- WP_VERSION=4.7
+- WP_VERSION=4.8
 - WP_VERSION=latest
 before_install:
 - git submodule update --init --recursive
@@ -13,6 +14,3 @@ before_install:
 before_script:
 - bash tests/install.sh $WP_VERSION
 script: phpunit
-notifications:
-  slack:
-    secure: X2g4fCvDHV431eabhGpYnCaFpIOcFN6qXU7UgDhPrZUxOkuRM3HSDZXZGuTULNZ2A0keIiz7WszbnB4vfmpVfN23EaQ70g0WodXFEMsGnHPOjqETfJfn7wDSrITiKZGKNaXml78H7RmNLBq03ZskFuTQV8H6eOJojYBiG1snD6T0MWrL8y+frOCdET/PrIb8JFwRjnX2R9auR28jtaas5zfaAZh2Hagij6VMRsNAEv8j88lWQOqgJDDzQKHJWrZM7uItTIDKjAbz3yM5DzgQ0zDixaz2xYbna44NrTlVRkQ4aL8EkvMtXUbevnqH5WTAwqqHEx58LmwdtivSsHjWbIx8zVBxXxbwDYpTehfb9kL5Ej48xAiB3zINUKzGarZ7hnYg2bDsuwYsKDBUowwOnMPfLpu3gdii5ZY8CLKX5m1b7oM7fCywLnvr6fc/uiSAONXSQCJvytTUvR75B0aq+h+Zozmk2xlzsAZ6nRrGY5BI4EJLlcNPvcJoOP/6IRRbd+xdwamaZA/Xf+wQOzac/wSFXKcudVUbArZsQeO+Ia93kAehB3+w12oLgOg6THc1oDJjt0d2MnDIX96Ja37FUe6K4xlTdTFDlF0vmJITbGTYLFhMuZosmi4an2VguYvVxQUdY0YI+j+F4R6TnQNh0WyYa+BEqxBu6SZ8DYsV96c=
