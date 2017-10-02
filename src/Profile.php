@@ -228,12 +228,12 @@ class Profile {
 	 * scripts/styles that apply on profile & related pages only
 	 */
 	public function enqueue_local_scripts() {
-		wp_enqueue_style( 'mla-commons-profile-local', plugins_url() . '/profile/css/profile.css' );
-		wp_enqueue_script( 'mla-commons-profile-jqdmh', plugins_url() . '/profile/js/lib/jquery.dynamicmaxheight.min.js' );
-		wp_enqueue_script( 'mla-commons-profile-local', plugins_url() . '/profile/js/main.js' );
+		wp_enqueue_style( 'hc-members-profile-local', plugins_url() . '/hc-members-profile/css/profile.css' );
+		wp_enqueue_script( 'hc-members-profile-jqdmh', plugins_url() . '/hc-members-profile/js/lib/jquery.dynamicmaxheight.min.js' );
+		wp_enqueue_script( 'hc-members-profile-local', plugins_url() . '/hc-members-profile/js/main.js' );
 
 		// TODO only enqueue theme-specific styles if that theme is active
-		wp_enqueue_style( 'mla-commons-profile-boss', plugins_url() . '/profile/css/boss.css' );
+		wp_enqueue_style( 'hc-members-profile-boss', plugins_url() . '/hc-members-profile/css/boss.css' );
 	}
 
 	/**
