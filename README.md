@@ -1,6 +1,6 @@
 # Advanced profiles for [Humanities Commons](https://hcommons.org)
 
-[![Build Status](https://travis-ci.org/mlaa/profile.svg)](https://travis-ci.org/mlaa/profile)
+[![Build Status](https://travis-ci.org/mlaa/hc-member-profiles.svg)](https://travis-ci.org/mlaa/hc-member-profiles)
 
 Inspired by (and not compatible with) [CAC Advanced Profiles](https://github.com/cuny-academic-commons/cac-advanced-profiles).
 
@@ -18,4 +18,4 @@ Inspired by (and not compatible with) [CAC Advanced Profiles](https://github.com
 
 Modify the included migration script to fit your existing data and then run it before using this plugin:
 
-    wp profile migrate
+    wp hc-member-profiles migrate
