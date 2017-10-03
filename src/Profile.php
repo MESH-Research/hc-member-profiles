@@ -123,6 +123,16 @@ class Profile {
 		//remove_action( 'xprofile_updated_profile', 'bp_xprofile_updated_profile_activity', 10, 5 );
 		//add_action( 'xprofile_updated_profile', [ '\MLA\Commons\Profile\Activity', 'updated_profile_activity' ], 10, 5 );
 
+		// restrict access to other members' profile section pages except the main view. (e.g. groups, sites, following)
+		if (
+			0 === strpos( $_SERVER['REQUEST_URI'], '/members/' ) &&
+			! bp_is_user_profile() &&
+			get_current_user_id() != bp_displayed_user_id() &&
+			! current_user_can( 'administrator' )
+		) {
+			bp_core_redirect( bp_get_displayed_user_link() );
+		}
+
 		if (
 			! bp_is_user_change_avatar() &&
 			! bp_is_user_change_cover_image() &&
