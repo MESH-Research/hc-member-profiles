@@ -119,6 +119,9 @@ class Profile {
 
 		add_filter( 'bp_core_get_user_displayname', [ $this, 'filter_bp_core_get_user_displayname' ], 10, 2 );
 
+		// Don't log "changed their profile picture" activities.
+		remove_action( 'xprofile_avatar_uploaded', 'bp_xprofile_new_avatar_activity' );
+
 		// replace the default updated_profile activity handler with our own
 		//remove_action( 'xprofile_updated_profile', 'bp_xprofile_updated_profile_activity', 10, 5 );
 		//add_action( 'xprofile_updated_profile', [ '\MLA\Commons\Profile\Activity', 'updated_profile_activity' ], 10, 5 );
