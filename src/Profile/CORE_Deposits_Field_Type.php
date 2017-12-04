@@ -135,11 +135,12 @@ class CORE_Deposits_Field_Type extends \BP_XProfile_Field_Type {
 	}
 
 	public function edit_field_html( array $raw_properties = [] ) {
-		echo self::display_filter();
+		echo '<label>' . $this->name . '</label>';
+		echo 'This field is not editable.';
 	}
 
 	public function admin_field_html( array $raw_properties = [] ) {
-		echo 'This field is not editable.';
+		$this->edit_field_html();
 	}
 
 }
