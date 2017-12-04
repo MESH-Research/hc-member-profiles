@@ -100,15 +100,6 @@ class Profile {
 			}
 		}
 
-		// change publications field name depending on whether the user has CORE deposits
-		if ( ! empty( bp_get_displayed_user_fullname() ) ) {
-			$displayed_user = bp_get_displayed_user();
-			$querystring = sprintf( 'username=%s', urlencode( $displayed_user->userdata->user_login ) );
-			if ( function_exists( 'humcore_has_deposits' ) && humcore_has_deposits( $querystring ) ) {
-				self::$display_names[ self::XPROFILE_FIELD_NAME_PUBLICATIONS ] = 'Other Publications';
-			}
-		}
-
 		add_filter( 'bp_xprofile_get_field_types', [ $this, 'filter_xprofile_get_field_types' ] );
 
 		add_filter( 'xprofile_allowed_tags', [ $this, 'filter_xprofile_allowed_tags' ] );
@@ -146,6 +137,15 @@ class Profile {
 				bp_is_groups_directory()
 			)
 		) {
+			// change publications field name depending on whether the user has CORE deposits
+			if ( ! empty( bp_get_displayed_user_fullname() ) ) {
+				$displayed_user = bp_get_displayed_user();
+				$querystring = sprintf( 'username=%s', urlencode( $displayed_user->userdata->user_login ) );
+				if ( function_exists( 'humcore_has_deposits' ) && humcore_has_deposits( $querystring ) ) {
+					self::$display_names[ self::XPROFILE_FIELD_NAME_PUBLICATIONS ] = 'Other Publications';
+				}
+			}
+
 			bp_register_template_stack( [ $this, 'register_template_stack' ], 0 );
 
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_local_scripts' ] );
