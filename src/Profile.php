@@ -120,6 +120,7 @@ class Profile {
 		// restrict access to other members' profile section pages except the main view. (e.g. groups, sites, following)
 		if (
 			0 === strpos( $_SERVER['REQUEST_URI'], '/members/' ) &&
+			! bp_is_members_directory() &&
 			! bp_is_user_profile() &&
 			get_current_user_id() != bp_displayed_user_id() &&
 			! current_user_can( 'administrator' )
