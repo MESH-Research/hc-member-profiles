@@ -1,14 +1,5 @@
 <?php
 
-namespace MLA\Commons;
-
-use \BP_XProfile_Group;
-use \RecursiveDirectoryIterator;
-use \RecursiveIteratorIterator;
-use \RecursiveRegexIterator;
-use \RegexIterator;
-use \WP_CLI;
-
 class Profile {
 
 	/**
@@ -60,6 +51,9 @@ class Profile {
 	public $xprofile_group;
 
 	public function __construct() {
+		var_dump( __METHOD__ );
+		die;
+		return;
 		self::$plugin_dir = plugin_dir_path( realpath( __DIR__ ) );
 		self::$plugin_templates_dir = trailingslashit( self::$plugin_dir . 'templates' );
 		self::$display_names = [
@@ -81,7 +75,7 @@ class Profile {
 			self::XPROFILE_FIELD_NAME_CV => 'CV',
 		];
 
-		if( defined( 'WP_CLI' ) && WP_CLI ) {
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			WP_CLI::add_command( 'profile', __NAMESPACE__ . '\Profile\CLI' );
 		}
 
@@ -93,7 +87,9 @@ class Profile {
 	}
 
 	public function init() {
-		foreach ( BP_XProfile_Group::get( [ 'fetch_fields' => true ] ) as $group ) {
+		foreach ( BP_XProfile_Group::get( [
+			'fetch_fields' => true,
+		] ) as $group ) {
 			if ( $group->name === self::XPROFILE_GROUP_NAME && $group->description === self::XPROFILE_GROUP_DESCRIPTION ) {
 				$this->xprofile_group = $group;
 				break;
@@ -176,8 +172,8 @@ class Profile {
 	 */
 	public function filter_bp_core_get_user_displayname( $fullname, $user_id ) {
 		$xprofile_name = bp_get_profile_field_data( [
-			'field'   =>  self::XPROFILE_FIELD_NAME_NAME,
-			'user_id' => $user_id
+			'field'   => self::XPROFILE_FIELD_NAME_NAME,
+			'user_id' => $user_id,
 		] );
 
 		if ( ! empty( $xprofile_name ) ) {
@@ -186,7 +182,6 @@ class Profile {
 
 		return $fullname;
 	}
-
 
 	/**
 	 * register custom xprofile field types
@@ -209,7 +204,7 @@ class Profile {
 		$allowed_tags['li'] = [];
 		$allowed_tags['a'] = array_merge( $allowed_tags['a'], [
 			'target' => true,
-			'rel' => true
+			'rel' => true,
 		] );
 		return $allowed_tags;
 	}
@@ -217,8 +212,8 @@ class Profile {
 	public function disable_bp_component( $component_name ) {
 		$active_components = bp_get_option( 'bp-active-components' );
 
-		if ( isset( $active_components[$component_name] ) ) {
-			unset( $active_components[$component_name] );
+		if ( isset( $active_components[ $component_name ] ) ) {
+			unset( $active_components[ $component_name ] );
 			bp_update_option( 'bp-active-components', $active_components );
 		}
 	}

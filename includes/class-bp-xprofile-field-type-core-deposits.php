@@ -1,8 +1,6 @@
 <?php
 
-namespace MLA\Commons\Profile;
-
-class CORE_Deposits_Field_Type extends \BP_XProfile_Field_Type {
+class BP_XProfile_Field_Type_CORE_Deposits extends BP_XProfile_Field_Type {
 
 	public $name = 'CORE Deposits';
 
@@ -126,7 +124,7 @@ class CORE_Deposits_Field_Type extends \BP_XProfile_Field_Type {
 			);
 
 			foreach ( $genres_html as $genre => $genre_html ) {
-				$html .= '<h5>' . ( isset( $genres_pluralized[$genre] ) ? $genres_pluralized[$genre] : $genre ) . '</h5>';
+				$html .= '<h5>' . ( isset( $genres_pluralized[ $genre ] ) ? $genres_pluralized[ $genre ] : $genre ) . '</h5>';
 				$html .= '<ul>' . implode( '', $genre_html ) . '</ul>';
 			}
 		}
