@@ -2,7 +2,7 @@
 /**
  * Class SampleTest
  *
- * @package Hc_Member_Profiles
+ * @package HC_Member_Profiles
  */
 
 /**

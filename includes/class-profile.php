@@ -1,14 +1,5 @@
 <?php
 
-namespace MLA\Commons;
-
-use \BP_XProfile_Group;
-use \RecursiveDirectoryIterator;
-use \RecursiveIteratorIterator;
-use \RecursiveRegexIterator;
-use \RegexIterator;
-use \WP_CLI;
-
 class Profile {
 
 	/**
@@ -60,6 +51,9 @@ class Profile {
 	public $xprofile_group;
 
 	public function __construct() {
+		var_dump( __METHOD__ );
+		die;
+		return;
 		self::$plugin_dir = plugin_dir_path( realpath( __DIR__ ) );
 		self::$plugin_templates_dir = trailingslashit( self::$plugin_dir . 'templates' );
 		self::$display_names = [
@@ -81,7 +75,7 @@ class Profile {
 			self::XPROFILE_FIELD_NAME_CV => 'CV',
 		];
 
-		if( defined( 'WP_CLI' ) && WP_CLI ) {
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			WP_CLI::add_command( 'profile', __NAMESPACE__ . '\Profile\CLI' );
 		}
 
@@ -93,7 +87,9 @@ class Profile {
 	}
 
 	public function init() {
-		foreach ( BP_XProfile_Group::get( [ 'fetch_fields' => true ] ) as $group ) {
+		foreach ( BP_XProfile_Group::get( [
+			'fetch_fields' => true,
+		] ) as $group ) {
 			if ( $group->name === self::XPROFILE_GROUP_NAME && $group->description === self::XPROFILE_GROUP_DESCRIPTION ) {
 				$this->xprofile_group = $group;
 				break;
@@ -174,8 +170,8 @@ class Profile {
 	 */
 	public function filter_bp_core_get_user_displayname( $fullname, $user_id ) {
 		$xprofile_name = bp_get_profile_field_data( [
-			'field'   =>  self::XPROFILE_FIELD_NAME_NAME,
-			'user_id' => $user_id
+			'field'   => self::XPROFILE_FIELD_NAME_NAME,
+			'user_id' => $user_id,
 		] );
 
 		if ( ! empty( $xprofile_name ) ) {
@@ -183,22 +179,6 @@ class Profile {
 		}
 
 		return $fullname;
-	}
-
-
-	/**
-	 * register custom xprofile field types
-	 */
-	public function filter_xprofile_get_field_types( $field_types ) {
-		if ( bp_is_active( 'humcore_deposits' ) ) {
-			require_once 'Profile/CORE_Deposits_Field_Type.php';
-
-			$field_types = array_merge( $field_types, [
-				'core_deposits' => 'MLA\Commons\Profile\CORE_Deposits_Field_Type',
-			] );
-		}
-
-		return $field_types;
 	}
 
 	public function filter_teeny_mce_before_init( $args ) {
@@ -212,8 +192,8 @@ class Profile {
 
 		// mimick bbpress
 		$args['plugins'] = 'charmap,colorpicker,hr,lists,media,paste,tabfocus,textcolor,wordpress,wpautoresize,wpeditimage,wpemoji,wpgallery,wplink,wpdialogs,wptextpattern,wpview,wpembed,image';
-		$args['toolbar1'] = "bold,italic,strikethrough,bullist,numlist,blockquote,hr,alignleft,aligncenter,alignright,tabindent,link,unlink,spellchecker,print,paste,undo,redo";
-		$args['toolbar3'] = "tablecontrols";
+		$args['toolbar1'] = 'bold,italic,strikethrough,bullist,numlist,blockquote,hr,alignleft,aligncenter,alignright,tabindent,link,unlink,spellchecker,print,paste,undo,redo';
+		$args['toolbar3'] = 'tablecontrols';
 
 		//$args['paste_as_text'] = 'true'; // turn on by default
 
@@ -226,7 +206,7 @@ class Profile {
 		$allowed_tags['li'] = [];
 		$allowed_tags['a'] = array_merge( $allowed_tags['a'], [
 			'target' => true,
-			'rel' => true
+			'rel' => true,
 		] );
 		return $allowed_tags;
 	}
@@ -234,8 +214,8 @@ class Profile {
 	public function disable_bp_component( $component_name ) {
 		$active_components = bp_get_option( 'bp-active-components' );
 
-		if ( isset( $active_components[$component_name] ) ) {
-			unset( $active_components[$component_name] );
+		if ( isset( $active_components[ $component_name ] ) ) {
+			unset( $active_components[ $component_name ] );
 			bp_update_option( 'bp-active-components', $active_components );
 		}
 	}

@@ -1,4 +1,5 @@
 <?php
+var_dump( __FILE__ );die;
 
 use MLA\Commons\Profile;
 use MLA\Commons\Profile\Template;
