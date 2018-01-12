@@ -93,7 +93,6 @@ class Profile {
 	}
 
 	public function init() {
-
 		foreach ( BP_XProfile_Group::get( [ 'fetch_fields' => true ] ) as $group ) {
 			if ( $group->name === self::XPROFILE_GROUP_NAME && $group->description === self::XPROFILE_GROUP_DESCRIPTION ) {
 				$this->xprofile_group = $group;
@@ -176,8 +175,7 @@ class Profile {
 	 * override default & use our xprofile field value for displayname
 	 */
 	public function filter_bp_core_get_user_displayname( $fullname, $user_id ) {
-
-           $xprofile_name = bp_get_profile_field_data( [
+		$xprofile_name = bp_get_profile_field_data( [
 			'field'   =>  self::XPROFILE_FIELD_NAME_NAME,
 			'user_id' => $user_id
 		] );
