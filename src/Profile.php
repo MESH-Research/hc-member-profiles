@@ -125,7 +125,8 @@ class Profile {
 			! bp_is_user_profile() &&
 			get_current_user_id() != bp_displayed_user_id() &&
 			! current_user_can( 'administrator') &&
-			! strstr($_SERVER['REQUEST_URI'], '/ical/')
+			! strstr( $_SERVER['REQUEST_URI'], '/ical/' ) &&
+			! strstr( $_SERVER['REQUEST_URI'], '/followers/start/' )
 		) {
 			bp_core_redirect( bp_get_displayed_user_link() );
 		}
