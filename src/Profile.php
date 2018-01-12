@@ -93,8 +93,8 @@ class Profile {
 	}
 
 	public function init() {
-		
-foreach ( BP_XProfile_Group::get( [ 'fetch_fields' => true ] ) as $group ) {
+
+		foreach ( BP_XProfile_Group::get( [ 'fetch_fields' => true ] ) as $group ) {
 			if ( $group->name === self::XPROFILE_GROUP_NAME && $group->description === self::XPROFILE_GROUP_DESCRIPTION ) {
 				$this->xprofile_group = $group;
 				break;
@@ -119,14 +119,14 @@ foreach ( BP_XProfile_Group::get( [ 'fetch_fields' => true ] ) as $group ) {
 		//add_action( 'xprofile_updated_profile', [ '\MLA\Commons\Profile\Activity', 'updated_profile_activity' ], 10, 5 );
 
 		// restrict access to other members' profile section pages except the main view. (e.g. groups, sites, following)
-               // Don't redirect if it's google trying to subscribe to ics file
+		// Don't redirect if it's google trying to subscribe to ics file
 		if (
 			0 === strpos( $_SERVER['REQUEST_URI'], '/members/' ) &&
 			! bp_is_members_directory() &&
 			! bp_is_user_profile() &&
 			get_current_user_id() != bp_displayed_user_id() &&
-			! current_user_can( 'administrator') && 
-                        ! strstr($_SERVER['REQUEST_URI'], '/ical/')
+			! current_user_can( 'administrator') &&
+			! strstr($_SERVER['REQUEST_URI'], '/ical/')
 		) {
 			bp_core_redirect( bp_get_displayed_user_link() );
 		}
@@ -176,7 +176,7 @@ foreach ( BP_XProfile_Group::get( [ 'fetch_fields' => true ] ) as $group ) {
 	 * override default & use our xprofile field value for displayname
 	 */
 	public function filter_bp_core_get_user_displayname( $fullname, $user_id ) {
-		
+
            $xprofile_name = bp_get_profile_field_data( [
 			'field'   =>  self::XPROFILE_FIELD_NAME_NAME,
 			'user_id' => $user_id
