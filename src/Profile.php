@@ -153,7 +153,6 @@ class Profile {
 			bp_register_template_stack( [ $this, 'register_template_stack' ], 0 );
 
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_local_scripts' ] );
-			add_filter( 'teeny_mce_before_init', [ $this, 'filter_teeny_mce_before_init' ] );
 
 			add_action( 'bp_before_profile_edit_content', [ $this, 'init_profile_edit' ] );
 
@@ -202,25 +201,6 @@ class Profile {
 		}
 
 		return $field_types;
-	}
-
-	public function filter_teeny_mce_before_init( $args ) {
-		/* TODO
-		$js = file_get_contents( self::$plugin_dir . 'js/teeny_mce_before_init.js' );
-
-		if ( $js ) {
-			$args['setup'] = $js;
-		}
-		 */
-
-		// mimick bbpress
-		$args['plugins'] = 'charmap,colorpicker,hr,lists,media,paste,tabfocus,textcolor,wordpress,wpautoresize,wpeditimage,wpemoji,wpgallery,wplink,wpdialogs,wptextpattern,wpview,wpembed,image';
-		$args['toolbar1'] = "bold,italic,strikethrough,bullist,numlist,blockquote,hr,alignleft,aligncenter,alignright,tabindent,link,unlink,spellchecker,print,paste,undo,redo";
-		$args['toolbar3'] = "tablecontrols";
-
-		//$args['paste_as_text'] = 'true'; // turn on by default
-
-		return $args;
 	}
 
 	public function filter_xprofile_allowed_tags( $allowed_tags ) {
