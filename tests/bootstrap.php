@@ -36,9 +36,6 @@ function _manually_load_our_code() {
 	// Load plugin classes.
 	require_once dirname( __FILE__ ) . '/../bootstrap.php';
 
-	// Load mocks.
-	require_once( dirname( __FILE__ ) . '/phpunit/includes/loader.php' );
-
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_our_code' );
 
