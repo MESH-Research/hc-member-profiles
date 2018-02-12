@@ -229,7 +229,7 @@ class Profile {
 	public function enqueue_local_scripts() {
 		wp_enqueue_style( 'hc-members-profile-local', plugins_url() . '/hc-member-profiles/css/profile.css' );
 		wp_enqueue_script( 'hc-members-profile-jqdmh', plugins_url() . '/hc-member-profiles/js/lib/jquery.dynamicmaxheight.min.js' );
-		wp_enqueue_script( 'hc-members-profile-local', plugins_url() . '/hc-member-profiles/js/main.js' );
+		wp_enqueue_script( 'hc-members-profile-local', plugins_url() . '/hc-member-profiles/js/main.js', [], 1 );
 
 		// TODO only enqueue theme-specific styles if that theme is active
 		wp_enqueue_style( 'hc-members-profile-boss', plugins_url() . '/hc-member-profiles/css/boss.css' );
