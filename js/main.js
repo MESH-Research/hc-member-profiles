@@ -21,19 +21,19 @@
           if ( a.html() === 'hide' ) {
             a.html( 'show' );
             div.addClass( 'collapsed' );
-            div.find( '.adminsonly input' ).attr( 'checked', true );
-            div.find( '.public input' ).attr( 'checked', false );
+            div.find( 'input[value="adminsonly"]' ).attr( 'checked', true );
+            div.find( 'input[value="public"]' ).attr( 'checked', false );
           } else {
             a.html( 'hide' );
             div.removeClass( 'collapsed' );
-            div.find( '.adminsonly input' ).attr( 'checked', false );
-            div.find( '.public input' ).attr( 'checked', true );
+            div.find( 'input[value="adminsonly"]' ).attr( 'checked', false );
+            div.find( 'input[value="public"]' ).attr( 'checked', true );
           }
 
           return false;
         } );
 
-        if ( div.find( '.adminsonly input' ).is( ':checked' ) ) {
+        if ( div.find( 'input[value="adminsonly"]' ).is( ':checked' ) ) {
           div.find( '.visibility' ).triggerHandler( 'click' );
         }
       } );
