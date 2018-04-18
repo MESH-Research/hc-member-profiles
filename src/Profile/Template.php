@@ -113,7 +113,7 @@ class Template {
 			while ( bp_activities() ) {
 				bp_the_activity();
 
-				$action = trim( strip_tags( bp_get_activity_action( [ 'no_timestamp' => true ] ), '<a>' ) );
+				$action = trim( force_balance_tags( strip_tags( bp_get_activity_action( [ 'no_timestamp' => true ] ), '<a>' ) ) );
 				if ( 'activity_update' === bp_get_activity_type() && bp_activity_has_content() ) {
 					$action .= ': ' . trim( bp_get_activity_content_body() );
 				}
