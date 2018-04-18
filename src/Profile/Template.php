@@ -122,7 +122,7 @@ class Template {
 				$displayed_user_fullname = bp_get_displayed_user_fullname();
 				$link_text_char_limit = 30;
 
-				if ( $activity_type === 'updated_profile' ) {
+				if ( in_array( $activity_type, [ 'updated_profile', 'activity_comment' ] ) ) {
 					continue;
 				}
 
