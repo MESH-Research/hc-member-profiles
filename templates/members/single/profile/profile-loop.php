@@ -13,7 +13,7 @@ do_action( 'bp_before_profile_loop_content' );
 
 	<div class="left">
 		<div class="academic-interests wordblock">
-			<h4>Academic Interests</h4>
+			<h4><?php echo $template->get_academic_interests_field_display_name(); ?></h4>
 			<?php echo $template->get_academic_interests(); ?>
 		</div>
 		<div class="commons-groups wordblock show-more">

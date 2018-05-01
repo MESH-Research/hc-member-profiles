@@ -17,6 +17,19 @@ class Template {
 		return $follow_counts;
 	}
 
+	public function get_academic_interests_field_display_name() {
+		$name = 'Academic Interests';
+
+		$displayed_user = bp_get_displayed_user();
+		$memberships = bp_get_member_type( $displayed_user->id, false );
+
+		if ( is_array( $memberships ) && in_array( 'up', $memberships ) ) {
+			$name = 'Professional Interests';
+		}
+
+		return $name;
+	}
+
 	public function get_academic_interests() {
 		if ( class_exists( 'Mla_Academic_Interests' ) ) {
 			$tax = get_taxonomy( 'mla_academic_interests' );

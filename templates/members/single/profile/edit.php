@@ -19,7 +19,7 @@ do_action( 'bp_before_profile_edit_content' );
 		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_ORCID ) ?>
 		<?php echo $template->get_field( Profile::XPROFILE_FIELD_NAME_SITE ) ?>
 		<div class="academic-interests editable">
-			<h4>Academic Interests</h4>
+			<h4><?php echo $template->get_academic_interests_field_display_name(); ?></h4>
 			<?php echo $template->get_academic_interests_edit(); ?>
 		</div>
 		<div class="commons-groups wordblock">
