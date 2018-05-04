@@ -3,12 +3,12 @@
 <div id="profile-main" role="main">
 
 	<?php
-		// Profile Edit
+		// HC_Member_Profiles_Component Edit
 		if ( bp_is_current_action( 'edit' ) ) {
 			bp_locate_template( array( 'members/single/profile/edit.php' ), true );
 		}
 
-		// Display XProfile
+		// Display XHC_Member_Profiles_Component
 		elseif ( bp_is_active( 'xprofile' ) ) {
 			bp_locate_template( array( 'members/single/profile/profile-loop.php' ), true );
 		}

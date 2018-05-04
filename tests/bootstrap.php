@@ -10,7 +10,7 @@ $wp_version = ( getenv( 'WP_VERSION' ) ) ? getenv( 'WP_VERSION' ) : 'latest';
 $bp_version = ( getenv( 'BP_VERSION' ) ) ? getenv( 'BP_VERSION' ) : 'latest';
 
 // Get paths to codebase installed by install script.
-$wp_root_dir = "/tmp/wordpress/$wp_version/src/";
+$wp_root_dir  = "/tmp/wordpress/$wp_version/src/";
 $wp_tests_dir = "/tmp/wordpress/$wp_version/tests/phpunit";
 $bp_tests_dir = "/tmp/buddypress/$bp_version/tests/phpunit";
 

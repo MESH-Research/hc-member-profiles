@@ -24,7 +24,7 @@ class Test_Template extends BP_UnitTestCase {
 		$this->markTestSkipped();
 
 		$template = new Template;
-		$result = $template->get_twitter_link();
+		$result   = $template->get_twitter_link();
 
 		$this->assertTrue( preg_match( '/^<a href="https:\/\/twitter.com\/[a-z0-9_]+">@[a-z0-9_]+<\/a>$/', $result ) );
 	}
@@ -70,9 +70,9 @@ class Test_Template extends BP_UnitTestCase {
 		// TODO these are probably better as consts to DRY with the method being tested
 		$domains = [
 			Profile::XPROFILE_FIELD_NAME_TWITTER_USER_NAME => 'twitter.com',
-			Profile::XPROFILE_FIELD_NAME_FACEBOOK => 'facebook.com',
-			Profile::XPROFILE_FIELD_NAME_LINKEDIN => 'linkedin.com/in',
-			Profile::XPROFILE_FIELD_NAME_ORCID => 'orcid.org',
+			Profile::XPROFILE_FIELD_NAME_FACEBOOK          => 'facebook.com',
+			Profile::XPROFILE_FIELD_NAME_LINKEDIN          => 'linkedin.com/in',
+			Profile::XPROFILE_FIELD_NAME_ORCID             => 'orcid.org',
 		];
 
 		$field_names = [
@@ -93,7 +93,7 @@ class Test_Template extends BP_UnitTestCase {
 
 			// use same user input values for all fields
 			$field_values = [
-				"0123456789",
+				'0123456789',
 				'example',
 				'@example',
 				'@@example',
@@ -106,11 +106,13 @@ class Test_Template extends BP_UnitTestCase {
 			];
 
 			foreach ( $field_values as $value ) {
-				$cleaned_value = strip_tags( preg_replace(
-					$patterns,
-					'',
-					$value
-				) );
+				$cleaned_value = strip_tags(
+					preg_replace(
+						$patterns,
+						'',
+						$value
+					)
+				);
 
 				$data_sets[] = [
 					$name,

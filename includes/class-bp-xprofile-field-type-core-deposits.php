@@ -64,49 +64,51 @@ class BP_XProfile_Field_Type_CORE_Deposits extends BP_XProfile_Field_Type {
 
 		// genres with a plural form not equal to the value returned by humcore_deposits_genre_list()
 		$genres_pluralized = [
-			'Abstract' => 'Abstracts',
-			'Article' => 'Articles',
-			'Bibliography' => 'Bibliographies',
-			'Blog Post' => 'Blog Posts',
-			'Book' => 'Books',
-			'Book chapter' => 'Book chapters',
-			'Book review' => 'Book reviews',
-			'Book section' => 'Book sections',
-			'Catalog' => 'Catalogs',
-			'Chart' => 'Charts',
-			'Conference paper' => 'Conference papers',
+			'Abstract'              => 'Abstracts',
+			'Article'               => 'Articles',
+			'Bibliography'          => 'Bibliographies',
+			'Blog Post'             => 'Blog Posts',
+			'Book'                  => 'Books',
+			'Book chapter'          => 'Book chapters',
+			'Book review'           => 'Book reviews',
+			'Book section'          => 'Book sections',
+			'Catalog'               => 'Catalogs',
+			'Chart'                 => 'Charts',
+			'Conference paper'      => 'Conference papers',
 			'Conference proceeding' => 'Conference proceedings',
-			'Data set' => 'Data sets',
-			'Dissertation' => 'Dissertations',
-			'Documentary' => 'Documentaries',
-			'Essay' => 'Essays',
-			'Fictional work' => 'Fictional works',
-			'Finding aid' => 'Finding aids',
-			'Image' => 'Images',
-			'Interview' => 'Interviews',
-			'Map' => 'Maps',
-			'Monograph' => 'Monographs',
-			'Performance' => 'Performances',
-			'Photograph' => 'Photographs',
-			'Presentation' => 'Presentations',
-			'Report' => 'Reports',
-			'Review' => 'Reviews',
-			'Syllabus' => 'Syllabi',
-			'Technical report' => 'Technical reports',
-			'Thesis' => 'Theses',
-			'Translation' => 'Translations',
-			'Video essay' => 'Video essays',
-			'White paper' => 'White papers',
+			'Data set'              => 'Data sets',
+			'Dissertation'          => 'Dissertations',
+			'Documentary'           => 'Documentaries',
+			'Essay'                 => 'Essays',
+			'Fictional work'        => 'Fictional works',
+			'Finding aid'           => 'Finding aids',
+			'Image'                 => 'Images',
+			'Interview'             => 'Interviews',
+			'Map'                   => 'Maps',
+			'Monograph'             => 'Monographs',
+			'Performance'           => 'Performances',
+			'Photograph'            => 'Photographs',
+			'Presentation'          => 'Presentations',
+			'Report'                => 'Reports',
+			'Review'                => 'Reviews',
+			'Syllabus'              => 'Syllabi',
+			'Technical report'      => 'Technical reports',
+			'Thesis'                => 'Theses',
+			'Translation'           => 'Translations',
+			'Video essay'           => 'Video essays',
+			'White paper'           => 'White papers',
 		];
 
-		$html = '';
+		$html        = '';
 		$genres_html = [];
 
 		$displayed_user = bp_get_displayed_user();
-		$querystring = http_build_query( [
-			'username' => $displayed_user->userdata->user_login,
-			'per_page' => 99,
-		] );
+		$querystring    = http_build_query(
+			[
+				'username' => $displayed_user->userdata->user_login,
+				'per_page' => 99,
+			]
+		);
 
 		if ( humcore_has_deposits( $querystring ) ) {
 			while ( humcore_deposits() ) {

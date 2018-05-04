@@ -52,18 +52,22 @@ class BP_XProfile_Field_Type_Academic_Interests extends BP_XProfile_Field_Type {
 	 * @return mixed
 	 */
 	public static function display_filter( $field_value, $field_id = '' ) {
-		$tax = get_taxonomy( 'mla_academic_interests' );
-		$interests = wpmn_get_object_terms( bp_displayed_user_id(), 'mla_academic_interests', array(
-			'fields' => 'names',
-		) );
-		$html = '<ul>';
+		$tax       = get_taxonomy( 'mla_academic_interests' );
+		$interests = wpmn_get_object_terms(
+			bp_displayed_user_id(), 'mla_academic_interests', array(
+				'fields' => 'names',
+			)
+		);
+		$html      = '<ul>';
 		foreach ( $interests as $term_name ) {
-			$search_url = add_query_arg( [
-				'academic_interests' => urlencode( $term_name ),
-			], bp_get_members_directory_permalink() );
-			$html .= '<li><a href="' . esc_url( $search_url ) . '" rel="nofollow">';
-			$html .= $term_name;
-			$html .= '</a></li>';
+			$search_url = add_query_arg(
+				[
+					'academic_interests' => urlencode( $term_name ),
+				], bp_get_members_directory_permalink()
+			);
+			$html      .= '<li><a href="' . esc_url( $search_url ) . '" rel="nofollow">';
+			$html      .= $term_name;
+			$html      .= '</a></li>';
 		}
 		$html .= '</ul>';
 		return $html;

@@ -52,16 +52,16 @@ class BP_XProfile_Field_Type_Blogs extends BP_XProfile_Field_Type {
 	 * @return mixed
 	 */
 	public static function display_filter( $field_value, $field_id = '' ) {
-		return 'TODO';
-
 		global $humanities_commons; // TODO rewrite to use get_networks() instead, and make not wpmn-dependent
 
-		$html = '';
+		$html           = '';
 		$societies_html = [];
 
-		$querystring = bp_ajax_querystring( 'blogs' ) . '&' . http_build_query( [
-			'type' => 'alphabetical',
-		] );
+		$querystring = bp_ajax_querystring( 'blogs' ) . '&' . http_build_query(
+			[
+				'type' => 'alphabetical',
+			]
+		);
 
 		if ( bp_has_blogs( $querystring ) ) {
 			while ( bp_blogs() ) {
@@ -69,7 +69,7 @@ class BP_XProfile_Field_Type_Blogs extends BP_XProfile_Field_Type {
 				switch_to_blog( bp_get_blog_id() );
 				$user = get_userdata( bp_core_get_displayed_userid( bp_get_displayed_user_username() ) );
 				if ( ! empty( array_intersect( [ 'administrator', 'editor' ], $user->roles ) ) ) {
-					$society_id = $humanities_commons->hcommons_get_blog_society_id( bp_get_blog_id() );
+					$society_id                      = $humanities_commons->hcommons_get_blog_society_id( bp_get_blog_id() );
 					$societies_html[ $society_id ][] = '<li><a href="' . bp_get_blog_permalink() . '">' . bp_get_blog_name() . '</a></li>';
 				}
 				restore_current_blog();

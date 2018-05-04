@@ -36,6 +36,7 @@ class BP_XProfile_Field_Type_Activity extends BP_XProfile_Field_Type {
 	 */
 	public function __construct() {
 		parent::__construct();
+		// add_filter( 'xprofile_data_value_before_save', '__return_true' );
 	}
 
 	/**
@@ -52,12 +53,12 @@ class BP_XProfile_Field_Type_Activity extends BP_XProfile_Field_Type {
 	 * @return mixed
 	 */
 	public static function display_filter( $field_value, $field_id = '' ) {
-		$max = 5; // TODO admin option
+		$max  = 5; // TODO admin option
 		$args = [
-			'max' => $max,
+			'max'    => $max,
 			// action & type are blank to override cookies setting filters from directory
 			'action' => '',
-			'type' => '',
+			'type'   => '',
 		];
 
 		if ( bp_has_activities( $args ) ) {
@@ -67,16 +68,22 @@ class BP_XProfile_Field_Type_Activity extends BP_XProfile_Field_Type {
 			while ( bp_activities() ) {
 				bp_the_activity();
 
-				$action = trim( strip_tags( bp_get_activity_action( [
-					'no_timestamp' => true,
-				] ), '<a>' ) );
+				$action = trim(
+					strip_tags(
+						bp_get_activity_action(
+							[
+								'no_timestamp' => true,
+							]
+						), '<a>'
+					)
+				);
 				if ( 'activity_update' === bp_get_activity_type() && bp_activity_has_content() ) {
 					$action .= ': ' . trim( bp_get_activity_content_body() );
 				}
 
-				$activity_type = bp_get_activity_type();
+				$activity_type           = bp_get_activity_type();
 				$displayed_user_fullname = bp_get_displayed_user_fullname();
-				$link_text_char_limit = 30;
+				$link_text_char_limit    = 30;
 
 				if ( 'updated_profile' === $activity_type ) {
 					continue;
@@ -89,7 +96,7 @@ class BP_XProfile_Field_Type_Activity extends BP_XProfile_Field_Type {
 				$action = str_ireplace( 'blog post', 'post', $action );
 
 				// wrapper not only serves to contain the action text but also helps DOMDocument traverse the "tree" without breaking it
-				$action = "<li class=\"$activity_type\">" . $action . '</li>';
+				$action     = "<li class=\"$activity_type\">" . $action . '</li>';
 				$action_doc = new DOMDocument;
 
 				// encoding prevents mangling of multibyte characters
@@ -109,7 +116,7 @@ class BP_XProfile_Field_Type_Activity extends BP_XProfile_Field_Type {
 				}
 				foreach ( $action_doc->getElementsByTagName( 'a' ) as $anchor ) {
 					if ( strlen( $anchor->nodeValue ) > $link_text_char_limit ) {
-						$anchor->nodeValue = substr( $anchor->nodeValue, 0, $link_text_char_limit - 1 ) . '…';
+						$anchor->nodeValue = htmlspecialchars( substr( $anchor->nodeValue, 0, $link_text_char_limit - 1 ) . '…' );
 					}
 				}
 

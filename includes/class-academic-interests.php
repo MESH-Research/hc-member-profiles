@@ -1,7 +1,5 @@
 <?php
 
-namespace MLA\Commons\Profile;
-
 class Academic_Interests {
 
 	static $cookie_name = 'academic_interest_term_taxonomy_id';
