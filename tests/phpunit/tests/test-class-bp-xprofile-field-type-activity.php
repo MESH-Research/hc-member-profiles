@@ -2,52 +2,36 @@
 
 class Test_BP_XProfile_Field_Type_Activity extends BP_UnitTestCase {
 
-	//public static function setUpBeforeClass() {
-	//}
-
-	/**
-	 * TODO
-	 */
 	public function test_display_filter() {
-		$u = $this->factory->user->create();
-		$g = $this->factory->xprofile_group->create();
-		$f = $this->factory->xprofile_field->create( [
-			'field_group_id' => $g,
+		$user_id = $this->factory->user->create();
+
+		$group_id = $this->factory->xprofile_group->create();
+
+		$field_id = $this->factory->xprofile_field->create( [
+			'field_group_id' => $group_id,
 			'type' => 'bp_activity',
 		] );
 
-		$this->factory->activity->create( array(
-			'component' => buddypress()->profile->id,
-			'type' => 'updated_profile',
-			'user_id' => $u,
-		) );
+		$args = [
+			'type' => 'activity_update',
+			'user_id' => $user_id,
+		];
 
-		$this->factory->activity->create( [
-			'component' => buddypress()->profile->id,
-			'type' => 'new_avatar',
-			'user_id' => $u,
-		] );
+		$this->factory->activity->create( $args );
+		$this->factory->activity->create( $args );
+		$this->factory->activity->create( $args );
 
-		$value = BP_XProfile_Field_Type_Activity::display_filter( null, $f );
-		var_dump( $value );
-		die;
-		$this->assertNotEmpty( $data );
+		// Pretend we're viewing this user's profile.
+		add_filter( 'bp_get_displayed_user', function() use ( $user_id ) {
+			return get_userdata( $user_id );
+		} );
 
-		var_dump( $output );
-		die;
+		$data = xprofile_get_field_data( $field_id, $user_id );
 
-		$this->assertTrue( $field->is_valid( 'a string' ) );
-		$this->assertFalse( $field->set_whitelist_values( 'pizza' )->is_valid( 'pasta' ) );
-		$this->assertTrue( $field->is_valid( 'pizza' ) );
-	}
+		$dom = new DOMDocument;
+		$dom->loadHTML( $data );
 
-	protected function setup_updated_profile_data() {
-		$this->updated_profile_data['u'] = $this->factory->user->create();
-		$this->updated_profile_data['g'] = $this->factory->xprofile_group->create();
-		$this->updated_profile_data['f'] = $this->factory->xprofile_field->create( array(
-			'field_group_id' => $this->updated_profile_data['g'],
-		) );
-
+		$this->assertTrue( 3 === $dom->getElementsByTagName('li')->length );
 	}
 
 }

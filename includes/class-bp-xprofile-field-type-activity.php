@@ -53,17 +53,14 @@ class BP_XProfile_Field_Type_Activity extends BP_XProfile_Field_Type {
 	 */
 	public static function display_filter( $field_value, $field_id = '' ) {
 		$max = 5; // TODO admin option
-		$querystring = http_build_query( [
+		$args = [
 			'max' => $max,
-			'scope' => 'just-me',
 			// action & type are blank to override cookies setting filters from directory
 			'action' => '',
 			'type' => '',
-		] );
+		];
 
-		var_dump( __METHOD__ );
-		var_dump( $querystring );
-		if ( bp_has_activities( $querystring ) ) {
+		if ( bp_has_activities( $args ) ) {
 
 			$actions_html = '';
 
@@ -124,7 +121,7 @@ class BP_XProfile_Field_Type_Activity extends BP_XProfile_Field_Type {
 				}
 			}// End while().
 
-			echo "<ul>$actions_html</ul>";
+			return "<ul>$actions_html</ul>";
 		}// End if().
 	}
 
