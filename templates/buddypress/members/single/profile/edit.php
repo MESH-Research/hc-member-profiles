@@ -7,12 +7,12 @@ do_action( 'bp_before_profile_edit_content' );
 <form action="<?php bp_the_profile_group_edit_form_action(); ?>" method="post" id="profile-edit-form" class="standard-form <?php bp_the_profile_group_slug(); ?>">
 
 	<div class="left">
-		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_NAME ) ?>
-		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_TITLE ) ?>
-		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION ) ?>
-		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_TWITTER_USER_NAME ) ?>
-		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_ORCID ) ?>
-		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_SITE ) ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_NAME ); ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_TITLE ); ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION ); ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_TWITTER_USER_NAME ); ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_ORCID ); ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_SITE ); ?>
 		<div class="academic-interests editable">
 			<h4><?php echo hcmp_get_academic_interests_field_display_name(); ?></h4>
 			<?php echo hcmp_get_academic_interests_edit(); ?>
@@ -32,13 +32,13 @@ do_action( 'bp_before_profile_edit_content' );
 	</div>
 
 	<div class="right">
-		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_ABOUT ) ?>
-		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_EDUCATION ) ?>
-		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_CORE_DEPOSITS ) ?>
-		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_PUBLICATIONS ) ?>
-		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_PROJECTS ) ?>
-		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES ) ?>
-		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_MEMBERSHIPS ) ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_ABOUT ); ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_EDUCATION ); ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_CORE_DEPOSITS ); ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_PUBLICATIONS ); ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_PROJECTS ); ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_UPCOMING_TALKS_AND_CONFERENCES ); ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_MEMBERSHIPS ); ?>
 	</div>
 
 	<div class="edit-action-bar">

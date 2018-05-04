@@ -24,32 +24,32 @@ function hcmp_register_xprofile_field_types( array $fields ) {
 	// BP Groups
 	if ( bp_is_active( 'groups' ) ) {
 		require_once dirname( __FILE__ ) . '/class-bp-xprofile-field-type-groups.php';
-		$fields[ 'bp_groups' ] = 'BP_XProfile_Field_Type_Groups';
+		$fields['bp_groups'] = 'BP_XProfile_Field_Type_Groups';
 	}
 
 	// BP Activity
 	if ( bp_is_active( 'activity' ) ) {
 		require_once dirname( __FILE__ ) . '/class-bp-xprofile-field-type-activity.php';
-		$fields[ 'bp_activity' ] = 'BP_XProfile_Field_Type_Activity';
+		$fields['bp_activity'] = 'BP_XProfile_Field_Type_Activity';
 	}
 
 	// BP Blogs
 	if ( bp_is_active( 'blogs' ) ) {
 		require_once dirname( __FILE__ ) . '/class-bp-xprofile-field-type-blogs.php';
-		$fields[ 'bp_blogs' ] = 'BP_XProfile_Field_Type_Blogs';
+		$fields['bp_blogs'] = 'BP_XProfile_Field_Type_Blogs';
 	}
 
 	// CORE Deposits
 	if ( bp_is_active( 'humcore_deposits' ) ) {
 		require_once dirname( __FILE__ ) . '/class-bp-xprofile-field-type-core-deposits.php';
-		$fields[ 'core_deposits' ] = 'BP_XProfile_Field_Type_CORE_Deposits';
+		$fields['core_deposits'] = 'BP_XProfile_Field_Type_CORE_Deposits';
 	}
 
 	// Academic Interests
 	if ( class_exists( 'MLA_Academic_Interests' ) ) {
 		// Field type
 		require_once dirname( __FILE__ ) . '/class-bp-xprofile-field-type-academic-interests.php';
-		$fields[ 'academic_interests' ] = 'BP_XProfile_Field_Type_Academic_Interests';
+		$fields['academic_interests'] = 'BP_XProfile_Field_Type_Academic_Interests';
 
 		// Backpat functionality - TODO roll this into the field type
 		require_once dirname( __FILE__ ) . '/class-academic-interests.php';

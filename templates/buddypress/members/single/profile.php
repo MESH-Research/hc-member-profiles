@@ -4,14 +4,12 @@
 
 	<?php
 		// HC_Member_Profiles_Component Edit
-		if ( bp_is_current_action( 'edit' ) ) {
-			bp_locate_template( array( 'members/single/profile/edit.php' ), true );
-		}
-
-		// Display XHC_Member_Profiles_Component
-		elseif ( bp_is_active( 'xprofile' ) ) {
-			bp_locate_template( array( 'members/single/profile/profile-loop.php' ), true );
-		}
+	if ( bp_is_current_action( 'edit' ) ) {
+		bp_locate_template( array( 'members/single/profile/edit.php' ), true );
+	} // Display XHC_Member_Profiles_Component
+	elseif ( bp_is_active( 'xprofile' ) ) {
+		bp_locate_template( array( 'members/single/profile/profile-loop.php' ), true );
+	}
 	?>
 
 </div><!-- .profile -->

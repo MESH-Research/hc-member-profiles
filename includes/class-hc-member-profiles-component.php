@@ -10,8 +10,8 @@ class HC_Member_Profiles_Component extends BP_Component {
 	// TODO deprecate
 	static $display_names;
 	public $xprofile_group;
-	const XPROFILE_GROUP_NAME        = 'MLA Commons Profile';
-	const XPROFILE_GROUP_DESCRIPTION = 'Created and used by the MLA Commons Profile plugin.';
+	const XPROFILE_GROUP_NAME                                    = 'MLA Commons Profile';
+	const XPROFILE_GROUP_DESCRIPTION                             = 'Created and used by the MLA Commons Profile plugin.';
 	const XPROFILE_FIELD_NAME_NAME                               = 'Name';
 	const XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION = 'Institutional or Other Affiliation';
 	const XPROFILE_FIELD_NAME_TITLE                              = 'Title';
@@ -39,12 +39,14 @@ class HC_Member_Profiles_Component extends BP_Component {
 	 */
 	public function __construct() {
 		// TODO deprecate
-		$this->xprofile_group = BP_XProfile_Group::get( [
-			'profile_group_id'       => 2,
-			'fetch_fields'           => true,
-		] )[0];
+		$this->xprofile_group = BP_XProfile_Group::get(
+			[
+				'profile_group_id' => 2,
+				'fetch_fields'     => true,
+			]
+		)[0];
 
-		self::$display_names        = [
+		self::$display_names = [
 			self::XPROFILE_FIELD_NAME_NAME              => 'Name',
 			self::XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION => 'Institutional or Other Affiliation',
 			self::XPROFILE_FIELD_NAME_TITLE             => 'Title',
@@ -98,8 +100,7 @@ class HC_Member_Profiles_Component extends BP_Component {
 			}
 		);
 		// TODO think unnecessary
-		//add_filter( 'bp_field_has_data', '__return_true' );
-
+		// add_filter( 'bp_field_has_data', '__return_true' );
 		if (
 			! bp_is_user_change_avatar() &&
 			! bp_is_user_change_cover_image() &&
