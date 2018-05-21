@@ -1,4 +1,9 @@
 <?php
+/**
+ * Buddypress template override.
+ *
+ * @package Hc_Member_Profiles
+ */
 
 do_action( 'bp_before_member_header' );
 
@@ -8,11 +13,11 @@ $affiliation_search_url = add_query_arg(
 	[ 's' => urlencode( $affiliation_data ) ],
 	bp_get_members_directory_permalink()
 );
-$twitter_link           = hcmp_get_twitter_link();
-$orcid_link             = hcmp_get_orcid_link();
-$facebook_link          = hcmp_get_facebook_link();
-$linkedin_link          = hcmp_get_linkedin_link();
-$site_link              = hcmp_get_site_link();
+$twitter_link           = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_TWITTER_USER_NAME );
+$orcid_link             = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_ORCID );
+$facebook_link          = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_FACEBOOK );
+$linkedin_link          = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_LINKEDIN );
+$site_link              = hcmp_get_xprofile_field_data( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_SITE );
 
 ?>
 
@@ -77,18 +82,14 @@ $site_link              = hcmp_get_site_link();
 				<?php if ( bp_displayed_user_id() === bp_loggedin_user_id() ) : ?>
 					<a href="<?php echo bp_loggedin_user_domain() . BP_FOLLOWING_SLUG; ?>">
 				<?php endif ?>
-					<?php printf( __( 'Following <span>%d</span> members', 'bp-follow' ), $follow_counts['following'] ); ?>
+					<?php printf( 'Following <span>%d</span> members', $follow_counts['following'] ); ?>
 				<?php if ( bp_displayed_user_id() === bp_loggedin_user_id() ) : ?>
 					</a>
 				<?php endif ?>
 			</div>
 
 			<div id="item-buttons">
-				<?php
-				/**
-				 * this span is only here to prevent Boss from hiding the parent. see themes/boss/js/buddyboss.js:408
-				 */
-				?>
+				<?php // This span is only here to prevent Boss from hiding the parent. see themes/boss/js/buddyboss.js:408. ?>
 				<span class="generic-button" style="display: none;"></span>
 				<?php echo hcmp_get_header_actions(); ?>
 			</div><!-- #item-buttons -->

@@ -8,7 +8,7 @@
  * Text Domain: hc-member-profiles
  * Domain Path: /languages
  *
- * @package     HC_Member_Profiles
+ * @package Hc_Member_Profiles
  */
 
 /**

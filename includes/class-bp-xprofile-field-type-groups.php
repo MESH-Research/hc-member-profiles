@@ -2,7 +2,7 @@
 /**
  * HC Member Profiles field types
  *
- * @package HC_Member_Profiles
+ * @package Hc_Member_Profiles
  */
 
 /**
@@ -57,10 +57,10 @@ class BP_XProfile_Field_Type_Groups extends BP_XProfile_Field_Type {
 			$querystring = bp_ajax_querystring( 'groups' ) . '&' . http_build_query(
 				[
 					'group_type' => $group_type,
-					// action & type are blank to override cookies setting filters from directory
+					// Action & type are blank to override cookies setting filters from directory.
 					'action'     => '',
 					'type'       => '',
-					// use alpha order rather than whatever directory set
+					// Use alpha order rather than whatever directory set.
 					'orderby'    => 'name',
 					'order'      => 'ASC',
 				]

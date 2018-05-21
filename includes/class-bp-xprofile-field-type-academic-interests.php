@@ -2,7 +2,7 @@
 /**
  * HC Member Profiles field types
  *
- * @package HC_Member_Profiles
+ * @package Hc_Member_Profiles
  */
 
 /**
@@ -36,6 +36,13 @@ class BP_XProfile_Field_Type_Academic_Interests extends BP_XProfile_Field_Type {
 	 */
 	public function __construct() {
 		parent::__construct();
+
+		// Change UP member's interests field display name.
+		$displayed_user = bp_get_displayed_user();
+		$memberships    = bp_get_member_type( $displayed_user->id, false );
+		if ( is_array( $memberships ) && in_array( 'up', $memberships ) ) {
+			HC_Member_Profiles_Component::$display_names[ HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_ACADEMIC_INTERESTS ] = 'Professional Interests';
+		}
 	}
 
 	/**
@@ -88,13 +95,13 @@ class BP_XProfile_Field_Type_Academic_Interests extends BP_XProfile_Field_Type {
 
 		printf( '<label>%s</label>', $this->name );
 
-		$doc = new DOMDocument;
+		$doc = new DOMDocument();
 
 		ob_start();
 		$mla_academic_interests->edit_user_mla_academic_interests_section( wp_get_current_user() );
 
-		// encoding prevents mangling of multibyte characters
-		// constants ensure no <body> or <doctype> tags are added
+		// Encoding prevents mangling of multibyte characters.
+		// Constants ensure no <body> or <doctype> tags are added.
 		$doc->loadHTML(
 			mb_convert_encoding( ob_get_clean(), 'HTML-ENTITIES', 'UTF-8' ),
 			LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD

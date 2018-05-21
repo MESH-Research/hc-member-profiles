@@ -2,7 +2,7 @@
 /**
  * PHPUnit bootstrap file
  *
- * @package HC_Member_Profiles
+ * @package Hc_Member_Profiles
  */
 
 // Get codebase versions.

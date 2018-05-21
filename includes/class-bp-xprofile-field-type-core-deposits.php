@@ -1,24 +1,60 @@
 <?php
+/**
+ * CORE Deposits field type.
+ *
+ * @package Hc_Member_Profiles
+ */
 
+/**
+ * CORE Deposits field type.
+ */
 class BP_XProfile_Field_Type_CORE_Deposits extends BP_XProfile_Field_Type {
 
+	/**
+	 * Name for field type.
+	 *
+	 * @var string The name of this field type.
+	 */
 	public $name = 'CORE Deposits';
 
+	/**
+	 * If allowed to store null/empty values.
+	 *
+	 * @var bool If this is set, allow BP to store null/empty values for this field type.
+	 */
 	public $accepts_null_value = true;
 
+	/**
+	 * Constructor.
+	 */
 	public function __construct() {
 		parent::__construct();
+
+		// Change publications display name depending on whether the user has CORE deposits.
+		$displayed_user = bp_get_displayed_user();
+		$querystring    = sprintf( 'username=%s', urlencode( $displayed_user->userdata->user_login ) );
+		if ( function_exists( 'humcore_has_deposits' ) && humcore_has_deposits( $querystring ) ) {
+			HC_Member_Profiles_Component::$display_names[ HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_PUBLICATIONS ] = 'Other Publications';
+		}
 	}
 
+	/**
+	 * Allow field types to modify the appearance of their values.
+	 *
+	 * By default, this is a pass-through method that does nothing. Only
+	 * override in your own field type if you need to provide custom
+	 * filtering for output values.
+	 *
+	 * @uses DOMDocument
+	 *
+	 * @param mixed      $field_value Field value.
+	 * @param string|int $field_id    ID of the field.
+	 * @return mixed
+	 */
 	public static function display_filter( $field_value, $field_id = '' ) {
-		// bail unless humcore is installed & active
-		if ( ! function_exists( 'humcore_has_deposits' ) ) {
-			return;
-		}
-
 		$genres = humcore_deposits_genre_list();
 
-		// deposits display under one of these genre headers in this order
+		// Deposits display under one of these genre headers in this order.
 		$genres_order = [
 			'Monograph',
 			'Book',
@@ -62,7 +98,7 @@ class BP_XProfile_Field_Type_CORE_Deposits extends BP_XProfile_Field_Type {
 			'Other',
 		];
 
-		// genres with a plural form not equal to the value returned by humcore_deposits_genre_list()
+		// Genres with a plural form not equal to the value returned by humcore_deposits_genre_list().
 		$genres_pluralized = [
 			'Abstract'              => 'Abstracts',
 			'Article'               => 'Articles',
@@ -119,7 +155,7 @@ class BP_XProfile_Field_Type_CORE_Deposits extends BP_XProfile_Field_Type {
 				$genres_html[ $metadata['genre'] ][] = '<li><a href="' . esc_url( $item_url ) . '/">' . $metadata['title_unchanged'] . '</a></li>';
 			}
 
-			// sort results according to $genres_order
+			// Sort results according to $genres_order.
 			$genres_html = array_filter(
 				array_replace( array_flip( $genres_order ), $genres_html ),
 				'is_array'
@@ -134,11 +170,27 @@ class BP_XProfile_Field_Type_CORE_Deposits extends BP_XProfile_Field_Type {
 		return $html;
 	}
 
+	/**
+	 * Output the edit field HTML for this field type.
+	 *
+	 * Must be used inside the {@link bp_profile_fields()} template loop.
+	 *
+	 * @param array $raw_properties Optional key/value array of permitted attributes that you want to add.
+	 * @return void
+	 */
 	public function edit_field_html( array $raw_properties = [] ) {
 		echo '<label>' . $this->name . '</label>';
 		echo 'This field is not editable.';
 	}
 
+	/**
+	 * Output HTML for this field type on the wp-admin Profile Fields screen.
+	 *
+	 * Must be used inside the {@link bp_profile_fields()} template loop.
+	 *
+	 * @param array $raw_properties Optional key/value array of permitted attributes that you want to add.
+	 * @return void
+	 */
 	public function admin_field_html( array $raw_properties = [] ) {
 		$this->edit_field_html();
 	}

@@ -32,7 +32,7 @@ class Test_BP_XProfile_Field_Type_Activity extends BP_UnitTestCase {
 
 		$data = xprofile_get_field_data( $field_id, $user_id );
 
-		$dom = new DOMDocument;
+		$dom = new DOMDocument();
 		$dom->loadHTML( $data );
 
 		$this->assertTrue( 3 === $dom->getElementsByTagName( 'li' )->length );

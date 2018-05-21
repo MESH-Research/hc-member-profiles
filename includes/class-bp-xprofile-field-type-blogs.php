@@ -2,7 +2,7 @@
 /**
  * HC Member Profiles field types
  *
- * @package HC_Member_Profiles
+ * @package Hc_Member_Profiles
  */
 
 /**
@@ -52,7 +52,8 @@ class BP_XProfile_Field_Type_Blogs extends BP_XProfile_Field_Type {
 	 * @return mixed
 	 */
 	public static function display_filter( $field_value, $field_id = '' ) {
-		global $humanities_commons; // TODO rewrite to use get_networks() instead, and make not wpmn-dependent
+		// TODO rewrite to use get_networks() instead, and make not wpmn-dependent.
+		global $humanities_commons;
 
 		$html           = '';
 		$societies_html = [];

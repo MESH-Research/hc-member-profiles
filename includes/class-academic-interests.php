@@ -1,11 +1,36 @@
 <?php
+/**
+ * Legacy class to support academic interests.
+ *
+ * Deprecated - planned to roll into field type class.
+ *
+ * @package Hc_Member_Profiles
+ */
 
+/**
+ * Filters to control tax saving/loading.
+ */
 class Academic_Interests {
 
+	/**
+	 * Cookie name.
+	 *
+	 * @var string
+	 */
 	static $cookie_name = 'academic_interest_term_taxonomy_id';
 
+	/**
+	 * Querystring param name.
+	 *
+	 * @var string
+	 */
 	static $query_param = 'academic_interests';
 
+	/**
+	 * Save terms.
+	 *
+	 * @param int $user_id User.
+	 */
 	static function save_academic_interests( $user_id ) {
 		$tax = get_taxonomy( 'mla_academic_interests' );
 
@@ -31,10 +56,13 @@ class Academic_Interests {
 		// Set user meta for theme query.
 		delete_user_meta( $user_id, 'academic_interests' );
 		foreach ( $term_taxonomy_ids as $term_taxonomy_id ) {
-			add_user_meta( $user_id, 'academic_interests', $term_taxonomy_id, $unique = false );
+			add_user_meta( $user_id, 'academic_interests', $term_taxonomy_id, false );
 		}
 	}
 
+	/**
+	 * Set cookie.
+	 */
 	static function set_academic_interests_cookie_query() {
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			$term_taxonomy_id = $_COOKIE[ self::$cookie_name ];
@@ -53,7 +81,9 @@ class Academic_Interests {
 	}
 
 	/**
-	 * injects markup to support filtering a search/list by academic interest in member directory
+	 * Injects markup to support filtering a search/list by academic interest in member directory
+	 *
+	 * @param string $template Template path.
 	 */
 	static function add_academic_interests_to_directory( $template ) {
 		if ( in_array( 'members/members-loop.php', (array) $template ) && isset( $_COOKIE[ self::$cookie_name ] ) ) {

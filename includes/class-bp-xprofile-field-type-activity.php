@@ -2,7 +2,7 @@
 /**
  * HC Member Profiles field types
  *
- * @package HC_Member_Profiles
+ * @package Hc_Member_Profiles
  */
 
 /**
@@ -36,7 +36,7 @@ class BP_XProfile_Field_Type_Activity extends BP_XProfile_Field_Type {
 	 */
 	public function __construct() {
 		parent::__construct();
-		// add_filter( 'xprofile_data_value_before_save', '__return_true' );
+		// TODO xxxxxxxxxxxxxxxxxxxxxxxxxxx add_filter( 'xprofile_data_value_before_save', '__return_true' );.
 	}
 
 	/**
@@ -53,10 +53,10 @@ class BP_XProfile_Field_Type_Activity extends BP_XProfile_Field_Type {
 	 * @return mixed
 	 */
 	public static function display_filter( $field_value, $field_id = '' ) {
-		$max  = 5; // TODO admin option
+		$max  = 5;
 		$args = [
 			'max'    => $max,
-			// action & type are blank to override cookies setting filters from directory
+			// Action & type are blank to override cookies setting filters from directory.
 			'action' => '',
 			'type'   => '',
 		];
@@ -89,25 +89,28 @@ class BP_XProfile_Field_Type_Activity extends BP_XProfile_Field_Type {
 					continue;
 				}
 
-				// some types end their action strings with ':' - remove it
+				// Some types end their action strings with ':' - remove it.
 				$action = preg_replace( '/:$/', '', $action );
 
-				// replace "blog post" with "post"
+				// Replace "blog post" with "post".
 				$action = str_ireplace( 'blog post', 'post', $action );
 
-				// wrapper not only serves to contain the action text but also helps DOMDocument traverse the "tree" without breaking it
+				// Wrapper not only serves to contain the action text but also helps DOMDocument traverse the "tree" without breaking it.
 				$action     = "<li class=\"$activity_type\">" . $action . '</li>';
-				$action_doc = new DOMDocument;
+				$action_doc = new DOMDocument();
 
-				// encoding prevents mangling of multibyte characters
-				// constants ensure no <body> or <doctype> tags are added
+				// Encoding prevents mangling of multibyte characters.
+				// Constants ensure no <body> or <doctype> tags are added.
 				$action_doc->loadHTML(
 					mb_convert_encoding( $action, 'HTML-ENTITIES', 'UTF-8' ),
 					LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
 				);
 
-				// for reasons yet unknown, removeChild() causes the next anchor to be skipped entirely.
-				// using a second foreach is a workaround.
+				// Codesniffer doesn't like camelCase - ignore.
+				// @codingStandardsIgnoreStart
+
+				// removeChild() causes the next anchor to be skipped entirely.
+				// Using a second foreach is a workaround.
 				foreach ( $action_doc->getElementsByTagName( 'a' ) as $anchor ) {
 					if ( $anchor->nodeValue === $displayed_user_fullname ) {
 						$anchor->parentNode->removeChild( $anchor );
@@ -116,13 +119,15 @@ class BP_XProfile_Field_Type_Activity extends BP_XProfile_Field_Type {
 				}
 				foreach ( $action_doc->getElementsByTagName( 'a' ) as $anchor ) {
 					if ( strlen( $anchor->nodeValue ) > $link_text_char_limit ) {
+						// @codingStandardsIgnoreLine
 						$anchor->nodeValue = htmlspecialchars( substr( $anchor->nodeValue, 0, $link_text_char_limit - 1 ) . '…' );
 					}
 				}
-
 				$action = $action_doc->saveHTML();
 
-				// only add actions which are unique in the feed
+				// @codingStandardsIgnoreEnd
+
+				// Only add actions which are unique in the feed.
 				if ( empty( $actions_html ) || strpos( $action, $actions_html ) === false ) {
 					$actions_html .= $action;
 				}
