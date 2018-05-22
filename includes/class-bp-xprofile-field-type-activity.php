@@ -106,9 +106,7 @@ class BP_XProfile_Field_Type_Activity extends BP_XProfile_Field_Type {
 					LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
 				);
 
-				// Codesniffer doesn't like camelCase - ignore.
-				// @codingStandardsIgnoreStart
-
+				// @codingStandardsIgnoreStart Codesniffer doesn't like camelCase - ignore.
 				// removeChild() causes the next anchor to be skipped entirely.
 				// Using a second foreach is a workaround.
 				foreach ( $action_doc->getElementsByTagName( 'a' ) as $anchor ) {
@@ -124,7 +122,6 @@ class BP_XProfile_Field_Type_Activity extends BP_XProfile_Field_Type {
 					}
 				}
 				$action = $action_doc->saveHTML();
-
 				// @codingStandardsIgnoreEnd
 
 				// Only add actions which are unique in the feed.

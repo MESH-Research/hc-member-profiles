@@ -39,9 +39,11 @@ class BP_XProfile_Field_Type_Academic_Interests extends BP_XProfile_Field_Type {
 
 		// Change UP member's interests field display name.
 		$displayed_user = bp_get_displayed_user();
-		$memberships    = bp_get_member_type( $displayed_user->id, false );
-		if ( is_array( $memberships ) && in_array( 'up', $memberships ) ) {
-			HC_Member_Profiles_Component::$display_names[ HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_ACADEMIC_INTERESTS ] = 'Professional Interests';
+		if ( $displayed_user ) {
+			$memberships = bp_get_member_type( $displayed_user->id, false );
+			if ( is_array( $memberships ) && in_array( 'up', $memberships ) ) {
+				HC_Member_Profiles_Component::$display_names[ HC_Member_Profiles_Component::INTERESTS ] = 'Professional Interests';
+			}
 		}
 	}
 
@@ -67,11 +69,7 @@ class BP_XProfile_Field_Type_Academic_Interests extends BP_XProfile_Field_Type {
 		);
 		$html      = '<ul>';
 		foreach ( $interests as $term_name ) {
-			$search_url = add_query_arg(
-				[
-					'academic_interests' => urlencode( $term_name ),
-				], bp_get_members_directory_permalink()
-			);
+			$search_url = esc_url( '/?s=' . urlencode( $term_name ) );
 			$html      .= '<li><a href="' . esc_url( $search_url ) . '" rel="nofollow">';
 			$html      .= $term_name;
 			$html      .= '</a></li>';

@@ -8,16 +8,16 @@
 do_action( 'bp_before_member_header' );
 
 $follow_counts          = hcmp_get_follow_counts();
-$affiliation_data       = hcmp_get_xprofile_field_data( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_INSTITUTIONAL_OR_OTHER_AFFILIATION );
+$affiliation_data       = _hcmp_get_field_data( HC_Member_Profiles_Component::AFFILIATION );
 $affiliation_search_url = add_query_arg(
 	[ 's' => urlencode( $affiliation_data ) ],
 	bp_get_members_directory_permalink()
 );
-$twitter_link           = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_TWITTER_USER_NAME );
-$orcid_link             = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_ORCID );
-$facebook_link          = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_FACEBOOK );
-$linkedin_link          = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_LINKEDIN );
-$site_link              = hcmp_get_xprofile_field_data( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_SITE );
+$twitter_link           = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::TWITTER );
+$orcid_link             = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::ORCID );
+$facebook_link          = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::FACEBOOK );
+$linkedin_link          = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::LINKEDIN );
+$site_link              = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::SITE );
 
 ?>
 
@@ -29,10 +29,10 @@ $site_link              = hcmp_get_xprofile_field_data( HC_Member_Profiles_Compo
 
 		<div id="item-main">
 			<h4 class="name">
-				<?php echo hcmp_get_xprofile_field_data( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_NAME ); ?>
+				<?php echo _hcmp_get_field_data( HC_Member_Profiles_Component::NAME ); ?>
 			</h4>
 			<h4 class="title">
-				<?php echo hcmp_get_xprofile_field_data( HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_TITLE ); ?>
+				<?php echo _hcmp_get_field_data( HC_Member_Profiles_Component::TITLE ); ?>
 			</h4>
 			<h4 class="affiliation">
 				<a href="<?php echo esc_url( $affiliation_search_url ); ?>" rel="nofollow"><?php echo $affiliation_data; ?></a>
@@ -42,22 +42,22 @@ $site_link              = hcmp_get_xprofile_field_data( HC_Member_Profiles_Compo
 			</div>
 			<?php if ( $twitter_link ) : ?>
 				<div class="twitter">
-					<span class="social-label"><?php echo HC_Member_Profiles_Component::$display_names[ HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_TWITTER_USER_NAME ]; ?>:</span> <?php echo $twitter_link; ?>
+					<span class="social-label"><?php echo HC_Member_Profiles_Component::$display_names[ HC_Member_Profiles_Component::TWITTER ]; ?>:</span> <?php echo $twitter_link; ?>
 				</div>
 			<?php endif ?>
 			<?php if ( $orcid_link ) : ?>
 				<div class="orcid">
-					<span class="social-label"><?php echo HC_Member_Profiles_Component::$display_names[ HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_ORCID ]; ?>:</span> <?php echo $orcid_link; ?>
+					<span class="social-label"><?php echo HC_Member_Profiles_Component::$display_names[ HC_Member_Profiles_Component::ORCID ]; ?>:</span> <?php echo $orcid_link; ?>
 				</div>
 			<?php endif ?>
 			<?php if ( $facebook_link ) : ?>
 				<div class="facebook">
-					<span class="social-label"><?php echo HC_Member_Profiles_Component::$display_names[ HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_FACEBOOK ]; ?>:</span> <?php echo $facebook_link; ?>
+					<span class="social-label"><?php echo HC_Member_Profiles_Component::$display_names[ HC_Member_Profiles_Component::FACEBOOK ]; ?>:</span> <?php echo $facebook_link; ?>
 				</div>
 			<?php endif ?>
 			<?php if ( $linkedin_link ) : ?>
 				<div class="linkedin">
-					<span class="social-label"><?php echo HC_Member_Profiles_Component::$display_names[ HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_LINKEDIN ]; ?>:</span> <?php echo $linkedin_link; ?>
+					<span class="social-label"><?php echo HC_Member_Profiles_Component::$display_names[ HC_Member_Profiles_Component::LINKEDIN ]; ?>:</span> <?php echo $linkedin_link; ?>
 				</div>
 			<?php endif ?>
 			<?php if ( strip_tags( $site_link ) ) : ?>

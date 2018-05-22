@@ -34,7 +34,7 @@ class BP_XProfile_Field_Type_CORE_Deposits extends BP_XProfile_Field_Type {
 		$displayed_user = bp_get_displayed_user();
 		$querystring    = sprintf( 'username=%s', urlencode( $displayed_user->userdata->user_login ) );
 		if ( function_exists( 'humcore_has_deposits' ) && humcore_has_deposits( $querystring ) ) {
-			HC_Member_Profiles_Component::$display_names[ HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_PUBLICATIONS ] = 'Other Publications';
+			HC_Member_Profiles_Component::$display_names[ HC_Member_Profiles_Component::PUBLICATIONS ] = 'Other Publications';
 		}
 	}
 

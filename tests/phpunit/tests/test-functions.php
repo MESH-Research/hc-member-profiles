@@ -11,14 +11,14 @@ class Test_Functions extends BP_UnitTestCase {
 			return $field_value;
 		};
 
-		add_filter( 'hcmp_xprofile_field_value_' . sanitize_title( $field_name ), $return_provider_value );
+		add_filter( 'bp_get_the_profile_field_value', $return_provider_value );
 
 		$this->assertEquals(
 			hcmp_get_normalized_url_field_value( $field_name ),
 			$expected_return_value
 		);
 
-		remove_filter( 'hcmp_xprofile_field_value_' . sanitize_title( $field_name ), $return_provider_value );
+		remove_filter( 'bp_get_the_profile_field_value', $return_provider_value );
 	}
 
 	/**
@@ -29,29 +29,28 @@ class Test_Functions extends BP_UnitTestCase {
 	function hcmp_get_normalized_url_field_value_provider() {
 		// TODO these are probably better as consts to DRY with the method being tested
 		$domains = [
-			HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_TWITTER_USER_NAME => 'twitter.com',
-			HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_FACEBOOK          => 'facebook.com',
-			HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_LINKEDIN          => 'linkedin.com/in',
-			HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_ORCID             => 'orcid.org',
+			HC_Member_Profiles_Component::TWITTER  => 'twitter.com',
+			HC_Member_Profiles_Component::FACEBOOK => 'facebook.com',
+			HC_Member_Profiles_Component::LINKEDIN => 'linkedin.com/in',
+			HC_Member_Profiles_Component::ORCID    => 'orcid.org',
 		];
 
 		$field_names = [
-			HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_TWITTER_USER_NAME,
-			HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_FACEBOOK,
-			HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_LINKEDIN,
-			HC_Member_Profiles_Component::XPROFILE_FIELD_NAME_ORCID,
+			HC_Member_Profiles_Component::TWITTER,
+			HC_Member_Profiles_Component::FACEBOOK,
+			HC_Member_Profiles_Component::LINKEDIN,
+			HC_Member_Profiles_Component::ORCID,
 		];
 
 		$data_sets = [];
 
 		foreach ( $field_names as $name ) {
-			// TODO can this be DRY with the tested method?
 			$patterns = [
 				'#@#',
 				'#(https?://)?(www\.)?' . preg_quote( $domains[ $name ], '#' ) . '/?#',
 			];
 
-			// use same user input values for all fields
+			// Use same user input values for all fields.
 			$field_values = [
 				'0123456789',
 				'example',

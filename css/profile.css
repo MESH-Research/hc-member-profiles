@@ -136,6 +136,10 @@
   margin-top: 0.25em;
 }
 
+.profile .recent-commons-activity li {
+  margin-top: 1em;
+}
+
 /**
  * edit-specific styles
  */

@@ -44,8 +44,6 @@
         window.location = $( '#public' ).attr( 'href' );
       } );
 
-      $( '#profile-edit-form input' ).on( 'change', mla_commons_profile.editor_change_handler );
-
       $( '#remove_academic_interest_filter' ).live( 'click', mla_commons_profile.remove_academic_interest_filter );
 
       mla_commons_profile.init_show_more_buttons();
@@ -97,17 +95,7 @@
       jQuery.removeCookie( 'academic_interest_term_taxonomy_id', { path: '/' } );
 
       window.location.replace( window.location.pathname + window.location.search.replace( /academic_interests=[^&]+/, '' ) );
-    },
-
-    /**
-     * when changes are made to any field, alert the user their changes are not yet saved
-     * for now, just hide the "saved" notice if it exists to avoid confusion
-     * TODO highlight changed field(s) (three separate field types to deal with: normal inputs, select2, & tinymce)
-     */
-    editor_change_handler: function() {
-      $( '.bp-template-notice.updated' ).slideUp();
     }
-
   }
 
   $( document ).ready( mla_commons_profile.init );
