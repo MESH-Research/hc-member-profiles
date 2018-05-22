@@ -20,19 +20,26 @@ class Test_Functions extends BP_UnitTestCase {
 	 * @param string $expected_return_value Value.
 	 */
 	function test_hcmp_get_normalized_url_field_value( $field_name, $field_value, $expected_return_value ) {
-		// Since the tested method gets data from an empty db, overwrite value with this filter.
-		$return_provider_value = function() use ( $field_value ) {
-			return $field_value;
-		};
+		$user_id = $this->factory->user->create();
 
-		add_filter( 'bp_get_the_profile_field_value', $return_provider_value );
+		add_filter( 'bp_displayed_user_id', function() use ( $user_id ) {
+			return $user_id;
+		} );
+
+		$field_id = $this->factory->xprofile_field->create(
+			[
+				'field_group_id' => $this->factory->xprofile_group->create(),
+				'type'           => 'textbox',
+				'name'           => $field_name,
+			]
+		);
+
+		xprofile_set_field_data( $field_name, $user_id, $field_value );
 
 		$this->assertEquals(
 			hcmp_get_normalized_url_field_value( $field_name ),
 			$expected_return_value
 		);
-
-		remove_filter( 'bp_get_the_profile_field_value', $return_provider_value );
 	}
 
 	/**
@@ -41,7 +48,6 @@ class Test_Functions extends BP_UnitTestCase {
 	 * compare to the second.
 	 */
 	function hcmp_get_normalized_url_field_value_provider() {
-		// TODO these are probably better as consts to DRY with the method being tested.
 		$domains = [
 			HC_Member_Profiles_Component::TWITTER  => 'twitter.com',
 			HC_Member_Profiles_Component::FACEBOOK => 'facebook.com',
