@@ -1,12 +1,26 @@
 <?php
+/**
+ * Class Test_Functions
+ *
+ * @package Hc_Member_Profiles
+ */
 
+/**
+ * Tests for standalone functions.
+ */
 class Test_Functions extends BP_UnitTestCase {
 
 	/**
+	 * Ensure various possible URL user-input values are normalized correctly.
+	 *
 	 * @dataProvider hcmp_get_normalized_url_field_value_provider
+	 *
+	 * @param string $field_name Name.
+	 * @param string $field_value Value.
+	 * @param string $expected_return_value Value.
 	 */
 	function test_hcmp_get_normalized_url_field_value( $field_name, $field_value, $expected_return_value ) {
-		// since the tested method gets data from an empty db, overwrite value with this filter
+		// Since the tested method gets data from an empty db, overwrite value with this filter.
 		$return_provider_value = function() use ( $field_value ) {
 			return $field_value;
 		};
@@ -27,7 +41,7 @@ class Test_Functions extends BP_UnitTestCase {
 	 * compare to the second.
 	 */
 	function hcmp_get_normalized_url_field_value_provider() {
-		// TODO these are probably better as consts to DRY with the method being tested
+		// TODO these are probably better as consts to DRY with the method being tested.
 		$domains = [
 			HC_Member_Profiles_Component::TWITTER  => 'twitter.com',
 			HC_Member_Profiles_Component::FACEBOOK => 'facebook.com',

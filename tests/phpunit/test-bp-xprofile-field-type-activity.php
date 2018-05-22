@@ -1,7 +1,18 @@
 <?php
+/**
+ * Class Test_BP_XProfile_Field_Type_Activity
+ *
+ * @package Hc_Member_Profiles
+ */
 
+/**
+ * Tests.
+ */
 class Test_BP_XProfile_Field_Type_Activity extends BP_UnitTestCase {
 
+	/**
+	 * Ensure display_filter correctly returns activity data.
+	 */
 	public function test_display_filter() {
 		$user_id = $this->factory->user->create();
 
