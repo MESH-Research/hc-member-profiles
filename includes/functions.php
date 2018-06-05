@@ -208,6 +208,74 @@ function hcmp_get_username_link() {
 }
 
 /**
+ * Get field data or edit form with header label wrapped in a div.
+ *
+ * @param string $field_name Field name.
+ * @return string
+ */
+function hcmp_get_field( $field_name = '' ) {
+	$classes = [
+		sanitize_title( $field_name ),
+	];
+
+	$user_hideable_fields = [
+		HC_Member_Profiles_Component::ABOUT,
+		HC_Member_Profiles_Component::EDUCATION,
+		HC_Member_Profiles_Component::PUBLICATIONS,
+		HC_Member_Profiles_Component::PROJECTS,
+		HC_Member_Profiles_Component::TALKS,
+		HC_Member_Profiles_Component::MEMBERSHIPS,
+	];
+
+	if ( in_array( $field_name, $user_hideable_fields ) ) {
+		$classes[] = 'hideable';
+	}
+
+	$show_more_fields = [
+		HC_Member_Profiles_Component::INTERESTS,
+		HC_Member_Profiles_Component::PUBLICATIONS,
+		HC_Member_Profiles_Component::DEPOSITS,
+		HC_Member_Profiles_Component::GROUPS,
+		HC_Member_Profiles_Component::BLOGS,
+	];
+
+	if ( in_array( $field_name, $show_more_fields ) ) {
+		$classes[] = 'show-more';
+	}
+
+	$wordblock_fields = [
+		HC_Member_Profiles_Component::INTERESTS,
+		HC_Member_Profiles_Component::GROUPS,
+		HC_Member_Profiles_Component::BLOGS,
+	];
+
+	if ( in_array( $field_name, $wordblock_fields ) ) {
+		$classes[] = 'wordblock';
+	}
+
+	if ( bp_is_user_profile_edit() ) {
+		$classes[] = 'editable';
+		$content   = _hcmp_get_edit_field( $field_name );
+	} elseif ( 'public' === _hcmp_get_field_visibility( $field_name ) ) {
+		$content = _hcmp_get_field_data( $field_name );
+	}
+
+	$retval = '';
+
+	if ( ! empty( $content ) ) {
+		// Must be on one line with no extra whitespace due to 'white-space: pre-wrap;'.
+		$retval = sprintf(
+			'<div class="%s"><h4>%s</h4>%s</div>',
+			implode( ' ', $classes ),
+			HC_Member_Profiles_Component::$display_names[ $field_name ],
+			$content
+		);
+	}
+
+	return $retval;
+}
+
+/**
  * Internal helper function to run a callback on a field by field name.
  *
  * @param string   $field_name Field name.
@@ -288,72 +356,4 @@ function _hcmp_get_edit_field( $field_name = '' ) {
 			return ob_get_clean();
 		}
 	);
-}
-
-/**
- * Get field data or edit form with header label wrapped in a div.
- *
- * @param string $field_name Field name.
- * @return string
- */
-function hcmp_get_field( $field_name = '' ) {
-	$classes = [
-		sanitize_title( $field_name ),
-	];
-
-	$user_hideable_fields = [
-		HC_Member_Profiles_Component::ABOUT,
-		HC_Member_Profiles_Component::EDUCATION,
-		HC_Member_Profiles_Component::PUBLICATIONS,
-		HC_Member_Profiles_Component::PROJECTS,
-		HC_Member_Profiles_Component::TALKS,
-		HC_Member_Profiles_Component::MEMBERSHIPS,
-	];
-
-	if ( in_array( $field_name, $user_hideable_fields ) ) {
-		$classes[] = 'hideable';
-	}
-
-	$show_more_fields = [
-		HC_Member_Profiles_Component::INTERESTS,
-		HC_Member_Profiles_Component::PUBLICATIONS,
-		HC_Member_Profiles_Component::DEPOSITS,
-		HC_Member_Profiles_Component::GROUPS,
-		HC_Member_Profiles_Component::BLOGS,
-	];
-
-	if ( in_array( $field_name, $show_more_fields ) ) {
-		$classes[] = 'show-more';
-	}
-
-	$wordblock_fields = [
-		HC_Member_Profiles_Component::INTERESTS,
-		HC_Member_Profiles_Component::GROUPS,
-		HC_Member_Profiles_Component::BLOGS,
-	];
-
-	if ( in_array( $field_name, $wordblock_fields ) ) {
-		$classes[] = 'wordblock';
-	}
-
-	if ( bp_is_user_profile_edit() ) {
-		$classes[] = 'editable';
-		$content   = _hcmp_get_edit_field( $field_name );
-	} elseif ( 'public' === _hcmp_get_field_visibility( $field_name ) ) {
-		$content = _hcmp_get_field_data( $field_name );
-	}
-
-	$retval = '';
-
-	if ( ! empty( $content ) ) {
-		// Must be on one line with no extra whitespace due to 'white-space: pre-wrap;'.
-		$retval = sprintf(
-			'<div class="%s"><h4>%s</h4>%s</div>',
-			implode( ' ', $classes ),
-			HC_Member_Profiles_Component::$display_names[ $field_name ],
-			$content
-		);
-	}
-
-	return $retval;
 }
