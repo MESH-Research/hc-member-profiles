@@ -74,19 +74,21 @@ class HC_Member_Profiles_Component extends BP_Component {
 		);
 
 		buddypress()->active_components[ $this->id ] = '1';
-
-		bp_register_template_stack(
-			function() {
-					return plugin_dir_path( __DIR__ ) . 'templates/';
-			}
-		);
 	}
 
 	/**
 	 * Add custom hooks.
 	 */
 	public function setup_actions() {
-		add_action( 'wp_enqueue_scripts', 'hcmp_enqueue_scripts' );
+		if ( bp_is_profile_component() ) {
+			add_action( 'wp_enqueue_scripts', 'hcmp_enqueue_scripts' );
+
+			bp_register_template_stack(
+				function() {
+					return plugin_dir_path( __DIR__ ) . 'templates/';
+				}
+			);
+		}
 
 		// Register custom field types.
 		add_filter( 'bp_xprofile_get_field_types', 'hcmp_register_xprofile_field_types' );
