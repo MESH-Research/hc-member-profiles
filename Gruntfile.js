@@ -43,6 +43,12 @@ module.exports = function( grunt ) {
 				}
 			}
 		},
+
+		eslint: {
+			target: ['js/main.js']
+		}
+
+
 	} );
 
 	grunt.loadNpmTasks( 'grunt-wp-i18n' );
@@ -50,6 +56,7 @@ module.exports = function( grunt ) {
 	grunt.registerTask( 'default', [ 'i18n','readme' ] );
 	grunt.registerTask( 'i18n', ['addtextdomain', 'makepot'] );
 	//grunt.registerTask( 'readme', ['wp_readme_to_markdown'] );
+	grunt.loadNpmTasks( 'grunt-eslint' );
 
 	grunt.util.linefeed = '\n';
 
