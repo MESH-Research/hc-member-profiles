@@ -58,22 +58,22 @@ function hcmp_register_xprofile_field_types( array $fields ) {
 function hcmp_enqueue_scripts() {
 	wp_enqueue_script( 'hcmp-jqdmh', plugins_url( 'js/lib/jquery.dynamicmaxheight.min.js', __DIR__ ) );
 
-	$path = 'js/main.js';
-	$url = plugins_url( $path, __DIR__ );
+	$path  = 'js/main.js';
+	$url   = plugins_url( $path, __DIR__ );
 	$mtime = filemtime( plugin_dir_path( __DIR__ ) . $path );
 	wp_enqueue_script( 'hcmp-main', $url, [], $mtime );
 
 	// Theme-independent styles.
-	$path = 'css/profile.css';
-	$url = plugins_url( $path, __DIR__ );
+	$path  = 'css/profile.css';
+	$url   = plugins_url( $path, __DIR__ );
 	$mtime = filemtime( plugin_dir_path( __DIR__ ) . $path );
 	wp_enqueue_style( 'hcmp-profile', $url, [], $mtime );
 
 	// Boss-specific styles.
 	$theme = wp_get_theme();
 	if ( false !== strpos( strtolower( $theme->get( 'Name' ) ), 'boss' ) ) {
-		$path = 'css/boss.css';
-		$url = plugins_url( $path, __DIR__ );
+		$path  = 'css/boss.css';
+		$url   = plugins_url( $path, __DIR__ );
 		$mtime = filemtime( plugin_dir_path( __DIR__ ) . $path );
 		wp_enqueue_style( 'hcmp-boss', $url, [], $mtime );
 	}
