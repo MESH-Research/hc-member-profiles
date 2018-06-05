@@ -7,6 +7,9 @@
   "author": "Ryan Williams <rwilliams@mla.org>",
   "eslintConfig": {
     "extends": "plugin:wordpress/recommended",
+    "env": {
+      "browser": true
+    },
     "plugins": [
       "wordpress"
     ]

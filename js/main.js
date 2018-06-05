@@ -1,103 +1,111 @@
-/**
- * MLA Commons Profile
- */
-
 ( function( $ ) {
 
-	window.mla_commons_profile = {
+	window.hcMemberProfiles = {
 
 		init: function() {
 			// visibility controls
-			$( '#profile-edit-form .editable.hideable' ).each( function() {
+			$( '#profile-edit-form .editable.hideable' ).each(function() {
 				var div = $( this );
 
 				// add visibility controls
 				div.append( '<a href="#" class="visibility">hide</a>' );
 
 				// bind visibility controls
-				div.find( '.visibility' ).click( function() {
-					var a = $( this );
+				div.find( '.visibility' ).click(function() {
+					var el = $( this );
 
-					if ( a.html() === 'hide' ) {
-						a.html( 'show' );
+					if ( 'hide' === el.html() ) {
+						el.html( 'show' );
 						div.addClass( 'collapsed' );
 						div.find( 'input[value="adminsonly"]' ).attr( 'checked', true );
 						div.find( 'input[value="public"]' ).attr( 'checked', false );
 					} else {
-						a.html( 'hide' );
+						el.html( 'hide' );
 						div.removeClass( 'collapsed' );
 						div.find( 'input[value="adminsonly"]' ).attr( 'checked', false );
 						div.find( 'input[value="public"]' ).attr( 'checked', true );
 					}
 
 					return false;
-				} );
+				});
 
 				if ( div.find( 'input[value="adminsonly"]' ).is( ':checked' ) ) {
 					div.find( '.visibility' ).triggerHandler( 'click' );
 				}
-			} );
+			});
 
 			// cancel button to send user back to view mode
-			$( '#profile-edit-form #cancel' ).click( function( e ) {
-				e.preventDefault();
+			$( '#profile-edit-form #cancel' ).click(function( event ) {
+				event.preventDefault();
 				window.location = $( '#public' ).attr( 'href' );
-			} );
+			});
 
-			$( '#remove_academic_interest_filter' ).live( 'click', mla_commons_profile.remove_academic_interest_filter );
+			$( '#remove_academic_interest_filter' ).live( 'click', window.hcMemberProfiles.removeAcademicInterestFilter );
 
-			mla_commons_profile.init_show_more_buttons();
+			window.hcMemberProfiles.initShowMoreButtons();
+			window.hcMemberProfiles.initAcademicInterestFilter();
 		},
 
-		init_show_more_buttons: function() {
-			$( '.profile .show-more' ).each( function() {
+		initShowMoreButtons: function() {
+			$( '.profile .show-more' ).each(function() {
 				var div = $( this );
 				var header = div.find( 'h4' );
-				var show_more_button = $( '<button class="js-dynamic-show-hide button" title="Show more" data-replace-text="Show less">Show more</button>' );
+				var showMoreButton = $( '<button class="js-dynamic-show-hide button" title="Show more" data-replace-text="Show less">Show more</button>' );
 
 				header.remove(); // this will be restored after wrapping the remaining contents in div.dynamic-height-wrap
 
 				div
 					.addClass( 'js-dynamic-height' )
 					.attr( 'data-maxheight', 250 )
-					.html( header[0].outerHTML + '<div class="dynamic-height-wrap">' + div.html() + '</div>' + show_more_button[0].outerHTML );
-			} );
+					.html( header[0].outerHTML + '<div class="dynamic-height-wrap">' + div.html() + '</div>' + showMoreButton[0].outerHTML );
+			});
 
 			// some fields should be taller than the rest
-			$( '.profile .work-shared-in-core, .profile .other-publications' ).each( function() {
+			$( '.profile .work-shared-in-core, .profile .other-publications' ).each(function() {
 				$( this ).attr( 'data-maxheight', 400 );
-			} );
+			});
 
 			$( '.js-dynamic-height' ).dynamicMaxHeight();
 
 			// buddypress adds ajax & link-like functionality to buttons.
 			// prevent page from reloading when "show more" button pressed.
-			$( '.js-dynamic-show-hide' ).click( function( e ) {
-				e.preventDefault();
-			} );
+			$( '.js-dynamic-show-hide' ).click(function( event ) {
+				event.preventDefault();
+			});
 
 			// button is also not automatically hid if itemheight < maxheight. fix it
 			$.each( $( '.js-dynamic-height' ), function() {
-				if ( parseInt( $( this ).attr('data-maxheight') ) > parseInt( $( this ).attr( 'data-itemheight' ) ) ) {
+				var maxHeight = parseInt( $( this ).attr( 'data-maxheight' ), 10 );
+				var itemHeight = parseInt( $( this ).attr( 'data-itemheight' ), 10 );
+
+				if ( maxHeight > itemHeight ) {
 					$( this ).find( '.js-dynamic-show-hide' ).hide();
 				}
-			} );
+			});
 		},
 
-		remove_academic_interest_filter: function( e ) {
-			e.preventDefault();
+		initAcademicInterestFilter: function() {
+			$( '#profile-main .academic-interests a' ).on( 'click', function( event ) {
+				event.preventDefault();
+				// console.log( event );
+			});
+		},
+
+		removeAcademicInterestFilter: function( event ) {
+			event.preventDefault();
 
 			$( '#academic_interest' ).hide();
 
 			// show message until new results load
 			$( '.academic_interest_removed' ).show();
 
-			jQuery.removeCookie( 'academic_interest_term_taxonomy_id', { path: '/' } );
+			jQuery.removeCookie( 'academic_interest_term_taxonomy_id', { path: '/' });
 
 			window.location.replace( window.location.pathname + window.location.search.replace( /academic_interests=[^&]+/, '' ) );
-		}
-	}
+		},
 
-	$( document ).ready( mla_commons_profile.init );
+	};
 
-} )( jQuery );
+	$( document ).ready( window.hcMemberProfiles.init );
+
+})( jQuery );
