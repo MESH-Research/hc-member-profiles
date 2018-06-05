@@ -36,6 +36,7 @@ before_script:
       composer global require wp-coding-standards/wpcs
       phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs
     fi
+  - npm i
 
 script:
   - |
@@ -47,3 +48,4 @@ script:
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
       phpcs --ignore=tests
     fi
+  - grunt eslint
