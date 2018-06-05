@@ -98,9 +98,6 @@ class HC_Member_Profiles_Component extends BP_Component {
 		remove_filter( 'bp_get_the_profile_field_edit_value', 'wp_filter_kses', 1 );
 		add_filter( 'xprofile_allowed_tags', 'hcmp_filter_xprofile_allowed_tags' );
 
-		// Filter profile links in admin bar.
-		add_action( 'wp_before_admin_bar_render', 'hcmp_edit_admin_bar' );
-
 		// Don't log "changed their profile picture" activities.
 		remove_action( 'xprofile_avatar_uploaded', 'bp_xprofile_new_avatar_activity' );
 	}

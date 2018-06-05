@@ -99,21 +99,6 @@ function hcmp_filter_xprofile_allowed_tags( $allowed_tags ) {
 }
 
 /**
- * Change 'Portfolio' to 'Profile' in the admin bar.
- */
-function hcmp_edit_admin_bar() {
-	global $wp_admin_bar;
-
-	foreach ( [ 'my-account-xprofile', 'my-account-settings-profile' ] as $field_id ) {
-		$clone = $wp_admin_bar->get_node( $field_id );
-		if ( $clone ) {
-			$clone->title = 'Profile';
-			$wp_admin_bar->add_menu( $clone );
-		}
-	}
-}
-
-/**
  * Get follow counts.
  * Depends on the buddypress-followers plugin.
  *
