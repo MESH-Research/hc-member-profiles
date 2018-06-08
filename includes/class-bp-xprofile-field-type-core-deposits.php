@@ -32,9 +32,13 @@ class BP_XProfile_Field_Type_CORE_Deposits extends BP_XProfile_Field_Type {
 
 		// Change publications display name depending on whether the user has CORE deposits.
 		$displayed_user = bp_get_displayed_user();
-		$querystring    = sprintf( 'username=%s', urlencode( $displayed_user->userdata->user_login ) );
-		if ( function_exists( 'humcore_has_deposits' ) && humcore_has_deposits( $querystring ) ) {
-			HC_Member_Profiles_Component::$display_names[ HC_Member_Profiles_Component::PUBLICATIONS ] = 'Other Publications';
+
+		// Only invoke humcore_has_deposits if there's actually a user to query.
+		if ( $displayed_user ) {
+			$querystring = sprintf( 'username=%s', urlencode( $displayed_user->userdata->user_login ) );
+			if ( function_exists( 'humcore_has_deposits' ) && humcore_has_deposits( $querystring ) ) {
+				HC_Member_Profiles_Component::$display_names[ HC_Member_Profiles_Component::PUBLICATIONS ] = 'Other Publications';
+			}
 		}
 	}
 
