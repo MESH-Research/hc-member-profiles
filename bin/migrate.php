@@ -1,6 +1,11 @@
 <?php
+/**
+ * Migrate script for new field types.
+ *
+ * @package HC_Member_Profiles
+ */
 
-// Exit if accessed directly
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -9,30 +14,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 buddypress()->profile->field_types = array_keys( hcmp_register_xprofile_field_types( array_keys( buddypress()->profile->field_types ) ) );
 
 // Update real "Name" field to use correct name.
-$name_field = xprofile_get_field( 1 );
+$name_field       = xprofile_get_field( 1 );
 $name_field->name = 'Name';
 $name_field->save();
 
 // Update some existing field groups: site, deposits, cv.
 foreach ( [ 16, 1000028, 1000029 ] as $id ) {
-	$field = xprofile_get_field( $id );
+	$field           = xprofile_get_field( $id );
 	$field->group_id = 1;
 	$field->save();
 }
 
 // Delete deprecated fields.
-
 $field_ids_to_delete = [
-	2,  // Institutional or Other Affiliation (old)
-	3,  // Title (old)
-	4,  // <em>Twitter</em> user name
-	5,  // Blog
-	7,  // Interests
-	9,  // Academic Interests
-	10, // Education
-	11, // Publications
-	12, // Site
-	13, // Name
+	2,  // Institutional or Other Affiliation (old).
+	3,  // Title (old).
+	4,  // <em>Twitter</em> user name.
+	5,  // Blog.
+	7,  // Interests.
+	9,  // Academic Interests.
+	10, // Education.
+	11, // Publications.
+	12, // Site.
+	13, // Name.
 ];
 
 foreach ( $field_ids_to_delete as $id ) {
@@ -41,14 +45,12 @@ foreach ( $field_ids_to_delete as $id ) {
 }
 
 // Move existing fields & create new ones.
-
 $result = _hcmp_create_xprofile_fields();
 
 
 
 
 /*
-
 Expected before:
 
 +---------+---------------------------------------+----------------------------------------+---------------+----------+-------------+

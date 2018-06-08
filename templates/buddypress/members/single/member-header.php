@@ -9,13 +9,17 @@ do_action( 'bp_before_member_header' );
 
 $follow_counts          = hcmp_get_follow_counts();
 $affiliation_data       = _hcmp_get_field_data( HC_Member_Profiles_Component::AFFILIATION );
-$affiliation_search_url = esc_url( sprintf(
-	'/?%s',
-	http_build_query( [
-		's' => $affiliation_data,
-		'post_type' => [ 'user' ],
-	] )
-) );
+$affiliation_search_url = esc_url(
+	sprintf(
+		'/?%s',
+		http_build_query(
+			[
+				's'         => $affiliation_data,
+				'post_type' => [ 'user' ],
+			]
+		)
+	)
+);
 $twitter_link           = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::TWITTER );
 $orcid_link             = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::ORCID );
 $facebook_link          = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::FACEBOOK );
