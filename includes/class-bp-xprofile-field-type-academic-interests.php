@@ -69,7 +69,13 @@ class BP_XProfile_Field_Type_Academic_Interests extends BP_XProfile_Field_Type {
 		);
 		$html      = '<ul>';
 		foreach ( $interests as $term_name ) {
-			$search_url = esc_url( '/?s=' . urlencode( $term_name ) );
+			$search_url = esc_url( sprintf(
+				'/?%s',
+				http_build_query( [
+					's' => $term_name,
+					'post_type' => [ 'user' ],
+				] )
+			) );
 			$html      .= '<li><a href="' . esc_url( $search_url ) . '" rel="nofollow">';
 			$html      .= $term_name;
 			$html      .= '</a></li>';
