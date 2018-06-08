@@ -103,4 +103,59 @@ class Test_Functions extends BP_UnitTestCase {
 
 		return $data_sets;
 	}
+
+	/**
+	 * Ensure all required xprofile fields are correctly created.
+	 */
+	function test__hcmp_create_xprofile_fields() {
+		$default_fields = [
+			HC_Member_Profiles_Component::NAME         => 'textbox',
+			HC_Member_Profiles_Component::AFFILIATION  => 'textbox',
+			HC_Member_Profiles_Component::TITLE        => 'textbox',
+			HC_Member_Profiles_Component::SITE         => 'url',
+			HC_Member_Profiles_Component::TWITTER      => 'textbox',
+			HC_Member_Profiles_Component::ORCID        => 'textbox',
+			HC_Member_Profiles_Component::FACEBOOK     => 'url',
+			HC_Member_Profiles_Component::LINKEDIN     => 'url',
+			HC_Member_Profiles_Component::ABOUT        => 'textarea',
+			HC_Member_Profiles_Component::EDUCATION    => 'textarea',
+			HC_Member_Profiles_Component::PUBLICATIONS => 'textarea',
+			HC_Member_Profiles_Component::PROJECTS     => 'textarea',
+			HC_Member_Profiles_Component::TALKS        => 'textarea',
+			HC_Member_Profiles_Component::MEMBERSHIPS  => 'textarea',
+		];
+
+		// These are only installed if the required dependency is active.
+		$extra_fields = [
+			HC_Member_Profiles_Component::DEPOSITS     => 'core_deposits',
+			HC_Member_Profiles_Component::CV           => 'bp_attachment',
+			HC_Member_Profiles_Component::INTERESTS    => 'academic_interests',
+			HC_Member_Profiles_Component::GROUPS       => 'bp_groups',
+			HC_Member_Profiles_Component::ACTIVITY     => 'bp_activity',
+			HC_Member_Profiles_Component::BLOGS        => 'bp_blogs',
+		];
+
+		$result = _hcmp_create_xprofile_fields();
+
+		foreach ( $default_fields as $name => $type ) {
+			$field_id = xprofile_get_field_id_from_name( $name );
+			$field = xprofile_get_field( $field_id );
+
+			$this->assertInstanceOf( 'BP_XProfile_Field', $field );
+			$this->assertSame( $type, $field->type );
+		}
+
+		$existing_types = bp_xprofile_get_field_types();
+
+		foreach ( $extra_fields as $name => $type ) {
+			$field_id = xprofile_get_field_id_from_name( $name );
+			$field = xprofile_get_field( $field_id );
+
+			if ( in_array( $type, array_keys( $existing_types ) ) ) {
+				$this->assertInstanceOf( 'BP_XProfile_Field', $field );
+				$this->assertSame( $type, $field->type );
+			}
+		}
+	}
+
 }

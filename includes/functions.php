@@ -357,3 +357,82 @@ function _hcmp_get_edit_field( $field_name = '' ) {
 		}
 	);
 }
+
+/**
+ * Create xprofile fields used by this plugin (that don't exist already).
+ *
+ * TODO error handling if field creation fails.
+ * TODO filterable field_group_id
+ * TODO handle name collisions with different fields/types
+ */
+function _hcmp_create_xprofile_fields() {
+
+	// Create field types with no dependencies other than BP XProfile.
+
+	$default_fields = [
+		HC_Member_Profiles_Component::NAME         => 'textbox',
+		HC_Member_Profiles_Component::AFFILIATION  => 'textbox',
+		HC_Member_Profiles_Component::TITLE        => 'textbox',
+		HC_Member_Profiles_Component::SITE         => 'url',
+		HC_Member_Profiles_Component::TWITTER      => 'textbox',
+		HC_Member_Profiles_Component::ORCID        => 'textbox',
+		HC_Member_Profiles_Component::FACEBOOK     => 'url',
+		HC_Member_Profiles_Component::LINKEDIN     => 'url',
+		HC_Member_Profiles_Component::ABOUT        => 'textarea',
+		HC_Member_Profiles_Component::EDUCATION    => 'textarea',
+		HC_Member_Profiles_Component::PUBLICATIONS => 'textarea',
+		HC_Member_Profiles_Component::PROJECTS     => 'textarea',
+		HC_Member_Profiles_Component::TALKS        => 'textarea',
+		HC_Member_Profiles_Component::MEMBERSHIPS  => 'textarea',
+	];
+
+	foreach ( $default_fields as $name => $type ) {
+		$field_id = xprofile_get_field_id_from_name( $name );
+
+		if ( ! $field_id ) {
+			$field_id = xprofile_insert_field( [
+				'name' => $name,
+				'type' => $type,
+				'field_group_id' => 1,
+			] );
+		};
+
+		$field = xprofile_get_field( $field_id );
+
+		// If an existing field is in a different group, move it to the primary group.
+		if ( 1 !== $field->group_id ) {
+			$field->group_id = 1;
+			$field->save();
+		}
+	}
+
+	// Create field types that have satisfied dependencies - see hcmp_register_xprofile_field_types().
+
+	$extra_fields = [
+		HC_Member_Profiles_Component::DEPOSITS     => 'core_deposits',
+		HC_Member_Profiles_Component::CV           => 'bp_attachment',
+		HC_Member_Profiles_Component::INTERESTS    => 'academic_interests',
+		HC_Member_Profiles_Component::GROUPS       => 'bp_groups',
+		HC_Member_Profiles_Component::ACTIVITY     => 'bp_activity',
+		HC_Member_Profiles_Component::BLOGS        => 'bp_blogs',
+	];
+
+	$existing_types = bp_xprofile_get_field_types();
+
+	foreach ( $extra_fields as $name => $type ) {
+		if ( in_array( $type, array_keys( $existing_types ) ) ) {
+			$field_id = xprofile_get_field_id_from_name( $name );
+			$field = xprofile_get_field( $field_id );
+
+			// If a field with the same name but a different type exists, this updates that field.
+			if ( ! $field_id || $field->type !== $type ) {
+				$field_id = xprofile_insert_field( [
+					'name' => $name,
+					'type' => $type,
+					'field_group_id' => 1,
+				] );
+			}
+		}
+	}
+
+}
