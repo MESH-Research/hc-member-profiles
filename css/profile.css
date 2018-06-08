@@ -66,6 +66,11 @@
   overflow: auto;
 }
 
+.profile #profile-main .left legend,
+.profile #profile-main .right legend {
+	display: none;
+}
+
 .profile #profile-main .left > div,
 .profile #profile-main .right > div {
   padding: 1em;
