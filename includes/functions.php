@@ -239,10 +239,6 @@ function hcmp_get_field( $field_name = '' ) {
 		HC_Member_Profiles_Component::BLOGS,
 	];
 
-	if ( in_array( $field_name, $show_more_fields ) ) {
-		$classes[] = 'show-more';
-	}
-
 	$wordblock_fields = [
 		HC_Member_Profiles_Component::INTERESTS,
 		HC_Member_Profiles_Component::GROUPS,
@@ -257,6 +253,10 @@ function hcmp_get_field( $field_name = '' ) {
 		$classes[] = 'editable';
 		$content   = _hcmp_get_edit_field( $field_name );
 	} elseif ( 'public' === _hcmp_get_field_visibility( $field_name ) ) {
+		if ( in_array( $field_name, $show_more_fields ) ) {
+			$classes[] = 'show-more';
+		}
+
 		$content = _hcmp_get_field_data( $field_name );
 	}
 
