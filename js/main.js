@@ -40,10 +40,7 @@
 				window.location = $( '#public' ).attr( 'href' );
 			});
 
-			$( '#remove_academic_interest_filter' ).live( 'click', window.hcMemberProfiles.removeAcademicInterestFilter );
-
 			window.hcMemberProfiles.initShowMoreButtons();
-			window.hcMemberProfiles.initAcademicInterestFilter();
 		},
 
 		initShowMoreButtons: function() {
@@ -82,26 +79,6 @@
 					$( this ).find( '.js-dynamic-show-hide' ).hide();
 				}
 			});
-		},
-
-		initAcademicInterestFilter: function() {
-			$( '#profile-main .academic-interests a' ).on( 'click', function( event ) {
-				event.preventDefault();
-				// console.log( event );
-			});
-		},
-
-		removeAcademicInterestFilter: function( event ) {
-			event.preventDefault();
-
-			$( '#academic_interest' ).hide();
-
-			// show message until new results load
-			$( '.academic_interest_removed' ).show();
-
-			jQuery.removeCookie( 'academic_interest_term_taxonomy_id', { path: '/' });
-
-			window.location.replace( window.location.pathname + window.location.search.replace( /academic_interests=[^&]+/, '' ) );
 		},
 
 	};

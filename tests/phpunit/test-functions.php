@@ -22,9 +22,11 @@ class Test_Functions extends BP_UnitTestCase {
 	function test_hcmp_get_normalized_url_field_value( $field_name, $field_value, $expected_return_value ) {
 		$user_id = $this->factory->user->create();
 
-		add_filter( 'bp_displayed_user_id', function() use ( $user_id ) {
-			return $user_id;
-		} );
+		add_filter(
+			'bp_displayed_user_id', function() use ( $user_id ) {
+				return $user_id;
+			}
+		);
 
 		$field_id = $this->factory->xprofile_field->create(
 			[

@@ -104,5 +104,4 @@ $site_link              = hcmp_get_normalized_url_field_value( HC_Member_Profile
 
 </div><!-- #item-header-cover -->
 
-
 <?php do_action( 'bp_after_member_header' ); ?>
