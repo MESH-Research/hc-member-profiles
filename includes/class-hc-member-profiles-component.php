@@ -20,7 +20,7 @@ class HC_Member_Profiles_Component extends BP_Component {
 	const ORCID        = '<em>ORCID</em> iD';
 	const ABOUT        = 'About';
 	const EDUCATION    = 'Education';
-	const PUBLICATIONS = 'Other Publications';
+	const PUBLICATIONS = 'Publications';
 	const PROJECTS     = 'Projects';
 	const TALKS        = 'Upcoming Talks and Conferences';
 	const MEMBERSHIPS  = 'Memberships';
