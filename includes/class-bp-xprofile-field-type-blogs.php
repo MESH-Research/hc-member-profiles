@@ -96,7 +96,6 @@ class BP_XProfile_Field_Type_Blogs extends BP_XProfile_Field_Type {
 	 * @return void
 	 */
 	public function edit_field_html( array $raw_properties = [] ) {
-		printf( '<label>%s</label>', $this->name );
 		echo 'This field lists your blog memberships.';
 	}
 

@@ -36,7 +36,6 @@ class BP_XProfile_Field_Type_Activity extends BP_XProfile_Field_Type {
 	 */
 	public function __construct() {
 		parent::__construct();
-		// TODO xxxxxxxxxxxxxxxxxxxxxxxxxxx add_filter( 'xprofile_data_value_before_save', '__return_true' );.
 	}
 
 	/**
@@ -143,7 +142,6 @@ class BP_XProfile_Field_Type_Activity extends BP_XProfile_Field_Type {
 	 * @return void
 	 */
 	public function edit_field_html( array $raw_properties = [] ) {
-		printf( '<label>%s</label>', $this->name );
 		echo 'This field lists your recent activity.';
 	}
 

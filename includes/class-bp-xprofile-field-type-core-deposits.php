@@ -183,8 +183,7 @@ class BP_XProfile_Field_Type_CORE_Deposits extends BP_XProfile_Field_Type {
 	 * @return void
 	 */
 	public function edit_field_html( array $raw_properties = [] ) {
-		echo '<label>' . $this->name . '</label>';
-		echo 'This field is not editable.';
+		echo 'This field lists your CORE deposits.';
 	}
 
 	/**
