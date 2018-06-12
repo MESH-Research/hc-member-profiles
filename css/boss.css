@@ -92,6 +92,10 @@
 	margin-bottom: 0;
 }
 
+.profile #item-header-content {
+	float: none;
+}
+
 .my-profile #item-nav {
   display: none;
 }
