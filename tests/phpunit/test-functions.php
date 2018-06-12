@@ -160,4 +160,60 @@ class Test_Functions extends BP_UnitTestCase {
 		}
 	}
 
+	/**
+	 * Ensure newlines are preserved in xprofile field data when editing.
+	 *
+	 * @dataProvider newlines_preserved_provider
+	 *
+	 * @param string Field value.
+	 */
+	function test_newlines_preserved( $value ) {
+		$u = self::factory()->user->create();
+		add_filter(
+			'bp_displayed_user_id', function() use ( $u ) {
+				return $u;
+			}
+		);
+
+		$g = self::factory()->xprofile_group->create();
+		$f = self::factory()->xprofile_field->create( [
+			'field_group_id' => $g,
+			'type' => 'textarea',
+		] );
+
+		$field = xprofile_get_field( $f );
+
+		xprofile_set_field_data( $f, $u, $value );
+
+		$args = [
+			'field' => $f,
+			'user_id' => $u,
+		];
+
+		$expected = $value;
+		$actual = _hcmp_get_field_data( $field->name );
+
+		$this->assertSame( $expected, $actual );
+	}
+
+	/**
+	 * Provider for test_newlines_preserved.
+	 */
+	function newlines_preserved_provider() {
+		return [
+			[ 'This value does not contain a newline.' ],
+			[ 'This value has multiple newlines in a row!
+
+
+Oh my.' ],
+			[ '<strong>Nowhere In Particular</strong>
+Ph.D., Zebra Affairs
+
+<strong>The Graduate Center, University of Mars</strong>
+M.Phil., Special Topics
+
+<strong>Elsewhere College</strong>
+B.A., English, summa cum laude' ],
+		];
+	}
 }
