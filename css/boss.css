@@ -88,6 +88,10 @@
   right: 0;
 }
 
+.profile #buddypress .standard-form input[type="text"] {
+	margin-bottom: 0;
+}
+
 .my-profile #item-nav {
   display: none;
 }
