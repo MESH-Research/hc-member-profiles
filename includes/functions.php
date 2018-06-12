@@ -263,7 +263,6 @@ function hcmp_get_field( $field_name = '' ) {
 	$retval = '';
 
 	if ( ! empty( $content ) ) {
-		// Must be on one line with no extra whitespace due to 'white-space: pre-wrap;'.
 		$retval = sprintf(
 			'<div class="%s"><h4>%s</h4>%s</div>',
 			implode( ' ', $classes ),
@@ -329,7 +328,12 @@ function _hcmp_get_field_visibility( $field_name = '' ) {
 function _hcmp_get_field_data( $field_name = '' ) {
 	return _hcmp_do_with_field_in_loop(
 		$field_name, function() {
-			return bp_get_the_profile_field_value();
+			$retval = bp_get_the_profile_field_value();
+			if ( 'textarea' === bp_get_the_profile_field_type() ) {
+				$retval = nl2br( $retval );
+
+			}
+			return $retval;
 		}
 	);
 }

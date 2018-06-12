@@ -190,7 +190,7 @@ class Test_Functions extends BP_UnitTestCase {
 			'user_id' => $u,
 		];
 
-		$expected = $value;
+		$expected = nl2br( $value );
 		$actual = _hcmp_get_field_data( $field->name );
 
 		$this->assertSame( $expected, $actual );
