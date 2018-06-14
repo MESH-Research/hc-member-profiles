@@ -80,7 +80,7 @@ class HC_Member_Profiles_Component extends BP_Component {
 	 * Add custom hooks.
 	 */
 	public function setup_actions() {
-		if ( bp_is_profile_component() ) {
+		if ( bp_is_profile_component() && ! bp_is_user_change_avatar() && ! bp_is_user_change_cover_image() ) {
 			add_action( 'wp_enqueue_scripts', 'hcmp_enqueue_scripts' );
 
 			bp_register_template_stack(
