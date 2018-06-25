@@ -331,7 +331,6 @@ function _hcmp_get_field_data( $field_name = '' ) {
 			$retval = bp_get_the_profile_field_value();
 			if ( 'textarea' === bp_get_the_profile_field_type() ) {
 				$retval = nl2br( $retval );
-
 			}
 			return $retval;
 		}
