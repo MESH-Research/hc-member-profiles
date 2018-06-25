@@ -225,6 +225,7 @@ function hcmp_get_field( $field_name = '' ) {
 		HC_Member_Profiles_Component::PROJECTS,
 		HC_Member_Profiles_Component::TALKS,
 		HC_Member_Profiles_Component::MEMBERSHIPS,
+		HC_Member_Profiles_Component::CV,
 	];
 
 	if ( in_array( $field_name, $user_hideable_fields ) ) {
