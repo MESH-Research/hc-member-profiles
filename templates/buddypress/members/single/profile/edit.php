@@ -16,6 +16,9 @@ do_action( 'bp_before_profile_edit_content' );
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::TITLE ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::AFFILIATION ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::TWITTER ); ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::LINKEDIN ); ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::FACEBOOK ); ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::FIGSHARE ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::ORCID ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::SITE ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::INTERESTS ); ?>
