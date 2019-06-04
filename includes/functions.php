@@ -172,6 +172,7 @@ function hcmp_get_normalized_url_field_value( $field_name ) {
 		HC_Member_Profiles_Component::TWITTER  => 'twitter.com',
 		HC_Member_Profiles_Component::FACEBOOK => 'facebook.com',
 		HC_Member_Profiles_Component::LINKEDIN => 'linkedin.com/in',
+		HC_Member_Profiles_Component::FIGSHARE => 'figshare.com',
 		HC_Member_Profiles_Component::ORCID    => 'orcid.org',
 	];
 
@@ -381,6 +382,7 @@ function _hcmp_create_xprofile_fields() {
 		HC_Member_Profiles_Component::ORCID        => 'textbox',
 		HC_Member_Profiles_Component::FACEBOOK     => 'url',
 		HC_Member_Profiles_Component::LINKEDIN     => 'url',
+		HC_Member_Profiles_Component::FIGSHARE     => 'url',
 		HC_Member_Profiles_Component::ABOUT        => 'textarea',
 		HC_Member_Profiles_Component::EDUCATION    => 'textarea',
 		HC_Member_Profiles_Component::PUBLICATIONS => 'textarea',
