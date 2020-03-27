@@ -36,6 +36,12 @@ function hcmp_register_xprofile_field_types( array $fields ) {
 		$fields['core_deposits'] = 'BP_XProfile_Field_Type_CORE_Deposits';
 	}
 
+	// Org Affiliations.
+	if ( class_exists( 'Hc_Org_affiliations' ) ) {
+		require_once dirname( __FILE__ ) . '/class-bp-xprofile-field-type-hc-org-affiliations.php';
+		$fields['org_affiliations'] = 'BP_XProfile_Field_Type_Org_Affiliation';
+	}
+
 	// Academic Interests.
 	if ( class_exists( 'MLA_Academic_Interests' ) ) {
 		// Field type.
@@ -374,7 +380,6 @@ function _hcmp_create_xprofile_fields() {
 	// Create field types with no dependencies other than BP XProfile.
 	$default_fields = [
 		HC_Member_Profiles_Component::NAME         => 'textbox',
-		HC_Member_Profiles_Component::AFFILIATION  => 'textbox',
 		HC_Member_Profiles_Component::TITLE        => 'textbox',
 		HC_Member_Profiles_Component::SITE         => 'url',
 		HC_Member_Profiles_Component::TWITTER      => 'textbox',
@@ -413,6 +418,7 @@ function _hcmp_create_xprofile_fields() {
 
 	// Create field types that have satisfied dependencies - see hcmp_register_xprofile_field_types().
 	$extra_fields = [
+		HC_Member_Profiles_Component::AFFILIATION  => 'org_affiliations',
 		HC_Member_Profiles_Component::DEPOSITS  => 'core_deposits',
 		HC_Member_Profiles_Component::CV        => 'bp_attachment',
 		HC_Member_Profiles_Component::INTERESTS => 'academic_interests',

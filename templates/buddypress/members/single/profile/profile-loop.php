@@ -13,6 +13,7 @@ do_action( 'bp_before_profile_loop_content' );
 
 	<div class="left">
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::INTERESTS ); ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::AFFILIATION ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::GROUPS ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::ACTIVITY ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::BLOGS ); ?>
