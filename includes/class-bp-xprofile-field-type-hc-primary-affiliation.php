@@ -1,21 +1,21 @@
 <?php
 /**
- * HC Org Affiliaiton field types
+ * HC Primary Affiliaiton field types
  *
  * @package Hc_Member_Profiles
  */
 
 /**
- * Org affiliation xprofile field type.
+ * Primary affiliation xprofile field type.
  */
-class BP_XProfile_Field_Type_Org_Affiliation extends BP_XProfile_Field_Type {
+class BP_XProfile_Field_Type_Primary_Affiliation extends BP_XProfile_Field_Type {
 
 	/**
 	 * Name for field type.
 	 *
 	 * @var string The name of this field type.
 	 */
-	public $name = 'Org Affiliation';
+	public $name = 'Primary Affiliation';
 
 	/**
 	 * The name of the category that this field type should be grouped with. Used on the [Users > Profile Fields] screen in wp-admin.
@@ -36,20 +36,6 @@ class BP_XProfile_Field_Type_Org_Affiliation extends BP_XProfile_Field_Type {
 	 */
 	public function __construct() {
 		parent::__construct();
-
-//TODO this field type should only be active if the org_affiliations plugin is active, otherwise the field should be a text field
-//Code below from the academic interests field type
-
-		// Change UP member's interests field display name.
-/* delete - may not need any conditional setting
-		$displayed_user = bp_get_displayed_user();
-		if ( $displayed_user ) {
-			$memberships = bp_get_member_type( $displayed_user->id, false );
-			if ( is_array( $memberships ) && in_array( 'up', $memberships ) ) {
-				HC_Member_Profiles_Component::$display_names[ HC_Member_Profiles_Component::INTERESTS ] = 'Professional Interests';
-			}
-		}
-*/
 	}
 
 	/**
@@ -66,14 +52,15 @@ class BP_XProfile_Field_Type_Org_Affiliation extends BP_XProfile_Field_Type {
 	 * @return mixed
 	 */
 	public static function display_filter( $field_value, $field_id = '' ) {
-		$tax       = get_taxonomy( 'hc_org_affiliations' );
-		$interests = wp_get_object_terms(
-			bp_displayed_user_id(), 'hc_org_affiliations', array(
+		$tax          = get_taxonomy( 'hc_primary_affiliation' );
+		$affiliations = wpmn_get_object_terms(
+			bp_displayed_user_id(), 'hc_primary_affiliation', array(
 				'fields' => 'names',
 			)
 		);
+		$affiliations = (array)$field_value; //pull from xprofile fields.
 		$html      = '<ul>';
-		foreach ( $interests as $term_name ) {
+		foreach ( $affiliations as $term_name ) {
 			$search_url = esc_url(
 				sprintf(
 					'/?%s',
@@ -104,14 +91,14 @@ class BP_XProfile_Field_Type_Org_Affiliation extends BP_XProfile_Field_Type {
 	 * @return void
 	 */
 	public function edit_field_html( array $raw_properties = [] ) {
-		global $hc_org_affiliations;
+		global $hc_primary_affiliation;
 
 		printf( '<label>%s</label>', $this->name );
 
 		$doc = new DOMDocument();
 
 		ob_start();
-		$hc_org_affiliations->edit_user_hc_org_affiliations_section( wp_get_current_user() );
+		$hc_primary_affiliation->edit_user_hc_primary_affiliation_section( wp_get_current_user() );
 
 		// Encoding prevents mangling of multibyte characters.
 		// Constants ensure no <body> or <doctype> tags are added.
@@ -133,7 +120,7 @@ class BP_XProfile_Field_Type_Org_Affiliation extends BP_XProfile_Field_Type {
 	 * @return void
 	 */
 	public function admin_field_html( array $raw_properties = [] ) {
-		echo "This field lists the user's affiliation.";
+		echo "This field lists the user's primary affiliation.";
 	}
 
 }

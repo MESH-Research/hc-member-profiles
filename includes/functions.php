@@ -36,10 +36,15 @@ function hcmp_register_xprofile_field_types( array $fields ) {
 		$fields['core_deposits'] = 'BP_XProfile_Field_Type_CORE_Deposits';
 	}
 
-	// Org Affiliations.
-	if ( class_exists( 'Hc_Org_affiliations' ) ) {
-		require_once dirname( __FILE__ ) . '/class-bp-xprofile-field-type-hc-org-affiliations.php';
-		$fields['org_affiliations'] = 'BP_XProfile_Field_Type_Org_Affiliation';
+	// Primary Affiliation.
+	if ( class_exists( 'Hc_Primary_Affiliation' ) ) {
+		require_once dirname( __FILE__ ) . '/class-bp-xprofile-field-type-hc-primary-affiliation.php';
+		$fields['primary_affiliation'] = 'BP_XProfile_Field_Type_Primary_Affiliation';
+		// Backpat functionality - TODO roll this into the field type.
+		require_once dirname( __FILE__ ) . '/class-primary-affiliation.php';
+		add_action( 'bp_get_template_part', [ 'Primary_Affiliation', 'add_primary_affiliation_to_directory' ] );
+		add_action( 'xprofile_updated_profile', [ 'Primary_Affiliation', 'save_primary_affiliation' ] );
+		add_action( 'send_headers', [ 'Primary_Affiliation', 'set_primary_affiliation_cookie_query' ] );
 	}
 
 	// Academic Interests.
@@ -418,7 +423,7 @@ function _hcmp_create_xprofile_fields() {
 
 	// Create field types that have satisfied dependencies - see hcmp_register_xprofile_field_types().
 	$extra_fields = [
-		HC_Member_Profiles_Component::AFFILIATION  => 'org_affiliations',
+		HC_Member_Profiles_Component::AFFILIATION  => 'primary_affiliation',
 		HC_Member_Profiles_Component::DEPOSITS  => 'core_deposits',
 		HC_Member_Profiles_Component::CV        => 'bp_attachment',
 		HC_Member_Profiles_Component::INTERESTS => 'academic_interests',
