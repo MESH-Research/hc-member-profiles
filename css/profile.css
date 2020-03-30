@@ -338,12 +338,20 @@
 }
 
 .institutional-or-other-affiliation .select2-container .select2-selection--single {
-   height: 40px;
-}
-.institutional-or-other-affiliation .select2-container {
-   width: 100% !important;
+    height: 40px;
+  }
+  .institutional-or-other-affiliation .select2-container {
+    width: 100% !important;
+  }
+
+  .institutional-or-other-affiliation .buddyboss-select .buddyboss-select-inner {
+    display: none !important;
+  }
+
+.institutional-or-other-affiliation .select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 38px;
 }
 
-.institutional-or-other-affiliation .buddyboss-select-inner {
-   display: none
+.institutional-or-other-affiliation .select2-container--default .select2-selection--single .select2-selection__placeholder {
+    font-size: 1.4em;
 }
