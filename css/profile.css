@@ -350,8 +350,10 @@
 
 .institutional-or-other-affiliation .select2-container--default .select2-selection--single .select2-selection__rendered {
     line-height: 38px;
+    font-size: 1.2em;
 }
 
 .institutional-or-other-affiliation .select2-container--default .select2-selection--single .select2-selection__placeholder {
     font-size: 1.4em;
 }
+
