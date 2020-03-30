@@ -354,6 +354,9 @@
 }
 
 .institutional-or-other-affiliation .select2-container--default .select2-selection--single .select2-selection__placeholder {
-    font-size: 1.4em;
+    font-size: 1.2em;
 }
 
+.select2-container--default input[type="search"].select2-search__field {
+    width: 100% !important;
+}
