@@ -183,6 +183,7 @@ function hcmp_get_normalized_url_field_value( $field_name ) {
 		HC_Member_Profiles_Component::TWITTER  => 'twitter.com',
 		HC_Member_Profiles_Component::FACEBOOK => 'facebook.com',
 		HC_Member_Profiles_Component::LINKEDIN => 'linkedin.com/in',
+		HC_Member_Profiles_Component::FIGSHARE => 'figshare.com',
 		HC_Member_Profiles_Component::ORCID    => 'orcid.org',
 	];
 
@@ -236,6 +237,7 @@ function hcmp_get_field( $field_name = '' ) {
 		HC_Member_Profiles_Component::PROJECTS,
 		HC_Member_Profiles_Component::TALKS,
 		HC_Member_Profiles_Component::MEMBERSHIPS,
+		HC_Member_Profiles_Component::CV,
 	];
 
 	if ( in_array( $field_name, $user_hideable_fields ) ) {
@@ -342,7 +344,6 @@ function _hcmp_get_field_data( $field_name = '' ) {
 			$retval = bp_get_the_profile_field_value();
 			if ( 'textarea' === bp_get_the_profile_field_type() ) {
 				$retval = nl2br( $retval );
-
 			}
 			return $retval;
 		}
@@ -391,6 +392,7 @@ function _hcmp_create_xprofile_fields() {
 		HC_Member_Profiles_Component::ORCID        => 'textbox',
 		HC_Member_Profiles_Component::FACEBOOK     => 'url',
 		HC_Member_Profiles_Component::LINKEDIN     => 'url',
+		HC_Member_Profiles_Component::FIGSHARE     => 'url',
 		HC_Member_Profiles_Component::ABOUT        => 'textarea',
 		HC_Member_Profiles_Component::EDUCATION    => 'textarea',
 		HC_Member_Profiles_Component::PUBLICATIONS => 'textarea',

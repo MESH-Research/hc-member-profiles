@@ -17,6 +17,7 @@ class HC_Member_Profiles_Component extends BP_Component {
 	const TWITTER      = '<em>Twitter</em> handle';
 	const FACEBOOK     = 'Facebook URL';
 	const LINKEDIN     = 'LinkedIn URL';
+	const FIGSHARE     = 'Figshare URL';
 	const ORCID        = '<em>ORCID</em> iD';
 	const ABOUT        = 'About';
 	const EDUCATION    = 'Education';
@@ -53,6 +54,7 @@ class HC_Member_Profiles_Component extends BP_Component {
 			self::FACEBOOK     => 'Facebook URL',
 			self::LINKEDIN     => 'LinkedIn URL',
 			self::ORCID        => '<em>ORCID</em> iD',
+			self::FIGSHARE     => 'Figshare URL',
 			self::ABOUT        => 'About',
 			self::EDUCATION    => 'Education',
 			self::PUBLICATIONS => 'Publications',
@@ -80,7 +82,7 @@ class HC_Member_Profiles_Component extends BP_Component {
 	 * Add custom hooks.
 	 */
 	public function setup_actions() {
-		if ( bp_is_profile_component() ) {
+		if ( bp_is_profile_component() && ! bp_is_user_change_avatar() && ! bp_is_user_change_cover_image() ) {
 			add_action( 'wp_enqueue_scripts', 'hcmp_enqueue_scripts' );
 
 			bp_register_template_stack(

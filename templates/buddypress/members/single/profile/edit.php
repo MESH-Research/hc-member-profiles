@@ -16,6 +16,9 @@ do_action( 'bp_before_profile_edit_content' );
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::TITLE ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::AFFILIATION ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::TWITTER ); ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::LINKEDIN ); ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::FACEBOOK ); ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::FIGSHARE ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::ORCID ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::SITE ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::INTERESTS ); ?>
@@ -27,6 +30,7 @@ do_action( 'bp_before_profile_edit_content' );
 	<div class="right">
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::ABOUT ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::EDUCATION ); ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::CV ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::DEPOSITS ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::PUBLICATIONS ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::PROJECTS ); ?>

@@ -24,7 +24,8 @@ $twitter_link           = hcmp_get_normalized_url_field_value( HC_Member_Profile
 $orcid_link             = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::ORCID );
 $facebook_link          = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::FACEBOOK );
 $linkedin_link          = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::LINKEDIN );
-$site_link              = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::SITE );
+$figshare_link          = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::FIGSHARE );
+$site_link              = _hcmp_get_field_data( HC_Member_Profiles_Component::SITE );
 
 ?>
 
@@ -65,6 +66,11 @@ $site_link              = hcmp_get_normalized_url_field_value( HC_Member_Profile
 			<?php if ( $linkedin_link ) : ?>
 				<div class="linkedin">
 					<span class="social-label"><?php echo HC_Member_Profiles_Component::$display_names[ HC_Member_Profiles_Component::LINKEDIN ]; ?>:</span> <?php echo $linkedin_link; ?>
+				</div>
+			<?php endif ?>
+			<?php if ( $figshare_link ) : ?>
+				<div class="figshare">
+					<span class="social-label"><?php echo HC_Member_Profiles_Component::$display_names[ HC_Member_Profiles_Component::FIGSHARE ]; ?>:</span> <?php echo $figshare_link; ?>
 				</div>
 			<?php endif ?>
 			<?php if ( strip_tags( $site_link ) ) : ?>
