@@ -360,3 +360,7 @@
 .select2-container--default input[type="search"].select2-search__field {
     width: 100% !important;
 }
+
+.select2-selection__clear {
+    display:none;
+}
