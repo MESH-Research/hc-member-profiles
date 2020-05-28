@@ -276,12 +276,25 @@ function hcmp_get_field( $field_name = '' ) {
 	$retval = '';
 
 	if ( ! empty( $content ) ) {
-		$retval = sprintf(
+
+		if ( bp_is_user_profile_edit() ) {
+		     $retval = sprintf(
+                        '<div class="%s"><h4>%s</h4>%s <br><br> %s</div>',
+                        implode( ' ', $classes ),
+                        HC_Member_Profiles_Component::$display_names[ $field_name ],
+                        $content,
+			bp_get_the_profile_field_description()
+		
+                    );
+
+		} else {
+		    $retval = sprintf(
 			'<div class="%s"><h4>%s</h4>%s</div>',
 			implode( ' ', $classes ),
 			HC_Member_Profiles_Component::$display_names[ $field_name ],
 			$content
-		);
+		    );
+		}
 	}
 
 	return $retval;
