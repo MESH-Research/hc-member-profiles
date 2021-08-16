@@ -292,14 +292,11 @@ function _hcmp_do_with_field_in_loop( $field_name = '', $callback ) {
 	if ( bp_has_profile( $args ) ) {
 		while ( bp_profile_groups() ) {
 			bp_the_profile_group();
+			while ( bp_profile_fields() ) {
+				bp_the_profile_field();
 
-			if ( bp_profile_group_has_fields() ) {
-				while ( bp_profile_fields() ) {
-					bp_the_profile_field();
-
-					if ( bp_get_the_profile_field_name() === $field_name ) {
-						return call_user_func( $callback );
-					}
+				if ( bp_get_the_profile_field_name() === $field_name ) {
+					return call_user_func( $callback );
 				}
 			}
 		}
