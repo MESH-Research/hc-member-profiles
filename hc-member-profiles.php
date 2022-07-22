@@ -11,6 +11,8 @@
  * @package Hc_Member_Profiles
  */
 
+require_once trailingslashit( dirname( __FILE__ ) ) . '/includes/functions.php';
+
 /**
  * Bootstrap the component.
  */

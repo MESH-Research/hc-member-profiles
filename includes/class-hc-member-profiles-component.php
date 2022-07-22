@@ -44,7 +44,6 @@ class HC_Member_Profiles_Component extends BP_Component {
 	 * Start the component creation process.
 	 */
 	public function __construct() {
-		require_once dirname( __DIR__ ) . '/includes/functions.php';
 
 		self::$display_names = [
 			self::NAME         => 'Name',
