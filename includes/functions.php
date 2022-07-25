@@ -36,6 +36,10 @@ function hcmp_register_xprofile_field_types( array $fields ) {
 		$fields['core_deposits'] = 'BP_XProfile_Field_Type_CORE_Deposits';
 	}
 
+	// Blog Posts.
+	require_once dirname( __FILE__ ) . '/class-bp-xprofile-field-type-blog-posts.php';
+	$fields['blog_posts'] = 'BP_XProfile_Field_Type_Blog_Posts';
+
 	// Academic Interests.
 	if ( class_exists( 'MLA_Academic_Interests' ) ) {
 		// Field type.
@@ -48,7 +52,6 @@ function hcmp_register_xprofile_field_types( array $fields ) {
 		add_action( 'xprofile_updated_profile', [ 'Academic_Interests', 'save_academic_interests' ] );
 		add_action( 'send_headers', [ 'Academic_Interests', 'set_academic_interests_cookie_query' ] );
 	}
-
 	return $fields;
 }
 
@@ -227,6 +230,7 @@ function hcmp_get_field( $field_name = '' ) {
 		HC_Member_Profiles_Component::TALKS,
 		HC_Member_Profiles_Component::MEMBERSHIPS,
 		HC_Member_Profiles_Component::CV,
+		HC_Member_Profiles_Component::BLOGPOSTS,
 	];
 
 	if ( in_array( $field_name, $user_hideable_fields ) ) {
@@ -239,6 +243,7 @@ function hcmp_get_field( $field_name = '' ) {
 		HC_Member_Profiles_Component::DEPOSITS,
 		HC_Member_Profiles_Component::GROUPS,
 		HC_Member_Profiles_Component::BLOGS,
+		HC_Member_Profiles_Component::BLOGPOSTS,
 	];
 
 	$wordblock_fields = [
@@ -413,6 +418,7 @@ function _hcmp_create_xprofile_fields() {
 	// Create field types that have satisfied dependencies - see hcmp_register_xprofile_field_types().
 	$extra_fields = [
 		HC_Member_Profiles_Component::DEPOSITS  => 'core_deposits',
+		HC_Member_Profiles_Component::BLOGPOSTS => 'blog_posts',
 		HC_Member_Profiles_Component::CV        => 'bp_attachment',
 		HC_Member_Profiles_Component::INTERESTS => 'academic_interests',
 		HC_Member_Profiles_Component::GROUPS    => 'bp_groups',
@@ -429,15 +435,19 @@ function _hcmp_create_xprofile_fields() {
 
 			// If a field with the same name but a different type exists, this updates that field.
 			if ( ! $field_id || $field->type !== $type ) {
-				$field_id = xprofile_insert_field(
-					[
-						'name'           => $name,
-						'type'           => $type,
-						'field_group_id' => 1,
-					]
-				);
+				// Check this is a non-empty, valid field type.
+				$args = [
+					'name'           => $name,
+					'type'           => $type,
+					'field_group_id' => 1,
+				];
+				if ( $field_id ) {
+					$args['field_id'] = $field_id;
+				}
+				$field_id = xprofile_insert_field( $args );
 			}
 		}
 	}
 
 }
+add_action( 'bp_init', '_hcmp_create_xprofile_fields', 100, 0 );

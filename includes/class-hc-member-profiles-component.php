@@ -31,6 +31,7 @@ class HC_Member_Profiles_Component extends BP_Component {
 	const GROUPS       = 'Commons Groups';
 	const ACTIVITY     = 'Recent Commons Activity';
 	const BLOGS        = 'Commons Sites';
+	const BLOGPOSTS    = 'Blog Posts';
 
 	/**
 	 * TODO deprecate.
@@ -43,7 +44,6 @@ class HC_Member_Profiles_Component extends BP_Component {
 	 * Start the component creation process.
 	 */
 	public function __construct() {
-		require_once dirname( __DIR__ ) . '/includes/functions.php';
 
 		self::$display_names = [
 			self::NAME         => 'Name',
@@ -67,6 +67,7 @@ class HC_Member_Profiles_Component extends BP_Component {
 			self::GROUPS       => 'Commons Groups',
 			self::ACTIVITY     => 'Recent Commons Activity',
 			self::BLOGS        => 'Commons Sites',
+			self::BLOGPOSTS    => 'Blog Posts',
 		];
 
 		parent::start(
@@ -91,9 +92,6 @@ class HC_Member_Profiles_Component extends BP_Component {
 				}
 			);
 		}
-
-		// Register custom field types.
-		add_filter( 'bp_xprofile_get_field_types', 'hcmp_register_xprofile_field_types' );
 
 		// Update allowed/auto tag filtering.
 		remove_filter( 'bp_get_the_profile_field_value', 'wpautop' );
