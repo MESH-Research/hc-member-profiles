@@ -49,27 +49,31 @@ class BP_XProfile_Field_Type_Blog_Posts extends BP_XProfile_Field_Type {
 
 		$user_posts = [];
 
-		if ( bp_has_blogs() ) {
-			while ( bp_blogs() ) {
-				bp_the_blog();
-				switch_to_blog( bp_get_blog_id() );
-				$posts = get_posts( [
-					'author' => $user->ID,
-				] );
-				foreach ( $posts as $post ) {
-					if ( ! array_key_exists( $post->ID, $user_posts) ) {
-						$user_posts[ $post->ID ] = [
-							'permalink'  => get_permalink( $post ),
-							'post_title' => $post->post_title,
-							'post_date'  => get_the_date( 'Y-m-d', $post->ID ),
-							'blog_title' => get_bloginfo( 'name' ),
-							'blog_url'   => get_bloginfo( 'url' ),
-						];
-						$user_posts[ $post->ID ]->permalink = get_permalink( $post );
+		foreach ( $networks as $network ) {
+			switch_to_network( $network );
+			if ( bp_has_blogs() ) {
+				while ( bp_blogs() ) {
+					bp_the_blog();
+					switch_to_blog( bp_get_blog_id() );
+					$posts = get_posts( [
+						'author' => $user->ID,
+					] );
+					foreach ( $posts as $post ) {
+						if ( ! array_key_exists( $post->ID, $user_posts) ) {
+							$user_posts[ $post->ID ] = [
+								'permalink'  => get_permalink( $post ),
+								'post_title' => $post->post_title,
+								'post_date'  => get_the_date( 'Y-m-d', $post->ID ),
+								'blog_title' => get_bloginfo( 'name' ),
+								'blog_url'   => get_bloginfo( 'url' ),
+							];
+							$user_posts[ $post->ID ]->permalink = get_permalink( $post );
+						}
 					}
+					restore_current_blog();
 				}
-				restore_current_blog();
 			}
+			restore_current_network();
 		}
 
 		// Sort posts in descending date order
