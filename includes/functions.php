@@ -266,6 +266,7 @@ function hcmp_get_field( $field_name = '' ) {
 		HC_Member_Profiles_Component::MEMBERSHIPS,
 		HC_Member_Profiles_Component::CV,
 		HC_Member_Profiles_Component::BLOGPOSTS,
+		HC_Member_Profiles_Component::DEPOSITS
 	];
 
 	if ( in_array( $field_name, $user_hideable_fields ) ) {
@@ -420,7 +421,6 @@ function _hcmp_create_xprofile_fields() {
 		HC_Member_Profiles_Component::ORCID        => 'textbox',
 		HC_Member_Profiles_Component::FACEBOOK     => 'url',
 		HC_Member_Profiles_Component::LINKEDIN     => 'url',
-		HC_Member_Profiles_Component::FIGSHARE     => 'url',
 		HC_Member_Profiles_Component::ABOUT        => 'textarea',
 		HC_Member_Profiles_Component::EDUCATION    => 'textarea',
 		HC_Member_Profiles_Component::PUBLICATIONS => 'textarea',
