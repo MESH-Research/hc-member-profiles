@@ -193,10 +193,45 @@ function hcmp_get_normalized_url_field_value( $field_name ) {
 	);
 
 	if ( ! empty( $value ) ) {
-		$value = "<a href=\"https://{$domains[ $field_name ]}/$value\">$value</a>";
+		$value = "<a href=\"https://{$domains[ $field_name ]}/$value\" rel=\"me\">$value</a>";
 	}
 
 	return $value;
+}
+
+/**
+ * Helper function to normalize Mastodon handles and convert them into links.
+ * 
+ * In:
+ *   - @mikethicke@hcommons.social
+ *   - mikethicke@hcommons.social
+ * 
+ * Out: <a href="https://hcommons.social/@mikethicke/">@mikethicke@hcommons.social</a>
+ *
+ * @return string Link to user's mastodon profile or empty string for misformatted / empty field.
+ */
+function hcmp_get_normalized_mastodon_field_value() {
+	remove_filter( 'bp_get_the_profile_field_value', 'make_clickable', 10 );
+	$field_value = _hcmp_get_field_data( HC_Member_Profiles_Component::MASTODON );
+	add_filter( 'bp_get_the_profile_field_value', 'make_clickable', 10 );
+	
+	$match_result = preg_match(
+		'/@?(\w*?)@([^\/]*)\/?/',
+		$field_value,
+		$matches
+	);
+
+	if ( $match_result === false || $match_result === 0 ) {
+		return '';
+	}
+
+	$username = $matches[1];
+	$domain   = $matches[2];
+
+	$url = "https://$domain/@$username/";
+	$handle = "@$username@$domain";
+	$link = "<a href='$url' rel='me'>$handle</a>";
+	return $link;
 }
 
 /**
@@ -381,6 +416,7 @@ function _hcmp_create_xprofile_fields() {
 		HC_Member_Profiles_Component::TITLE        => 'textbox',
 		HC_Member_Profiles_Component::SITE         => 'url',
 		HC_Member_Profiles_Component::TWITTER      => 'textbox',
+		HC_Member_Profiles_Component::MASTODON     => 'textbox',
 		HC_Member_Profiles_Component::ORCID        => 'textbox',
 		HC_Member_Profiles_Component::FACEBOOK     => 'url',
 		HC_Member_Profiles_Component::LINKEDIN     => 'url',

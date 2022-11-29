@@ -21,6 +21,7 @@ $affiliation_search_url = esc_url(
 	)
 );
 $twitter_link           = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::TWITTER );
+$mastodon_link          = hcmp_get_normalized_mastodon_field_value();
 $orcid_link             = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::ORCID );
 $facebook_link          = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::FACEBOOK );
 $linkedin_link          = hcmp_get_normalized_url_field_value( HC_Member_Profiles_Component::LINKEDIN );
@@ -51,6 +52,11 @@ $site_link              = _hcmp_get_field_data( HC_Member_Profiles_Component::SI
 			<?php if ( $twitter_link ) : ?>
 				<div class="twitter">
 					<span class="social-label"><?php echo HC_Member_Profiles_Component::$display_names[ HC_Member_Profiles_Component::TWITTER ]; ?>:</span> <?php echo $twitter_link; ?>
+				</div>
+			<?php endif ?>
+			<?php if ( $mastodon_link ) : ?>
+				<div class="mastodon">
+					<span class="social-label"><?php echo HC_Member_Profiles_Component::$display_names[ HC_Member_Profiles_Component::MASTODON ]; ?>:</span> <?php echo $mastodon_link; ?>
 				</div>
 			<?php endif ?>
 			<?php if ( $orcid_link ) : ?>

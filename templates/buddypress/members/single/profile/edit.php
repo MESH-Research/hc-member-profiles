@@ -15,6 +15,7 @@ do_action( 'bp_before_profile_edit_content' );
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::NAME ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::TITLE ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::AFFILIATION ); ?>
+		<?php echo hcmp_get_field( HC_Member_Profiles_Component::MASTODON ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::TWITTER ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::LINKEDIN ); ?>
 		<?php echo hcmp_get_field( HC_Member_Profiles_Component::FACEBOOK ); ?>

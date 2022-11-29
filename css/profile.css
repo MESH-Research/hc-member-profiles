@@ -202,6 +202,7 @@
 
 .profile #item-main .username .social-label,
 .profile #item-main .twitter .social-label,
+.profile #item-main .mastodon .social-label,
 .profile #item-main .orcid .social-label,
 .profile #item-main .facebook .social-label,
 .profile #item-main .linkedin .social-label,
@@ -211,6 +212,7 @@
 
 .profile #item-main .username a::before,
 .profile #item-main .twitter a::before,
+.profile #item-main .mastodon a::before,
 .profile #item-main .orcid a::before,
 .profile #item-main .facebook a::before,
 .profile #item-main .linkedin a::before,
@@ -231,6 +233,9 @@
 }
 .profile #item-main .twitter a::before {
   background-image: url( '../assets/img/Twitter_Logo_Blue.png' );
+}
+.profile #item-main .mastodon a::before {
+  background-image: url( '../assets/img/mastodon.png' );
 }
 .profile #item-main .orcid a::before {
   background-image: url( '../assets/img/iD-icon.png' );

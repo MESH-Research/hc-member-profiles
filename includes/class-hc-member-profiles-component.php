@@ -15,6 +15,7 @@ class HC_Member_Profiles_Component extends BP_Component {
 	const TITLE        = 'Title';
 	const SITE         = 'Website URL';
 	const TWITTER      = '<em>Twitter</em> handle';
+	const MASTODON     = 'Mastodon handle';
 	const FACEBOOK     = 'Facebook URL';
 	const LINKEDIN     = 'LinkedIn URL';
 	const FIGSHARE     = 'Figshare URL';
@@ -51,6 +52,7 @@ class HC_Member_Profiles_Component extends BP_Component {
 			self::TITLE        => 'Title',
 			self::SITE         => 'Website URL',
 			self::TWITTER      => '<em>Twitter</em> handle',
+			self::MASTODON     => 'Mastodon handle',
 			self::FACEBOOK     => 'Facebook URL',
 			self::LINKEDIN     => 'LinkedIn URL',
 			self::ORCID        => '<em>ORCID</em> iD',
