@@ -41,13 +41,16 @@ class BP_XProfile_Field_Type_Blog_Posts extends BP_XProfile_Field_Type {
 	 * @return mixed
 	 */
 	public static function display_filter( $field_value, $field_id = '' ) {
-		$current_user = wp_get_current_user();
-		$member_types = (array) bp_get_member_type( $current_user->ID, false );
-		$networks = get_networks();
-
 		$user = get_userdata( bp_core_get_displayed_userid( bp_get_displayed_user_username() ) );
-
 		$user_posts = [];
+
+		$cache_key = "hc-member-profiles-xprofile-blog-posts-{$user->ID}";
+		$html = wp_cache_get( $cache_key );
+		if ( $html ) {
+			return $html;
+		}
+
+		$networks = get_networks();
 
 		foreach ( $networks as $network ) {
 			switch_to_network( $network );
@@ -101,6 +104,7 @@ class BP_XProfile_Field_Type_Blog_Posts extends BP_XProfile_Field_Type {
 
 		$html .= "</ul>";
 
+		wp_cache_add( $cache_key, $html, '', 600 );
 		return $html;
 	}
 
