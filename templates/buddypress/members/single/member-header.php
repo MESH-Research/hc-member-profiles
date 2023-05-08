@@ -29,7 +29,7 @@ $site_link              = _hcmp_get_field_data( HC_Member_Profiles_Component::SI
 
 ?>
 
-<?php echo buddyboss_cover_photo( 'user', bp_displayed_user_id() ); ?>
+
 
 <div id="item-header-cover" class="table">
 

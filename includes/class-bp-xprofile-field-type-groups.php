@@ -51,21 +51,28 @@ class BP_XProfile_Field_Type_Groups extends BP_XProfile_Field_Type {
 	 */
 	public static function display_filter( $field_value, $field_id = '' ) {
 		$html        = '';
-		$group_types = bp_groups_get_group_types();
+		$group_types = hcommons_get_society_ids();
 
 		foreach ( $group_types as $group_type ) {
 			$querystring = bp_ajax_querystring( 'groups' ) . '&' . http_build_query(
 				[
-					'group_type' => $group_type,
+				//	'group_type' => $group_type,
 					// Action & type are blank to override cookies setting filters from directory.
 					'action'     => '',
 					'type'       => '',
 					// Use alpha order rather than whatever directory set.
 					'orderby'    => 'name',
 					'order'      => 'ASC',
+					'meta_query'     => [
+						[
+							'key'     => 'society_id',
+							'value'   => strtolower( $group_type ),
+							'type'    => 'CHAR',
+							'compare' => '='
+						]
+					]
 				]
 			);
-
 			if ( bp_has_groups( $querystring ) ) {
 				$html .= '<h5>' . strtoupper( $group_type ) . '</h5>';
 				$html .= '<ul class="group-type-' . $group_type . '">';

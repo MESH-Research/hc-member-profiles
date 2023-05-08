@@ -176,7 +176,7 @@ function hcmp_get_normalized_url_field_value( $field_name ) {
 		HC_Member_Profiles_Component::FACEBOOK => 'facebook.com',
 		HC_Member_Profiles_Component::LINKEDIN => 'linkedin.com/in',
 		HC_Member_Profiles_Component::FIGSHARE => 'figshare.com',
-		HC_Member_Profiles_Component::ORCID    => 'orcid.org',
+		HC_Member_Profiles_Component::ORCID    => 'orcid.org',	
 	];
 
 	$patterns = [
