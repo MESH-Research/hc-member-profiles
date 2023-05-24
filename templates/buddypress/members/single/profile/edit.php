@@ -61,7 +61,7 @@ do_action( 'bp_before_profile_edit_content' );
 		</div>
 	</div>
 
-		</form>
+		</form> 
 
 	<?php endwhile; ?>
 
